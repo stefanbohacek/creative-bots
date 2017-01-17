@@ -1,0 +1,26 @@
+{
+	"name": "gomix-twitterbot",
+	"version": "0.0.1",
+	"description": "Beep beep tweet!",
+	"main": "server.js",
+	"scripts": {
+		"start": "node server.js"
+	},
+	"dependencies": {
+		"twit": "^2.1.0",
+		"express": "^4.14.0"
+	},
+	"engines": {
+		"node": "6.9.1"
+	},
+	"repository": {
+		"url": ""
+	},
+	"keywords": [
+		"node",
+		"gomix",
+		"twitter",
+		"twitterbot",
+		"bot"
+	]
+}
