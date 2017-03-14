@@ -23,7 +23,6 @@ T.post('statuses/update', { status: 'Hello world!' }, function(err, data, respon
 });
 
 
-
 /**********************************************************************************************/
 /* The code below takes care of serving the index.html file, no need to change anything here. */
 
