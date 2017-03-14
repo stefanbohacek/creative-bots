@@ -43,7 +43,7 @@ stream.on('tweet', function (tweet) {
 
 ```
 
-You can find more [tutorials](https://botwiki.org/tag/twitter+bot+opensource+nodejs/) and [open source Twitter bots](https://botwiki.org/tutorials/twitterbots/#tutorials-nodejs) on [Botwiki](https://botwiki.org). And be sure to join the [Botmakers](https://botmakers.org/) online hangout and [submit your bot to Botwiki](https://botwiki.org/submit-your-bot) :-)
+You can find more [tutorials](https://botwiki.org/tutorials/twitterbots/#tutorials-nodejs) and [open source Twitter bots](https://botwiki.org/tag/twitter+bot+opensource+nodejs/) on [Botwiki](https://botwiki.org). And be sure to join the [Botmakers](https://botmakers.org/) online hangout and [submit your bot to Botwiki](https://botwiki.org/submit-your-bot) :-)
 
 
 **Powered by [Glitch](https://glitch.com)**
