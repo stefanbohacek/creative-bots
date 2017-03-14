@@ -2,7 +2,7 @@
 var path = require('path'),
     Twit = require('twit'),
     config = {
-/* Be sure to update the .env file with your API keys. See how to get them: https://botwiki.org/tutorials/make-an-image-posting-twitter-bot/#creating-a-twitter-app*/      
+    /* Be sure to update the .env file with your API keys. See how to get them: https://botwiki.org/tutorials/make-an-image-posting-twitter-bot/#creating-a-twitter-app*/      
       twitter: {
         consumer_key: process.env.CONSUMER_KEY,
         consumer_secret: process.env.CONSUMER_SECRET,
@@ -30,5 +30,5 @@ var express = require('express');
 var app = express();
 app.use(express.static('public'));
 var listener = app.listen(process.env.PORT, function () {
-  console.log('Your app is listening on port ' + listener.address().port);
+  console.log('Your bot is running on port ' + listener.address().port);
 });
