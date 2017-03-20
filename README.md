@@ -1,10 +1,24 @@
 Glitch Twitter bot template 
 ===================================
 
+## Note
+
+Apps hosted on Glitch are automatically put to sleep after 5 minutes of inactivity (that is, if nobody opens your app in a browser window).
+
+Twitter's API doesn't send requests to your app, instead your app polls it, 
+
+Due to how Twitter API works, hosting Twitter bots that wait for events on Glitch is not an option, because these bots won't receive any traffic.
+
+You can still host bots that tweet on a regular schedule using services like [Uptime Robot](https://uptimerobot.com/)  .
+
+- [random-image-twitterbot](https://glitch.com/edit/#!/random-image-twitterbot)
+- [tracery-twitter-bot](https://glitch.com/~tracery-twitter-bot)
+
+
 ![Tweetin'](https://cdn.gomix.com/4032b241-bff8-473e-aa6b-eb0c92a4bd06%2Ftweeting.gif)
 
 
-This is a template for making fun Twitter bots with [Glitch](https://glitch.com/) and the [Twit](https://github.com/ttezel/twit) node.js library. 
+This is a template for making fun Twitter bots with [Glitch](https://glitch.com/) and the [Twit](https://github.com/ttezel/twit) node.js library.
 
   
 ## A quick tutorial
