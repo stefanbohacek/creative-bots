@@ -1,9 +1,7 @@
 Glitch Twitter bot template 
 ===================================
 
-## Note
-
-Apps hosted on Glitch are automatically put to sleep after 5 minutes of inactivity (that is, if nobody opens your app in a browser window or doesn't receive any data).
+**Note:** Apps hosted on Glitch are automatically put to sleep after 5 minutes of inactivity (that is, if nobody opens your app in a browser window or it doesn't receive any data).
 
 Twitter's API doesn't send requests to your app, instead your app has to poll Twitter for data. 
 
