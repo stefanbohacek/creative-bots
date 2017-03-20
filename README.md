@@ -3,13 +3,15 @@ Glitch Twitter bot template
 
 ## Note
 
-Apps hosted on Glitch are automatically put to sleep after 5 minutes of inactivity (that is, if nobody opens your app in a browser window).
+Apps hosted on Glitch are automatically put to sleep after 5 minutes of inactivity (that is, if nobody opens your app in a browser window or doesn't receive any data).
 
-Twitter's API doesn't send requests to your app, instead your app polls it, 
+Twitter's API doesn't send requests to your app, instead your app has to poll Twitter for data. 
 
-Due to how Twitter API works, hosting Twitter bots that wait for events on Glitch is not an option, because these bots won't receive any traffic.
+Because of this, Glitch is only suitable for hosting Twitter bots that post on a set schedule rather than react to tweets, DMs, or mentions.
 
-You can still host bots that tweet on a regular schedule using services like [Uptime Robot](https://uptimerobot.com/)  .
+One of the Glitch engineers [confirmed](https://support.glitch.com/t/a-simple-twitter-bot-template/747/16) that it's okay to use a web service ([Uptime Robot](https://uptimerobot.com/), [cron-job.org](https://cron-job.org/en/), or [others](https://www.google.com/search?q=free+web+cron)) to regularly ping your app every 25 minutes to wake it up.
+
+Here are some more Twitter bot templates:
 
 - [random-image-twitterbot](https://glitch.com/edit/#!/random-image-twitterbot)
 - [tracery-twitter-bot](https://glitch.com/~tracery-twitter-bot)
