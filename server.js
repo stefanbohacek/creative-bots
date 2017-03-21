@@ -17,17 +17,19 @@ var path = require('path'),
 
 app.use(express.static('public'));
 
-/* You can use*/
+/* You can use uptimerobot.com or a similar site to hit your /tweet endpoint to wake up your app and make your Twitter bot tweet. */
 
 app.all("/tweet", function (request, response) {
 /* The example below tweets out "Hello world!". */
-  T.post('statuses/update', { status: 'Hello world 👋' }, function(err, data, response) {
+  T.post('statuses/update', { status: 'hello world 👋' }, function(err, data, response) {
     if (err){
       console.log('Error!');
       console.log(err);
     }
+    else{
+      // r.sendStatus(200);
+    }
   });
-
 });
 
 var listener = app.listen(process.env.PORT, function () {
