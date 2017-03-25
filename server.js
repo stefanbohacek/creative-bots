@@ -21,13 +21,15 @@ app.use(express.static('public'));
 
 app.all("/tweet", function (request, response) {
 /* The example below tweets out "Hello world!". */
+  var resp = response;
   T.post('statuses/update', { status: 'hello world 👋' }, function(err, data, response) {
     if (err){
+      resp.sendStatus(500);
       console.log('Error!');
       console.log(err);
     }
     else{
-      // r.sendStatus(200);
+      resp.sendStatus(200);
     }
   });
 });
