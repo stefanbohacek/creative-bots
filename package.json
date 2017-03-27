@@ -1,5 +1,5 @@
 {
-	"name": "gomix-twitterbot",
+	"name": "glitch-twitterbot",
 	"version": "0.0.1",
 	"description": "Beep beep tweet!",
 	"main": "server.js",
@@ -18,7 +18,9 @@
 	},
 	"keywords": [
 		"node",
+    "glitch",
 		"gomix",
+    "hyperdev",
 		"twitter",
 		"twitterbot",
 		"bot"

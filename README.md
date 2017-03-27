@@ -9,16 +9,12 @@ This is a template for making fun Twitter bots with [Glitch](https://glitch.com/
 
 1. First, create a new Twitter account and a new Twitter app. ([This tutorial](https://botwiki.org/tutorials/how-to-create-a-twitter-app/) shows how.)
 2. Update the `.env` file with your Twitter API key/secrets. (The tutorial above explains how to get these.)
-3. Update `server.js` with some cool Twitter bot code.
-4. Set up a free service ([Uptime Robot](https://uptimerobot.com/), [cron-job.org](https://cron-job.org/en/), or [others](https://www.google.com/search?q=free+web+cron)) to wake up your bot every 25+ minutes and tweet. Use `https://YOURPROJECTNAME.glitch.me/tweet` as a URL to which to send the HTTP request.
+3. Also update the `BOT_ENDPOINT`; it could be something like `tweet`.
+4. Update `server.js` with some cool Twitter bot code.
+5. Set up a free service ([Uptime Robot](https://uptimerobot.com/), or [a similar one](https://www.google.com/search?q=free+web+cron)) to wake up your bot every 25+ minutes and tweet. Use `https://YOUR_PROJECT_NAME.glitch.me/BOT_ENDPOINT` as a URL to which to send the HTTP request.
 
-The included example simply tweets out "Hello world!". Check out [the Twit module documentation](https://github.com/ttezel/twit) for more examples of what your bot can do, for example retweet a specific tweet by its ID:
+The included example simply tweets out "hello world 👋". Check out [the Twit module documentation](https://github.com/ttezel/twit) for more examples of what your bot can do.
 
-```
-T.post('statuses/retweet/:id', { id: '799687419259797504' }, function (err, data, response) {
-  console.log(data)
-});
-```
 You can find more [tutorials](https://botwiki.org/tutorials/twitterbots/#tutorials-nodejs) and [open source Twitter bots](https://botwiki.org/tag/twitter+bot+opensource+nodejs/) on [Botwiki](https://botwiki.org).
 
 And be sure to join the [Botmakers](https://botmakers.org/) online hangout and [submit your bot to Botwiki](https://botwiki.org/submit-your-bot) :-)
