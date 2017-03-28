@@ -20,13 +20,13 @@ You can find more [tutorials](https://botwiki.org/tutorials/twitterbots/#tutoria
 And be sure to join the [Botmakers](https://botmakers.org/) online hangout and [submit your bot to Botwiki](https://botwiki.org/submit-your-bot) :-)
 
 
-## Note
+## Note on bots that auto-reply to DMs/@ mentions
 
 Apps hosted on Glitch are automatically put to sleep after 5 minutes of inactivity (that is, if nobody opens your app in a browser window or it doesn't receive any data).
 
 Twitter's API doesn't send requests to your app, instead your app has to poll Twitter for data. 
 
-Because of this, Glitch is more suitable for hosting Twitter bots that post on a set schedule rather than react to tweets, DMs, or mentions. (See [this Glitch project](https://glitch.com/edit/#!/twitterbot-mentions) where I try to work around this limitation.)
+See [this Glitch starter project](https://glitch.com/edit/#!/twitterbot-autorespond) where i work around this limitation and make a Twitter bot that responds to DMs and @ mentions (with a 25 minute delay). 
 
 One of the Glitch engineers [confirmed](https://support.glitch.com/t/a-simple-twitter-bot-template/747/16) that it's okay to use a web service ([Uptime Robot](https://uptimerobot.com/), [cron-job.org](https://cron-job.org/en/), or [others](https://www.google.com/search?q=free+web+cron)) to regularly ping your app every 25 minutes to wake it up.
 
