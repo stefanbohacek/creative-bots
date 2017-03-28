@@ -26,9 +26,7 @@ Apps hosted on Glitch are automatically put to sleep after 5 minutes of inactivi
 
 Twitter's API doesn't send requests to your app, instead your app has to poll Twitter for data. 
 
-See [this Glitch starter project](https://glitch.com/edit/#!/twitterbot-autorespond) where i work around this limitation and make a Twitter bot that responds to DMs and @ mentions (with a 25 minute delay). 
-
-One of the Glitch engineers [confirmed](https://support.glitch.com/t/a-simple-twitter-bot-template/747/16) that it's okay to use a web service ([Uptime Robot](https://uptimerobot.com/), [cron-job.org](https://cron-job.org/en/), or [others](https://www.google.com/search?q=free+web+cron)) to regularly ping your app every 25 minutes to wake it up.
+See [this Glitch starter project](https://glitch.com/edit/#!/twitterbot-autorespond) where i work around this limitation and make a Twitter bot that responds to DMs and @ mentions (with a [25 minute delay](https://support.glitch.com/t/a-simple-twitter-bot-template/747/16).
 
 
 **Powered by [Glitch](https://glitch.com)**
