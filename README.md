@@ -11,7 +11,7 @@ This is a template for making fun Twitter bots with [Glitch](https://glitch.com/
 2. Update the `.env` file with your Twitter API key/secrets. (The tutorial above explains how to get these.)
 3. Also update the `BOT_ENDPOINT`; it could be something like `tweet`.
 4. Update `server.js` with some cool Twitter bot code.
-5. Set up a free service ([Uptime Robot](https://uptimerobot.com/), or [a similar one](https://www.google.com/search?q=free+web+cron)) to wake up your bot every 25+ minutes and tweet. Use `https://YOUR_PROJECT_NAME.glitch.me/BOT_ENDPOINT` as a URL to which to send the HTTP request.
+5. Set up a free service ([Uptime Robot](https://uptimerobot.com/), or [a similar one](https://www.google.com/search?q=free+web+cron)) to wake up your bot [every 25+ minutes](https://support.glitch.com/t/a-simple-twitter-bot-template/747/16) and tweet. Use `https://YOUR_PROJECT_NAME.glitch.me/BOT_ENDPOINT` as a URL to which to send the HTTP request.
 
 The included example simply tweets out "hello world 👋". Check out [the Twit module documentation](https://github.com/ttezel/twit) for more examples of what your bot can do.
 
