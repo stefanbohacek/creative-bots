@@ -4,7 +4,7 @@ var path = require('path'),
     app = express(),   
     Twit = require('twit'),
     config = {
-    /* Be sure to update the .env file with your API keys. See how to get them: https://botwiki.org/tutorials/make-an-image-posting-twitter-bot/#creating-a-twitter-app*/      
+    /* Be sure to update the .env file with your API keys. See how to get them: https://botwiki.org/tutorials/how-to-create-a-twitter-app */      
       twitter: {
         consumer_key: process.env.CONSUMER_KEY,
         consumer_secret: process.env.CONSUMER_SECRET,
