@@ -12,8 +12,7 @@ var path = require('path'),
         access_token_secret: process.env.ACCESS_TOKEN_SECRET
       }
     },
-    T = new Twit(config.twitter),
-    stream = T.stream('statuses/sample');
+    T = new Twit(config.twitter);
 
 app.use(express.static('public'));
 
