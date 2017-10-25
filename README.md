@@ -29,6 +29,12 @@ Twitter's API doesn't send requests to your app, instead your app has to poll Tw
 
 See [this Glitch starter project](https://glitch.com/edit/#!/twitterbot-autorespond) where i work around this limitation and make a Twitter bot that responds to DMs and @ mentions (with a [25 minute delay](https://support.glitch.com/t/a-simple-twitter-bot-template/747/16)).
 
+## Support Botwiki/Botmakers
+
+- [patreon.com/botwiki](https://patreon.com/botwiki)
+- [botwiki.org/about/support](https://botwiki.org/about/support)
+
+🙇
 
 **Powered by [Glitch](https://glitch.com)**
 
