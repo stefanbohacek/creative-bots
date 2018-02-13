@@ -18,17 +18,16 @@ app.use(express.static('public'));
 
 /* You can use uptimerobot.com or a similar site to hit your /BOT_ENDPOINT to wake up your app and make your Twitter bot tweet. */
 
-app.all("/" + process.env.BOT_ENDPOINT, function (request, response) {
-/* The example below tweets out "Hello world!". */
-  var resp = response;
+app.all("/" + process.env.BOT_ENDPOINT, function (req, res) {
+  /* The example below tweets out "Hello world!". */
   T.post('statuses/update', { status: 'hello world 👋' }, function(err, data, response) {
     if (err){
-      resp.sendStatus(500);
+      res.sendStatus(500);
       console.log('Error!');
       console.log(err);
     }
     else{
-      resp.sendStatus(200);
+      res.sendStatus(200);
     }
   });
 });
