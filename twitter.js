@@ -39,7 +39,7 @@ module.exports = {
             }
           }
           else{
-            console.log('tweeted!');
+            console.log('tweeted');
             if (cb){
               cb(null);
             }

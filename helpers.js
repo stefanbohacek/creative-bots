@@ -4,6 +4,9 @@ var fs = require('fs'),
 
 module.exports = {
   random_from_array: function(arr) {
+    if (!arr){
+      return false;
+    }
     return arr[Math.floor(Math.random()*arr.length)]; 
   },
   get_random_int: function(min, max) {
@@ -19,6 +22,9 @@ module.exports = {
     fs.readFile('./.glitch-assets', 'utf8', function (err, data) {
       if (err) {
         console.log('error:', err);
+        if (cb){
+          cb(err);
+        }        
         return false;
       }
       data = data.split('\n');
@@ -39,23 +45,32 @@ module.exports = {
 
           if (image_url && deleted_images.indexOf(img_data.uuid) === -1 && that.extension_check(image_url)){
             var file_name = that.get_filename_from_url(image_url).split('%2F')[1];            
-            // console.log(`- ${file_name}`);
             img_urls.push(image_url);
           }
         }
       }
-      cb(null, img_urls);
+      if (cb){
+        cb(null, img_urls);
+      }
     });      
   },
   load_remote_image: function(img_url, cb) {
+    if (!img_url){
+      console.log('missing remote image URL');
+      return false;
+    }
     console.log(`loading remote image: ${img_url} ...`);
     request({url: img_url, encoding: null}, function (err, res, body) {
         if (!err && res.statusCode == 200) {
           var b64content = 'data:' + res.headers['content-type'] + ';base64,';
-          cb(null, body.toString('base64'));           
+          if (cb){
+            cb(null, body.toString('base64'));
+          }
         } else {
-          console.log('ERROR:', err);
-          cb(err);
+          console.log('error:', err);
+          if (cb){
+            cb(err);
+          }
         }
     });
   },  
