@@ -28,9 +28,29 @@ app.all("/" + process.env.BOT_ENDPOINT, function (req, res) {
   /* Or we can pick a random image from the assets folder and tweet it. */
   
   helpers.load_image_assets(function(err, asset_urls){
-    helpers.load_remote_image(helpers.random_from_array(asset_urls), function(err, img_data){
-      twitter.post_image('Hello 👋', img_data);
-    })  
+    if (err){
+      console.log(err);     
+      res.sendStatus(500);
+    }
+    else{
+      helpers.load_remote_image(helpers.random_from_array(asset_urls), function(err, img_data){
+        if (err){
+          console.log(err);     
+          res.sendStatus(500);
+        }
+        else{
+          twitter.post_image('Hello 👋', img_data, function(err, data){
+            if (err){
+              console.log(err);     
+              res.sendStatus(500);
+            }
+            else{
+              res.sendStatus(200);
+            }            
+          });
+        }
+      });
+    }
   });  
 });
 

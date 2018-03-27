@@ -32,7 +32,7 @@ See [this Glitch starter project](https://glitch.com/edit/#!/twitterbot-autoresp
 ## Support Botwiki/Botmakers
 
 - [patreon.com/botwiki](https://patreon.com/botwiki)
-- [botwiki.org/about/support](https://botwiki.org/about/support)
+- [botwiki.org/about/support-us](https://botwiki.org/about/support-us)
 
 🙇
 
