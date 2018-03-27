@@ -2,17 +2,8 @@
 var path = require('path'),
     express = require('express'),
     app = express(),   
-    Twit = require('twit'),
-    config = {
-    /* Be sure to update the .env file with your API keys. See how to get them: https://botwiki.org/tutorials/how-to-create-a-twitter-app */      
-      twitter: {
-        consumer_key: process.env.CONSUMER_KEY,
-        consumer_secret: process.env.CONSUMER_SECRET,
-        access_token: process.env.ACCESS_TOKEN,
-        access_token_secret: process.env.ACCESS_TOKEN_SECRET
-      }
-    },
-    T = new Twit(config.twitter);
+    helpers = require(__dirname + '/helpers.js'),
+    twitter = require(__dirname + '/twitter.js');
 
 app.use(express.static('public'));
 
@@ -20,13 +11,13 @@ app.use(express.static('public'));
 
 app.all("/" + process.env.BOT_ENDPOINT, function (req, res) {
   /* The example below tweets out "Hello world!". */
-  T.post('statuses/update', { status: 'hello world 👋' }, function(err, data, response) {
+  twitter.tweet('hello world 👋', function(err, data){
     if (err){
+      console.log(err);     
       res.sendStatus(500);
-      console.log('Error!');
-      console.log(err);
     }
     else{
+      console.log('tweeted');
       res.sendStatus(200);
     }
   });
