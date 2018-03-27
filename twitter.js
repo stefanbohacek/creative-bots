@@ -1,5 +1,6 @@
 var config = {
       twitter: {
+        username: process.env.BOT_USERNAME,
      /* Be sure to update the .env file with your API keys.
         See how to get them: https://botwiki.org/tutorials/how-to-create-a-twitter-app */
         consumer_key: process.env.CONSUMER_KEY,
