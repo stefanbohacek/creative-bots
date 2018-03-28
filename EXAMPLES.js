@@ -3,7 +3,8 @@ var helpers = require(__dirname + '/helpers.js'),
     res = null;
 /*
   This is a more advanced version of the Twitter bot starter project at glitch.com/~twitterbot.
-  It comes with a few useful helper functions (see helpers.js) and the Twit functions are abstracted inside twitter.js.
+  It comes with a few useful helper functions (see helpers.js) and the Twit functions are abstracted inside twitter.js,
+  allowing you to type a bit less code.
   
   See below for example code snippets that you can use. 
 */
