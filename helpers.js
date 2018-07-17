@@ -75,8 +75,9 @@ module.exports = {
     });
   },  
   extension_check: function(url) {
-    var extName = path.extname(url).toLowerCase();
-    return extName === ".png" || extName === ".jpg" || extName === ".jpeg";
+    var file_extension = path.extname(url).toLowerCase(),
+        extensions = ['.png', '.jpg', '.jpeg', '.gif'];
+    return extensions.indexOf(file_extension) !== -1;
   },
   get_filename_from_url: function(url) {
     return url.substring(url.lastIndexOf('/') + 1);
