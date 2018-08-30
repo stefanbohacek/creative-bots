@@ -23,15 +23,6 @@ And remember to [join Botmakers](https://botmakers.org/) and [submit your bot to
 
 For more bot starter projects on Glitch, check out the official [Botwiki page on Glitch](https://glitch.com/botwiki).
 
-
-## Note on bots that auto-reply to DMs/@ mentions
-
-Apps hosted on Glitch are automatically put to sleep after 5 minutes of inactivity (that is, if nobody opens your app in a browser window or it doesn't receive any data).
-
-Twitter's API doesn't send requests to your app, instead your app has to poll Twitter for data. 
-
-See [this Glitch starter project](https://glitch.com/edit/#!/twitterbot-autorespond) where i work around this limitation and make a Twitter bot that responds to DMs and @ mentions (with a [25 minute delay](https://support.glitch.com/t/a-simple-twitter-bot-template/747/16)).
-
 ## Support Botwiki/Botmakers
 
 - [patreon.com/botwiki](https://patreon.com/botwiki)
