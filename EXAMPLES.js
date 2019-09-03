@@ -24,19 +24,19 @@ twitter.tweet('Hello world 👋', function(err, data){
 
 /* Example 2: Pick a random image from the assets folder and tweet it. */
 
-helpers.load_image_assets(function(err, asset_urls){
+helpers.loadImageAssets(function(err, asset_urls){
   if (err){
     console.log(err);     
     res.sendStatus(500);
   }
   else{
-    helpers.load_remote_image(helpers.random_from_array(asset_urls), function(err, img_data){
+    helpers.loadRemoteImage(helpers.randomFromArray(asset_urls), function(err, img_data){
       if (err){
         console.log(err);     
         res.sendStatus(500);
       }
       else{
-        twitter.post_image('Hello 👋', img_data, function(err, data){
+        twitter.postImage('Hello 👋', img_data, function(err, data){
           if (err){
             console.log(err);     
             res.sendStatus(500);

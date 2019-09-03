@@ -18,7 +18,7 @@ module.exports = {
       cb(err, data, response);
     });    
   },
-  post_image: function(text, image_base64, cb) {
+  postImage: function(text, image_base64, cb) {
    T.post('media/upload', { media_data: image_base64 }, function (err, data, response) {
       if (err){
         console.log('ERROR:\n', err);
@@ -49,7 +49,7 @@ module.exports = {
       }
     });
   },  
-  update_profile_image: function(image_base64, cb) {
+  updateProfileImage: function(image_base64, cb) {
     console.log('updating profile image...');
     T.post('account/update_profile_image', {
       image: image_base64
@@ -68,7 +68,7 @@ module.exports = {
       }
     });
   },
-  delete_last_tweet: function(cb){
+  deleteLastTweet: function(cb){
     console.log('deleting last tweet...');
     T.get('statuses/user_timeline', { screen_name: process.env.BOT_USERNAME }, function(err, data, response) {
       if (err){

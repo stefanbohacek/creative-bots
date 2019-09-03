@@ -3,19 +3,19 @@ var fs = require('fs'),
     request = require('request');
 
 module.exports = {
-  random_from_array: function(arr) {
+  randomFromArray: function(arr) {
     if (!arr){
       return false;
     }
     return arr[Math.floor(Math.random()*arr.length)]; 
   },
-  get_random_int: function(min, max) {
+  getRandomInt: function(min, max) {
     return Math.floor(Math.random() * (max - min + 1)) + min;
   },
-  get_random_range: function(min, max, fixed) {
+  getRandomRange: function(min, max, fixed) {
     return (Math.random() * (max - min) + min).toFixed(fixed) * 1;
   },
-  load_image_assets: function(cb){
+  loadImageAssets: function(cb){
     /* Load images from the assets folder */
     console.log('reading assets folder...')
     var that = this;
@@ -43,8 +43,8 @@ module.exports = {
           var img_data = JSON.parse(data[i]),
               image_url = img_data.url;
 
-          if (image_url && deleted_images.indexOf(img_data.uuid) === -1 && that.extension_check(image_url)){
-            var file_name = that.get_filename_from_url(image_url).split('%2F')[1];            
+          if (image_url && deleted_images.indexOf(img_data.uuid) === -1 && that.extensionCheck(image_url)){
+            var file_name = that.getFilenameFromUrl(image_url).split('%2F')[1];            
             img_urls.push(image_url);
           }
         }
@@ -54,7 +54,7 @@ module.exports = {
       }
     });      
   },
-  load_remote_image: function(img_url, cb) {
+  loadRemoteImage: function(img_url, cb) {
     if (!img_url){
       console.log('missing remote image URL');
       return false;
@@ -74,12 +74,12 @@ module.exports = {
         }
     });
   },  
-  extension_check: function(url) {
+  extensionCheck: function(url) {
     var file_extension = path.extname(url).toLowerCase(),
         extensions = ['.png', '.jpg', '.jpeg', '.gif'];
     return extensions.indexOf(file_extension) !== -1;
   },
-  get_filename_from_url: function(url) {
+  getFilenameFromUrl: function(url) {
     return url.substring(url.lastIndexOf('/') + 1);
   },
 };
