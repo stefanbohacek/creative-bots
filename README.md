@@ -1,11 +1,11 @@
-Glitch Twitter bot template with cron 
-=====================================
+Project template for multiple always-on Twitter bots
+====================================================
 
 ![Tweetin'](https://cdn.gomix.com/4032b241-bff8-473e-aa6b-eb0c92a4bd06%2Ftweeting.gif)
 
 This is a template for making fun Twitter bots with [Glitch](https://glitch.com/) and the [Twit](https://github.com/ttezel/twit) node.js library.
 
-This project requires a [paid Glitch account](https://glitch.com/pricing). For bots that can be scheduled with a third party tool, see the [twitterbot-advanced](https://glitch.com/edit/#!/twitterbot-advanced) project.
+This project requires a [paid Glitch account](https://glitch.com/pricing). For bots that can be scheduled with a third party tool, see the [twitterbot](https://glitch.com/edit/#!/twitterbot) project.
 
 
 ## A quick tutorial
