@@ -1,28 +1,29 @@
 {
-	"name": "glitch-twitterbot",
-	"version": "0.0.1",
-	"description": "Beep beep tweet!",
-	"main": "server.js",
-	"scripts": {
-		"start": "node server.js"
-	},
-	"dependencies": {
-		"twit": "^2.1.0",
-		"express": "^4.14.0"
-	},
-	"engines": {
-		"node": "8.x"
-	},
-	"repository": {
-		"url": ""
-	},
-	"keywords": [
-		"node",
-		"glitch",
-		"gomix",
-		"hyperdev",
-		"twitter",
-		"twitterbot",
-		"bot"
-	]
+  "name": "glitch-twitterbot",
+  "version": "0.0.1",
+  "description": "Beep beep tweet!",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "twit": "^2.1.0",
+    "express": "^4.14.0",
+    "cron": "^1.8.2"
+  },
+  "engines": {
+    "node": "8.x"
+  },
+  "repository": {
+    "url": ""
+  },
+  "keywords": [
+    "node",
+    "glitch",
+    "gomix",
+    "hyperdev",
+    "twitter",
+    "twitterbot",
+    "bot"
+  ]
 }
