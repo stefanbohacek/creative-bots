@@ -10,8 +10,8 @@ This project requires a [paid Glitch account](https://glitch.com/pricing). For b
 
 ## A quick tutorial
 
-1. Create a new Twitter account and a new Twitter app. ([See how.](https://botwiki.org/tutorials/how-to-create-a-twitter-app/))
-2. Update the `.env` file with your Twitter API key/secrets and change the `BOT_ENDPOINT` (it could just be random letters).
+1. Create a new Twitter account and a new Twitter app for each of your bot. ([See how.](https://botwiki.org/tutorials/how-to-create-a-twitter-app/))
+2. Update the `.env` file with your Twitter API keys/secrets.
 3. Update `server.js` with some cool Twitter bot code. (Make sure your bot follows [Twitter's rules](https://support.twitter.com/articles/18311-the-twitter-rules) and is overall [not a jerk](https://botwiki.org/articles/essays/).)
 
 Be sure to check out `EXAMPLES.js` first. You can add your own helper methods using [the Twit module](https://github.com/ttezel/twit).
