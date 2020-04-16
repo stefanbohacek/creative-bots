@@ -1,16 +1,18 @@
 /* Setting things up. */
-var path = require('path'),
-    express = require('express'),
-    app = express();
+let path = require( 'path' ),
+    express = require( 'express' ),
+    app = express(),
+    CronJob = require( 'cron' ).CronJob;
 
-app.use(express.static('public'));
+app.use( express.static( 'public' ) );
 
-/* You can use uptimerobot.com or a similar site to hit your /BOT_ENDPOINT to wake up your app and make your Twitter bot tweet. */
+let listener = app.listen( process.env.PORT, function(){
+  console.log( `your bot is running on port ${ listener.address().port }` );
+  // Check out the cron package documentation for more details: https://www.npmjs.com/package/cron
 
-app.all(`/${process.env.BOT_ENDPOINT}`, function(req, res) {
-  /* See EXAMPLES.js for some example code you can use. */
-});
-
-var listener = app.listen(process.env.PORT, function(){
-  console.log('your bot is running on port ' + listener.address().port);
-});
+  let job = new CronJob( '*/1 * * * *', function() {
+    console.log( 'Time to tweet!' );
+    /* See EXAMPLES.js for some example code you can use here */
+  } );
+  
+} );
