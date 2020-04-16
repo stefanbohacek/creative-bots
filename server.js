@@ -10,7 +10,7 @@ let listener = app.listen( process.env.PORT, function(){
   console.log( `your bot is running on port ${ listener.address().port }` );
   // Check out the cron package documentation for more details: https://www.npmjs.com/package/cron
 
-  let job = new CronJob( '*/1 * * * *', function() {
+  let job = new CronJob( '0 * * * *', function() {
     console.log( 'Time to tweet!' );
     /* See EXAMPLES.js for some example code you can use here */
   } );
