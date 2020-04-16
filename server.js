@@ -25,5 +25,7 @@ let listener = app.listen( process.env.PORT, function(){
   let job2 = new CronJob( '*/2 * * * *', function() {
     bot2.postImage();
   } );
-
+  
+  job1.start();
+  job2.start();
 } );
