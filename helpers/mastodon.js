@@ -1,4 +1,5 @@
-const fs = require( 'fs' );
+const fs = require( 'fs' ),
+      helpers = require(__dirname + '/../helpers/helpers.js');
 
 module.exports = {
   toot: function( M, status, cb ){
@@ -62,25 +63,14 @@ module.exports = {
       } );
     }
   },
-  postImage: function( M, text, img_file, cb ) {
-    M.post( 'media', { 
-      file: fs.createReadStream( `${__dirname}/../${img_file}` )
-    }, function ( err, data, response ) {
-      if ( err ){
-        console.log( 'ERROR:\n', err );
-        if ( cb ){
-          cb( err );
-        }
-      }
-      else{
-        // console.log( data );
-        console.log( 'tooting the image...' );
-        M.post( 'statuses', {
-          status: text,
-          // media_ids: new Array( data.media_id_string )
-          media_ids: new Array( data.id )
-        },
-        function( err, data, response ) {
+  postImage: function( M, text, imgData, cb ) {
+    const imgFilePath = `${__dirname}/../.data/temp-${ Date.now() }-${ helpers.getRandomInt( 1, Number.MAX_SAFE_INTEGER ) }.png`;
+
+    fs.writeFile( imgFilePath, imgData, 'base64', function(err) {
+      if ( !err ){
+        M.post( 'media', {
+          file: fs.createReadStream( imgFilePath )
+        }, function ( err, data, response ) {
           if ( err ){
             console.log( 'ERROR:\n', err );
             if ( cb ){
@@ -88,13 +78,30 @@ module.exports = {
             }
           }
           else{
-            console.log( 'tooted' );
-            if ( cb ){
-              cb( null, data );
-            }
+            // console.log( data );
+            console.log( 'tooting the image...' );
+            M.post( 'statuses', {
+              status: text,
+              // media_ids: new Array( data.media_id_string )
+              media_ids: new Array( data.id )
+            },
+            function( err, data, response ) {
+              if ( err ){
+                console.log( 'ERROR:\n', err );
+                if ( cb ){
+                  cb( err );
+                }
+              }
+              else{
+                console.log( 'tooted' );
+                if ( cb ){
+                  cb( null, data );
+                }
+              }
+            } );
           }
         } );
       }
-    } );
+    } );  
   }  
 }
