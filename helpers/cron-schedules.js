@@ -1,5 +1,8 @@
 module.exports = {
   'every_minute': '* * * * *',
+  'every_five_minutes': '*/5 * * * *',
+  'every_ten_minutes': '*/10 * * * *',
+  'every_thirty_minutes': '*/30 * * * *',
   'every_hour': '0 * * * *',
   'every_two_hours': '0 */2 * * *',
   'every_three_hours': '0 */3 * * *',
