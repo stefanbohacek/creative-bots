@@ -23,5 +23,6 @@ module.exports = {
     ] );
     
     twitter.tweet( T, text );
+    mastodon.toot( M, text );
   }
 };
