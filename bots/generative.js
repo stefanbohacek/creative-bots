@@ -21,8 +21,11 @@ module.exports = {
       'Hi!',
       'Hi there!'
     ] );
+
     
-    twitter.tweet( T, text );
-    mastodon.toot( M, text );
+
+    
+    // twitter.tweet( T, text );
+    // mastodon.toot( M, text );
   }
 };

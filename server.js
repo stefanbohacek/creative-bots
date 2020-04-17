@@ -8,7 +8,8 @@ let path = require( 'path' ),
 /* Load your bots */
 
 let bot1 = require( __dirname + '/bots/basic.js' ),
-    bot2 = require( __dirname + '/bots/random-image.js' );
+    bot2 = require( __dirname + '/bots/random-image.js' ),
+    bot3 = require( __dirname + '/bots/generative.js' );
 
 app.use( express.static( 'public' ) );
 
@@ -17,7 +18,10 @@ let listener = app.listen( process.env.PORT, function(){
   
   const cronSchedules = {
     'every_minute': '* * * * *',
-    'every_hour': '0 * * * *'
+    'every_hour': '0 * * * *',
+    'every_six_hours': '0 */6 * * *',
+    'every_twelve_hours': '0 */12 * * *',
+    'every_day': '0 1 * * *'
   };
 
   /* Schedule your bots */
@@ -25,7 +29,7 @@ let listener = app.listen( process.env.PORT, function(){
   // Check out the cron package documentation for more details on how to set up cron jobs: https://www.npmjs.com/package/cron
 
 //   ( new CronJob( cronSchedules.every_minute, function() {
-//     bot1.run();
+//     bot3.run();
 //   } ) ).start();
   
   
