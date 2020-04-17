@@ -3,9 +3,10 @@
 let path = require( 'path' ),
     express = require( 'express' ),
     app = express(),
-    CronJob = require( 'cron' ).CronJob;
+    CronJob = require( 'cron' ).CronJob,
+    cronSchedules = require(__dirname + '/../helpers/cron-schedules.js');
 
-/* Load your bots */
+/* Load your bots from the "bots" folder. */
 
 let bot1 = require( __dirname + '/bots/basic.js' ),
     bot2 = require( __dirname + '/bots/random-image.js' ),
@@ -15,18 +16,12 @@ app.use( express.static( 'public' ) );
 
 let listener = app.listen( process.env.PORT, function(){
   console.log( `your bot is running on port ${ listener.address().port }` );
-  
-  const cronSchedules = {
-    'every_minute': '* * * * *',
-    'every_hour': '0 * * * *',
-    'every_six_hours': '0 */6 * * *',
-    'every_twelve_hours': '0 */12 * * *',
-    'every_day': '0 1 * * *'
-  };
 
-  /* Schedule your bots */
+  /*
+    Schedule your bots. Check out the cron package documentation for more details https://www.npmjs.com/package/cron#available-cron-patterns.
 
-  // Check out the cron package documentation for more details on how to set up cron jobs: https://www.npmjs.com/package/cron
+    You can also use common cron schedules inside helpers/cron-schedules.js.
+  */
 
 //   ( new CronJob( cronSchedules.every_minute, function() {
 //     bot3.run();
