@@ -64,7 +64,7 @@ module.exports = {
         return false;
       }
       if ( data && data.length > 0 ){
-        var last_tweet_id = data[0].id_str;
+        let last_tweet_id = data[0].id_str;
         T.post( `statuses/destroy/${last_tweet_id}`, { id: last_tweet_id }, function( err, data, response ) {
           if ( cb ){
             cb( err, data );

@@ -17,11 +17,11 @@ let listener = app.listen( process.env.PORT, function(){
   // Check out the cron package documentation for more details on how to set up cron jobs: https://www.npmjs.com/package/cron
 
   let job1 = new CronJob( '0 * * * *', function() {
-    bot1.tweet();
+    bot1.run();
   } );
   
   let job2 = new CronJob( '0 * * * *', function() {
-    bot2.postImage();
+    bot2.run();
   } );
   
   job1.start();
