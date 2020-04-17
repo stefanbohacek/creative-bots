@@ -1,13 +1,21 @@
 module.exports = {
   tweet: function( T, text, cb ){
     T.post( 'statuses/update', { status: text }, function( err, data, response ) {
-      cb( err, data, response );
+      if ( data && data.id_str && data.user && data.user.screen_name ){
+        console.log( 'tweeted', `https://twitter.com/${ data.user.screen_name }/status/${ data.id_str }` );
+      }
+      if ( err ){
+        console.log( 'Twitter API error', err );
+      }
+      if ( cb ){
+        cb( err, data );
+      }
     } );    
   },
   postImage: function( T, text, image_base64, cb ) {
    T.post( 'media/upload', { media_data: image_base64 }, function ( err, data, response ) {
       if ( err ){
-        console.log( 'ERROR:\n', err );
+        console.log( 'error:\n', err );
         if ( cb ){
           cb( err );
         }
@@ -19,17 +27,14 @@ module.exports = {
           media_ids: new Array( data.media_id_string )
         },
         function( err, data, response ) {
-          if ( err ){
-            console.log( 'ERROR:\n', err );
-            if ( cb ){
-              cb( err );
-            }
+          if ( data && data.id_str && data.user && data.user.screen_name ){
+            console.log( 'tweeted', `https://twitter.com/${ data.user.screen_name }/status/${ data.id_str }` );
           }
-          else{
-            console.log( 'tweeted' );
-            if ( cb ){
-              cb( null );
-            }
+          if ( err ){
+            console.log( 'Twitter API error', err );
+          }
+          if ( cb ){
+            cb( err, data );
           }
         } );
       }
@@ -40,17 +45,12 @@ module.exports = {
     T.post( 'account/update_profile_image', {
       image: image_base64
     },
-    function( err, data, response ) {
+    function( err, data, response ) {      
       if ( err ){
-        console.log( 'ERROR:\n', err );
-        if ( cb ){
-          cb( err );
-        }
+        console.log( 'Twitter API error', err );
       }
-      else{
-        if ( cb ){
-          cb( null );
-        }
+      if ( cb ){
+        cb( err, data );
       }
     } );
   },

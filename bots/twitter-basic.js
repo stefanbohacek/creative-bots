@@ -15,15 +15,7 @@ module.exports = {
       'Hi!',
       'Hi there!'
     ] );
-
-    T.post( 'statuses/update', { status: text }, function( err, data, response ) {
-      if ( err ){
-        console.log( err );
-      } else {
-        if ( data && data.id_str && data.user && data.user.screen_name ){
-          console.log( 'tweeted', `https://twitter.com/${ data.user.screen_name }/status/${ data.id_str }` );
-        }
-      }
-    } );    
+    
+    twitter.tweet( T, text );
   }
 };

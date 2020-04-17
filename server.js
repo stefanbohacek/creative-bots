@@ -6,8 +6,8 @@ let path = require( 'path' ),
 
 /* Load your bots */
 
-let bot1 = require( __dirname + '/bots/basic-tweet.js' ),
-    bot2 = require( __dirname + '/bots/random-image.js' );
+let bot1 = require( __dirname + '/bots/twitter-basic.js' ),
+    bot2 = require( __dirname + '/bots/twitter-random-image.js' );
 
 app.use( express.static( 'public' ) );
 
