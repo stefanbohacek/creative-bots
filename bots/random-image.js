@@ -1,4 +1,4 @@
-let helpers = require(__dirname + '/../helpers.js'),
+let helpers = require(__dirname + '/../helpers/helpers.js'),
     twitterConfig = {
         consumer_key: process.env.TWITTER_CONSUMER_KEY_BOT_2,
         consumer_secret: process.env.TWITTER_CONSUMER_SECRET_BOT_2,
