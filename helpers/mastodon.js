@@ -1,13 +1,7 @@
-const fs = require( 'fs' ),
-      Mastodon = require( 'mastodon' ),
-      M = new Mastodon( {
-       'access_token': process.env.MASTODON_ACCESS_TOKEN,
-       'api_url': process.env.MASTODON_API || 'https://mastodon.social/api/v1/'
-      } );
+const fs = require( 'fs' );
 
 module.exports = {
-  M: M,
-  toot: function( status, cb ){
+  toot: function( M, status, cb ){
     if ( !M ){
       console.error( 'please update your .env file' )
       return false;
@@ -25,7 +19,7 @@ module.exports = {
       }
     } );
   },
-  reply: function( status, response, cb ){
+  reply: function( M, status, response, cb ){
     if ( !M ){
       console.error( 'please update your .env file' )
       return false;
@@ -48,14 +42,14 @@ module.exports = {
       }
     } );
   },
-  getNotifications: function( cb ){
+  getNotifications: function( M, cb ){
     M.get( 'notifications', function( err, notifications ){
       if ( cb ){
         cb( err, notifications );
       }
     } );  
   },
-  dismissNotification: function( notification, cb ){
+  dismissNotification: function( M, notification, cb ){
     if ( notification && notification.id ){
       M.post( 'notifications/dismiss', {
         id: notification.id
@@ -68,7 +62,7 @@ module.exports = {
       } );
     }
   },
-  postImage: function( text, img_file, cb ) {
+  postImage: function( M, text, img_file, cb ) {
     M.post( 'media', { 
       file: fs.createReadStream( `${__dirname}/../${img_file}` )
     }, function ( err, data, response ) {
