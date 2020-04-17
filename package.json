@@ -10,10 +10,19 @@
     "twit": "^2.1.0",
     "express": "^4.14.0",
     "cron": "^1.8.2",
-    "mastodon": "^1.2.2"
+    "mastodon": "^1.2.2",
+    "canvas": "^2.6.1",
+    "gifencoder": "^2.0.1",
+    "glitch-canvas": "^1.1.7",
+    "pngjs": "^4.0.0",
+    "color-scheme": "^1.0.1",
+    "roughjs": "^4.1.4",
+    "poisson-disc-sampler": "^1.1.0",
+    "get-google-fonts": "^1.2.2",
+    "underscore": "^1.10.2"
   },
   "engines": {
-    "node": "8.x"
+    "node": "12.x"
   },
   "repository": {
     "url": ""
