@@ -1,5 +1,5 @@
-Project template for multiple always-on Twitter bots
-====================================================
+Project template for multiple always-on creative bots
+=====================================================
 
 ![Tweetin'](https://cdn.gomix.com/4032b241-bff8-473e-aa6b-eb0c92a4bd06%2Ftweeting.gif)
 
@@ -10,7 +10,9 @@ This project requires a [paid Glitch account](https://glitch.com/pricing). For b
 
 ## A quick tutorial
 
-1. Create a new Twitter account and a new Twitter app for each of your bot. ([See how.](https://botwiki.org/tutorials/how-to-create-a-twitter-app/))
+1. Create accounts for all of your bots.
+- [Twitter](https://botwiki.org/tutorials/how-to-create-a-twitter-app/)
+- 
 2. Update the `.env` file with your Twitter API keys/secrets.
 3. Update `server.js` with some cool Twitter bot code. (Make sure your bot follows [Twitter's rules](https://support.twitter.com/articles/18311-the-twitter-rules) and is overall [not a jerk](https://botwiki.org/articles/essays/).)
 
