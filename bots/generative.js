@@ -20,7 +20,7 @@ let helpers = require(__dirname + '/../helpers/helpers.js'),
 module.exports = {
   run: function(){
 
-  var status_text = helpers.random_from_array([
+  var status_text = helpers.randomFromArray([
         'Check this out!',
         'New picture!'
       ]),
@@ -29,25 +29,26 @@ module.exports = {
         height: 480,
       };
   
-  generators.rain(options, function(err, image){
+  generators.rain( options, function( err, image ){
+    console.log( 'debug image', image );
 
-    twitter.postImage(status_text, image.data, function(err, data){
-      if (err){
-        console.log('oh no...', err)
-      } else {
-        console.log('tweet posted!');
-        console.log(`https://twitter.com/${data.user.screen_name}/status/${data.id_str}`);
-      }
-    });
-
-    // mastodon.postImage(status_text, image.path, function(err, data){
-    //   if (err){
-    //     console.log('oh no...', err)
+    // twitter.postImage( T, status_text, image.data, function( err, data ){
+    //   if ( err ){
+    //     console.log( 'oh no...', err )
     //   } else {
-    //     console.log('toot posted!');
-    //     console.log(data.url);
+    //     console.log( 'tweet posted!' );
+    //     console.log( `https://twitter.com/${data.user.screen_name}/status/${data.id_str}` );
     //   }
-    // });    
-  });    
+    // } );
+
+    // mastodon.postImage( M, status_text, image.path, function( err, data ){
+    //   if ( err ){
+    //     console.log( 'oh no...', err )
+    //   } else {
+    //     console.log( 'toot posted!' );
+    //     console.log( data.url );
+    //   }
+    // } );      
+    } );    
   }
 };

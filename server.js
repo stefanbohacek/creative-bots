@@ -1,10 +1,10 @@
 /* Setting things up. */
 
-let path = require( 'path' ),
-    express = require( 'express' ),
-    app = express(),
-    CronJob = require( 'cron' ).CronJob,
-    cronSchedules = require( __dirname + '/helpers/cron-schedules.js' );
+const path = require( 'path' ),
+      express = require( 'express' ),
+      app = express(),
+      CronJob = require( 'cron' ).CronJob,
+      cronSchedules = require( __dirname + '/helpers/cron-schedules.js' );
 
 /* Load your bots from the "bots" folder. */
 
@@ -23,10 +23,9 @@ let listener = app.listen( process.env.PORT, function(){
     You can also use common cron schedules inside helpers/cron-schedules.js.
   */
 
-//   ( new CronJob( cronSchedules.EVERY_MINUTE, function() {
-//     bot3.run();
-//   } ) ).start();
-  
+  ( new CronJob( cronSchedules.EVERY_THIRTY_SECONDS, function() {
+    bot3.run();
+  } ) ).start();
   
 //   ( new CronJob( cronSchedules.EVERY_FOUR_HOURS, function() {
 //     bot1.run();

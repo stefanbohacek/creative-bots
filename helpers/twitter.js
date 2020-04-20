@@ -15,6 +15,7 @@ module.exports = {
     } );    
   },
   postImage: function( T, text, image_base64, cb ) {
+
    T.post( 'media/upload', { media_data: image_base64 }, function ( err, data, response ) {
       if ( err ){
         console.log( 'error:\n', err );

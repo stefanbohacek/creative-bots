@@ -107,6 +107,8 @@ module.exports = function( options, cb ){
 
   helpers.loadImage( `https://${process.env.PROJECT_DOMAIN}.glitch.me/gif`,
   function( err, img_data_gif ){
+    console.log( 'debug', err );
+    
     if ( cb ){
       cb( null, {
         path: img_path_gif,
