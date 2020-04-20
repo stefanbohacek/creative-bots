@@ -1,4 +1,7 @@
 let helpers = require(__dirname + '/../helpers/helpers.js'),
+    generators = {
+      rain: require(__dirname + '/../generators/rain.js')
+    },    
     twitter = require(__dirname + '/../helpers/twitter.js'),    
     mastodon = require(__dirname + '/../helpers/mastodon.js'),    
     Twit = require( 'twit' ),
@@ -16,16 +19,35 @@ let helpers = require(__dirname + '/../helpers/helpers.js'),
 
 module.exports = {
   run: function(){
-    const text = helpers.randomFromArray( [
-      'Hello!',
-      'Hi!',
-      'Hi there!'
-    ] );
 
-    
+  var status_text = helpers.random_from_array([
+        'Check this out!',
+        'New picture!'
+      ]),
+      options = {
+        width: 640,
+        height: 480,
+      };
+  
+  generators.rain(options, function(err, image){
 
-    
-    // twitter.tweet( T, text );
-    // mastodon.toot( M, text );
+    twitter.postImage(status_text, image.data, function(err, data){
+      if (err){
+        console.log('oh no...', err)
+      } else {
+        console.log('tweet posted!');
+        console.log(`https://twitter.com/${data.user.screen_name}/status/${data.id_str}`);
+      }
+    });
+
+    // mastodon.postImage(status_text, image.path, function(err, data){
+    //   if (err){
+    //     console.log('oh no...', err)
+    //   } else {
+    //     console.log('toot posted!');
+    //     console.log(data.url);
+    //   }
+    // });    
+  });    
   }
 };
