@@ -2,7 +2,6 @@
 
 const path = require( 'path' ),
       express = require( 'express' ),
-      // app = express(),
       app = require(__dirname + '/app.js'),
       CronJob = require( 'cron' ).CronJob,
       cronSchedules = require( __dirname + '/helpers/cron-schedules.js' );
@@ -19,19 +18,12 @@ let listener = app.listen( process.env.PORT, function(){
   /*
     Schedule your bots. Check out the cron package documentation for more details https://www.npmjs.com/package/cron#available-cron-patterns.
 
-    You can also use common cron schedules inside helpers/cron-schedules.js.
+    You can also use common cron schedules defined inside helpers/cron-schedules.js.
   */
 
-  // ( new CronJob( cronSchedules.EVERY_THIRTY_SECONDS, function() {
-  //   bot3.run();
-  // } ) ).start();
-  
   // ( new CronJob( cronSchedules.EVERY_THIRTY_SECONDS, function() {
   //   bot1.run();
   // } ) ).start();
   
-  // ( new CronJob( cronSchedules.EVERY_THIRTY_SECONDS, function() {
-  //   bot2.run();
-  // } ) ).start();
   
 } );
