@@ -15,6 +15,7 @@ module.exports = {
   },
   post: function( tumblrClient, title, body, cb ) {
     if ( tumblrClient ){
+      console.log( 'tumblring...' );
       tumblrClient.createTextPost( tumblrClient.tumblr_name, {
         title: title,
         body: body
@@ -28,6 +29,7 @@ module.exports = {
   },
   postImage: function( tumblrClient, text, imgData, cb ) {
     if ( tumblrClient ){
+      console.log( 'tumblring...' );
       tumblrClient.createPhotoPost( tumblrClient.tumblr_name, {
         caption: text,
         data64: imgData
