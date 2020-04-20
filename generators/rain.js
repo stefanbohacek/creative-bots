@@ -17,12 +17,10 @@ module.exports = function( options, cb ){
   
   const randomFileName = `${ Date.now()}-${helpers.getRandomRange( 0, 1000 ) }`;
 
-  const img_path_png = `./.data/${ randomFileName }.png`,
-        img_path_gif = `./.data/${ randomFileName }.gif`;
+  const imgPathPNG = `./.data/${ randomFileName }.png`,
+        imgPathGIF = `./.data/${ randomFileName }.gif`;
   
-  console.log( 'img_path_gif', img_path_gif );
-  
-  encoder.createReadStream().pipe( fs.createWriteStream( img_path_gif ) );
+  encoder.createReadStream().pipe( fs.createWriteStream( imgPathGIF ) );
 
   encoder.start();
   encoder.setRepeat( 0 );   // 0 for repeat, -1 for no-repeat
@@ -110,14 +108,11 @@ module.exports = function( options, cb ){
   // let b64content = fs.readFileSync( __dirname + '/temp.gif', { encoding: 'base64' } );
   // cb( null, b64content );
 
-  helpers.loadImage( `https://${process.env.PROJECT_DOMAIN}.glitch.me/gif`,
-  function( err, img_data_gif ){
-    console.log( 'debug', err );
-    
+  helpers.loadImage( `https://${process.env.PROJECT_DOMAIN}.glitch.me/images/${ randomFileName }.gif`, function( err, imgDataGIF ){
     if ( cb ){
       cb( null, {
-        path: img_path_gif,
-        data: img_data_gif
+        path: imgPathGIF,
+        data: imgDataGIF
       } );          
     }
   } );

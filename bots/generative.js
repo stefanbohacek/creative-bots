@@ -30,25 +30,10 @@ module.exports = {
       };
   
   generators.rain( options, function( err, image ){
-    console.log( 'debug image', image );
 
-    // twitter.postImage( T, status_text, image.data, function( err, data ){
-    //   if ( err ){
-    //     console.log( 'oh no...', err )
-    //   } else {
-    //     console.log( 'tweet posted!' );
-    //     console.log( `https://twitter.com/${data.user.screen_name}/status/${data.id_str}` );
-    //   }
-    // } );
+    twitter.postImage( T, status_text, image.data );
 
-    // mastodon.postImage( M, status_text, image.path, function( err, data ){
-    //   if ( err ){
-    //     console.log( 'oh no...', err )
-    //   } else {
-    //     console.log( 'toot posted!' );
-    //     console.log( data.url );
-    //   }
-    // } );      
+    // mastodon.postImage( M, status_text, image.path );      
     } );    
   }
 };
