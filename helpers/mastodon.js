@@ -64,6 +64,17 @@ module.exports = {
     }
   },
   postImage: function( M, text, imgData, cb ) {
+    function postImageFn( filePath ){
+      
+    }
+
+    if ( fs.existsSync( imgData ) ) {
+      postImageFn( imgData );
+    } else {
+      
+    }
+    
+    
     const imgFilePath = `${__dirname}/../.data/temp-${ Date.now() }-${ helpers.getRandomInt( 1, Number.MAX_SAFE_INTEGER ) }.png`;
 
     fs.writeFile( imgFilePath, imgData, 'base64', function(err) {
