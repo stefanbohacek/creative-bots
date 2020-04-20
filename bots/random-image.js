@@ -3,15 +3,15 @@ let helpers = require(__dirname + '/../helpers/helpers.js'),
     mastodon = require(__dirname + '/../helpers/mastodon.js'),    
     Twit = require( 'twit' ),
     T = new Twit( {
-        consumer_key: process.env.TWITTER_CONSUMER_KEY_BOT_1,
-        consumer_secret: process.env.TWITTER_CONSUMER_SECRET_BOT_1,
-        access_token: process.env.TWITTER_ACCESS_TOKEN_BOT_1,
-        access_token_secret: process.env.TWITTER_ACCESS_TOKEN_SECRET_BOT_1
+        consumer_key: process.env.BOT_1_TWITTER_CONSUMER_KEY,
+        consumer_secret: process.env.BOT_1_TWITTER_CONSUMER_SECRET,
+        access_token: process.env.BOT_1_TWITTER_ACCESS_TOKEN,
+        access_token_secret: process.env.BOT_1_TWITTER_ACCESS_TOKEN_SECRET
     } ),
     Mastodon = require( 'mastodon' ),
     M = new Mastodon( {
-     'access_token': process.env.MASTODON_ACCESS_TOKEN_BOT_1,
-     'api_url': process.env.MASTODON_API_BOT_1
+     'access_token': process.env.BOT_1_MASTODON_ACCESS_TOKEN,
+     'api_url': process.env.BOT_1_MASTODON_API
     } );
 
 module.exports = {

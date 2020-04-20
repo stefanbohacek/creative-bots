@@ -46,7 +46,7 @@ app.use( '/images', express.static( __dirname + '/.data/' ) );
 app.get( '/', function( req, res ) {
   if ( req.session && req.session.grant ) {
     if ( req.session.grant.response ){
-      console.log( req.session.grant.response );
+      console.log( 'grant', req.session.grant.response );
     }
   }
   res.sendFile( __dirname + '/views/index.html' );
