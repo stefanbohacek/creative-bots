@@ -16,7 +16,12 @@ module.exports = {
     if ( mastodonClient ){
       console.log( 'tooting...' );
       mastodonClient.post( 'statuses', { status: status }, function( err, data, response ) {
-        console.log( 'tooted', data.url );
+        if ( err ){
+          console.log( 'mastodon.toot error:', err );
+        } else {
+          console.log( 'tooted', data.url );
+        }
+
         if ( cb ){
           cb( err, data );
         }
@@ -35,7 +40,7 @@ module.exports = {
         if ( cb ){
           cb( err, data );
         }
-      } );      
+      } );
     }
   },
   getNotifications: function( mastodonClient, cb ){
@@ -56,7 +61,7 @@ module.exports = {
           cb( err, data );
         }
       } ).catch( function( err ){
-        console.log( err );
+        console.log( 'mastodon.dismissNotification error:', err );
       } );
     }
   },
@@ -67,13 +72,12 @@ module.exports = {
           file: fs.createReadStream( filePath )
         }, function ( err, data, response ) {
           if ( err ){
-            console.log( 'ERROR:\n', err );
+            console.log( 'mastodon.postImage error:', err );
             if ( cb ){
-              cb( err );
+              cb( err, data );
             }
           }
           else{
-            // console.log( data );
             console.log( 'tooting the image...' );
             mastodonClient.post( 'statuses', {
               status: text,
@@ -82,20 +86,20 @@ module.exports = {
             },
             function( err, data, response ) {
               if ( err ){
-                console.log( 'ERROR:\n', err );
-                if ( cb ){
-                  cb( err );
-                }
+                console.log( 'mastodon.postImage error:', err );
+              } else{
+                console.log( 'tooted', data.url );
               }
-              else{
-                console.log( 'tooted' );
-                if ( cb ){
-                  cb( null, data );
-                }
+
+              fs.unlink( filePath );
+
+              if ( cb ){
+                cb( err, data );
               }
+
             } );
           }
-        } );      
+        } );
       }
 
       /* Support both image file path and image data */
@@ -107,7 +111,7 @@ module.exports = {
           if ( !err ){
             postImageFn( imgFilePath );
           }
-        } );       
+        } );
       }      
     }
   }  
