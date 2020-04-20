@@ -30,8 +30,8 @@ let listener = app.listen( process.env.PORT, function(){
   //   bot1.run();
   // } ) ).start();
   
-//   ( new CronJob( cronSchedules.EVERY_SIX_HOURS, function() {
-//     bot2.run();
-//   } ) ).start();
+  ( new CronJob( cronSchedules.EVERY_THIRTY_SECONDS, function() {
+    bot2.run();
+  } ) ).start();
   
 } );

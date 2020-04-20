@@ -3,10 +3,13 @@ Project template for multiple always-on creative bots
 
 ![Tweetin'](https://cdn.gomix.com/4032b241-bff8-473e-aa6b-eb0c92a4bd06%2Ftweeting.gif)
 
-This is a template for making fun Twitter bots with [Glitch](https://glitch.com/) and the [Twit](https://github.com/ttezel/twit) node.js library.
+This is a template for making creative online bots with [Glitch](https://glitch.com/). It requires a [paid Glitch account](https://glitch.com/pricing). For bots that can be scheduled with a third party tool, see the [twitterbot](https://glitch.com/edit/#!/twitterbot) project.
 
-This project requires a [paid Glitch account](https://glitch.com/pricing). For bots that can be scheduled with a third party tool, see the [twitterbot](https://glitch.com/edit/#!/twitterbot) project.
+Currently supported networks:
 
+- Twitter
+- Tumblr
+- Mastodon
 
 ## A quick tutorial
 
@@ -14,9 +17,8 @@ This project requires a [paid Glitch account](https://glitch.com/pricing). For b
 - [Twitter](https://botwiki.org/tutorials/how-to-create-a-twitter-app/)
 - 
 2. Update the `.env` file with your Twitter API keys/secrets.
-3. Update `server.js` with some cool Twitter bot code. (Make sure your bot follows [Twitter's rules](https://support.twitter.com/articles/18311-the-twitter-rules) and is overall [not a jerk](https://botwiki.org/articles/essays/).)
-
-Be sure to check out `EXAMPLES.js` first. You can add your own helper methods using [the Twit module](https://github.com/ttezel/twit).
+3. Check out the `bots` folder for example bot code. (Make sure your bot follows [Twitter's rules](https://support.twitter.com/articles/18311-the-twitter-rules) and is overall [not a jerk](https://botwiki.org/articles/essays/).)
+4. Schedule your bot inside `server.js`.
 
 There are more tutorials and open source Twitter bots on [Botwiki](https://botwiki.org).
 

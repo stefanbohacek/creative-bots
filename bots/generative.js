@@ -19,6 +19,7 @@ const mastodonClient = mastodon.client( {
 } );
 
 const tumblrClient = tumblr.client( {
+  tumblr_name: process.env.BOT_1_TUMBLR_BLOG_NAME,  
   consumer_key: process.env.BOT_1_TUMBLR_CONSUMER_KEY,
   consumer_secret: process.env.BOT_1_TUMBLR_CONSUMER_SECRET,
   token: process.env.BOT_1_TUMBLR_CONSUMER_TOKEN,
@@ -39,7 +40,7 @@ module.exports = {
     generators.rain( options, function( err, image ){
       twitter.postImage( twitter.client, statusText, image.data );
       mastodon.postImage( mastodonClient, statusText, image.path );      
-      tumblr.postImage( tumblrClient, process.env.BOT_1_TUMBLR_BLOG_NAME, statusText, image.data );        
+      tumblr.postImage( tumblrClient, statusText, image.data );        
     } );
   }
 };

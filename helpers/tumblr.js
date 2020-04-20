@@ -8,30 +8,31 @@ module.exports = {
     
     if ( keys && keys.consumer_key && keys.consumer_secret && keys.token && keys.token_secret ){
       tumblrClient = tumblr.createClient( keys );
+      tumblrClient.tumblr_name = keys.tumblr_name;
     }
     
     return tumblrClient;
   },
-  createTextPost: function( tumblrClient, tumblrName, text, imgData, cb ) {
+  post: function( tumblrClient, title, body, cb ) {
     if ( tumblrClient ){
-      tumblrClient.createPhotoPost( tumblrName, {
-        caption: text,
-        data64: imgData
+      tumblrClient.createTextPost( tumblrClient.tumblr_name, {
+        title: title,
+        body: body
       }, function( err, data ){
-        console.log( 'tumblrd', `https://${ tumblrName }.tumblr.com/post/${ data.id_string }` )
+        console.log( 'tumblrd', `https://${ tumblrClient.tumblr_name }.tumblr.com/post/${ data.id_string }` )
         if ( cb ){
           cb( err, data );
         }
       });
     }
   },
-  postImage: function( tumblrClient, tumblrName, text, imgData, cb ) {
+  postImage: function( tumblrClient, text, imgData, cb ) {
     if ( tumblrClient ){
-      tumblrClient.createPhotoPost( tumblrName, {
+      tumblrClient.createPhotoPost( tumblrClient.tumblr_name, {
         caption: text,
         data64: imgData
       }, function( err, data ){
-        console.log( 'tumblrd', `https://${ tumblrName }.tumblr.com/post/${ data.id_string }` )
+        console.log( 'tumblrd', `https://${ tumblrClient.tumblr_name }.tumblr.com/post/${ data.id_string }` )
         if ( cb ){
           cb( err, data );
         }

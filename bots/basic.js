@@ -16,6 +16,7 @@ const mastodonClient = mastodon.client( {
 } );
 
 const tumblrClient = tumblr.client( {
+  tumblr_name: process.env.BOT_1_TUMBLR_BLOG_NAME,
   consumer_key: process.env.BOT_1_TUMBLR_CONSUMER_KEY,
   consumer_secret: process.env.BOT_1_TUMBLR_CONSUMER_SECRET,
   token: process.env.BOT_1_TUMBLR_CONSUMER_TOKEN,
@@ -24,14 +25,15 @@ const tumblrClient = tumblr.client( {
 
 module.exports = {
   run: function(){
-    const text = helpers.randomFromArray( [
-      'Hello!',
-      'Hi!',
-      'Hi there!'
-    ] );
+    const title = 'New post',
+          text = helpers.randomFromArray( [
+            'Hello!',
+            'Hi!',
+            'Hi there!'
+          ] );
 
     twitter.tweet( twitterClient, text );
     mastodon.toot( mastodonClient, text );
-    
+    tumblr.post( tumblrClient, title, text );
   }
 };
