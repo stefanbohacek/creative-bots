@@ -41,9 +41,9 @@ module.exports = {
               'Hi there!'
             ] );
             
-            twitter.postImage( twitterClient, text );
-            mastodon.postImage( mastodonClient, text );
-            tumblr.postImage( tumblrClient, text );
+            twitter.postImage( twitterClient, text, imgData );
+            mastodon.postImage( mastodonClient, text, imgData );
+            tumblr.postImage( tumblrClient, text, imgData );
           }
         } );
       }
