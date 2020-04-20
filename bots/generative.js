@@ -26,21 +26,19 @@ const tumblrClient = tumblr.client( {
   token_secret: process.env.BOT_1_TUMBLR_CONSUMER_TOKEN_SECRET
 } );
 
-module.exports = {
-  run: function(){
-    const statusText = helpers.randomFromArray([
-            'Check this out!',
-            'New picture!'
-          ]),
-          options = {
-            width: 640,
-            height: 480,
-          };
+module.exports = function(){
+  const statusText = helpers.randomFromArray([
+          'Check this out!',
+          'New picture!'
+        ]),
+        options = {
+          width: 640,
+          height: 480,
+        };
 
-    generators.rain( options, function( err, image ){
-      twitter.postImage( twitter.client, statusText, image.data );
-      mastodon.postImage( mastodonClient, statusText, image.path );      
-      tumblr.postImage( tumblrClient, statusText, image.data );        
-    } );
-  }
+  generators.rain( options, function( err, image ){
+    twitter.postImage( twitter.client, statusText, image.data );
+    mastodon.postImage( mastodonClient, statusText, image.path );      
+    tumblr.postImage( tumblrClient, statusText, image.data );        
+  } );
 };

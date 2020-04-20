@@ -23,17 +23,15 @@ const tumblrClient = tumblr.client( {
   token_secret: process.env.BOT_1_TUMBLR_CONSUMER_TOKEN_SECRET
 } );
 
-module.exports = {
-  run: function(){
-    const title = 'New post',
-          text = helpers.randomFromArray( [
-            'Hello!',
-            'Hi!',
-            'Hi there!'
-          ] );
+module.exports = function(){
+  const title = 'New post',
+        text = helpers.randomFromArray( [
+          'Hello!',
+          'Hi!',
+          'Hi there!'
+        ] );
 
-    twitter.tweet( twitterClient, text );
-    mastodon.toot( mastodonClient, text );
-    tumblr.post( tumblrClient, title, text );
-  }
+  twitter.tweet( twitterClient, text );
+  mastodon.toot( mastodonClient, text );
+  tumblr.post( tumblrClient, title, text );
 };

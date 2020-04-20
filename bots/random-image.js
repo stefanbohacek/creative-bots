@@ -23,30 +23,28 @@ const tumblrClient = tumblr.client( {
   token_secret: process.env.BOT_1_TUMBLR_CONSUMER_TOKEN_SECRET
 } );
 
-module.exports = {
-  run: function(){
-    helpers.loadImageAssets( function( err, assetUrls ){
-      if ( err ){
-        console.log( err );     
-      }
-      else{
-        helpers.loadImage( helpers.randomFromArray( assetUrls ), function( err, imgData ){
-          if ( err ){
-            console.log( err );     
-          }
-          else{
-            const text = helpers.randomFromArray( [
-              'Hello!',
-              'Hi!',
-              'Hi there!'
-            ] );
-            
-            twitter.postImage( twitterClient, text, imgData );
-            mastodon.postImage( mastodonClient, text, imgData );
-            tumblr.postImage( tumblrClient, text, imgData );
-          }
-        } );
-      }
-    } );    
-  }
+module.exports = function(){
+  helpers.loadImageAssets( function( err, assetUrls ){
+    if ( err ){
+      console.log( err );     
+    }
+    else{
+      helpers.loadImage( helpers.randomFromArray( assetUrls ), function( err, imgData ){
+        if ( err ){
+          console.log( err );     
+        }
+        else{
+          const text = helpers.randomFromArray( [
+            'Hello!',
+            'Hi!',
+            'Hi there!'
+          ] );
+
+          twitter.postImage( twitterClient, text, imgData );
+          mastodon.postImage( mastodonClient, text, imgData );
+          tumblr.postImage( tumblrClient, text, imgData );
+        }
+      } );
+    }
+  } );    
 };
