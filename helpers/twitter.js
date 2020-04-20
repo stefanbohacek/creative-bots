@@ -1,8 +1,23 @@
-const helpers = require(__dirname + '/../helpers/helpers.js');
+const helpers = require(__dirname + '/../helpers/helpers.js'),
+      Twit = require( 'twit' );
 
 module.exports = {
-  tweet: function( T, text, cb ){
-    T.post( 'statuses/update', { status: text }, function( err, data, response ) {
+  client: function( keys ){
+    let twitterClient = {};
+    
+    if ( keys.consumer_key && keys.consumer_secret && keys.access_token && keys.access_token_secret ){
+      twitterClient = new Twit( {
+        consumer_key: keys.consumer_key,
+        consumer_secret: keys.consumer_secret,
+        access_token: keys.access_token,
+        access_token_secret: keys.access_token_secret
+      } );  
+    }
+    
+    return twitterClient;
+  },
+  tweet: function( twitterClient, text, cb ){
+    twitterClient.post( 'statuses/update', { status: text }, function( err, data, response ) {
       if ( data && data.id_str && data.user && data.user.screen_name ){
         console.log( 'tweeted', `https://twitter.com/${ data.user.screen_name }/status/${ data.id_str }` );
       }
@@ -14,9 +29,9 @@ module.exports = {
       }
     } );    
   },
-  postImage: function( T, text, image_base64, cb ) {
+  postImage: function( twitterClient, text, image_base64, cb ) {
 
-   T.post( 'media/upload', { media_data: image_base64 }, function ( err, data, response ) {
+   twitterClient.post( 'media/upload', { media_data: image_base64 }, function ( err, data, response ) {
       if ( err ){
         console.log( 'error:\n', err );
         if ( cb ){
@@ -25,7 +40,7 @@ module.exports = {
       }
       else{
         console.log( 'tweeting the image...' );
-        T.post( 'statuses/update', {
+        twitterClient.post( 'statuses/update', {
           status: text,
           media_ids: new Array( data.media_id_string )
         },
@@ -43,9 +58,9 @@ module.exports = {
       }
     } );
   },  
-  updateProfileImage: function( T, image_base64, cb ) {
+  updateProfileImage: function( twitterClient, image_base64, cb ) {
     console.log( 'updating profile image...' );
-    T.post( 'account/update_profile_image', {
+    twitterClient.post( 'account/update_profile_image', {
       image: image_base64
     },
     function( err, data, response ) {      
@@ -57,9 +72,9 @@ module.exports = {
       }
     } );
   },
-  deleteLastTweet: function( T, cb ){
-    console.log( 'deleting last tweet...' );
-    T.get( 'statuses/user_timeline', function( err, data, response ) {
+  deleteLastTweet: function( twitterClient, cb ){
+    console.log( 'deleting last tweetwitterClient...' );
+    twitterClient.get( 'statuses/user_timeline', function( err, data, response ) {
       if ( err ){
         if ( cb ){
           cb( err, data );
@@ -68,7 +83,7 @@ module.exports = {
       }
       if ( data && data.length > 0 ){
         let last_tweet_id = data[0].id_str;
-        T.post( `statuses/destroy/${last_tweet_id}`, { id: last_tweet_id }, function( err, data, response ) {
+        twitterClient.post( `statuses/destroy/${last_tweet_id}`, { id: last_tweet_id }, function( err, data, response ) {
           if ( cb ){
             cb( err, data );
           }

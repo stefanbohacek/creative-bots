@@ -1,7 +1,22 @@
 const fs = require( 'fs' ),
-      helpers = require(__dirname + '/../helpers/helpers.js');
+      helpers = require(__dirname + '/../helpers/helpers.js'),
+      Mastodon = require( 'mastodon' );
+
+
 
 module.exports = {
+  client: function( keys ){
+    let mastodonClient = {};
+    
+    if ( process.env.BOT_1_MASTODON_ACCESS_TOKEN && process.env.BOT_1_MASTODON_API ){
+      mastodonClient = new Mastodon( {
+       'access_token': keys.,
+       'api_url': keys.
+      } );
+    }
+    
+    return mastodonClient;
+  },
   toot: function( M, status, cb ){
     if ( !M ){
       console.error( 'please update your .env file' )
