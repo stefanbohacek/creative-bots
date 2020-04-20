@@ -23,16 +23,16 @@ let listener = app.listen( process.env.PORT, function(){
     You can also use common cron schedules inside helpers/cron-schedules.js.
   */
 
-//   ( new CronJob( cronSchedules.every_minute, function() {
+//   ( new CronJob( cronSchedules.EVERY_MINUTE, function() {
 //     bot3.run();
 //   } ) ).start();
   
   
-//   ( new CronJob( cronSchedules.every_four_hours, function() {
+//   ( new CronJob( cronSchedules.EVERY_FOUR_HOURS, function() {
 //     bot1.run();
 //   } ) ).start();
   
-//   ( new CronJob( cronSchedules.every_six_hours, function() {
+//   ( new CronJob( cronSchedules.EVERY_SIX_HOURS, function() {
 //     bot2.run();
 //   } ) ).start();
   
