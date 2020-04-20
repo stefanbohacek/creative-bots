@@ -21,8 +21,9 @@ const grant = new Grant( {
     authorize_url: 'https://www.tumblr.com/oauth/authorize',
     access_url: 'https://www.tumblr.com/oauth/access_token',
     oauth: 1,
-    key: process.env.TUMBLR_API_KEY,
-    secret: process.env.TUMBLR_API_SECRET,
+    /* Change these based on which bot you need to authenticate. */
+    key: process.env.BOT_1_TUMBLR_CONSUMER_KEY,
+    secret: process.env.BOT_1_TUMBLR_CONSUMER_SECRET,
   }
 } );
 

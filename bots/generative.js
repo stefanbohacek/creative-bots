@@ -11,7 +11,7 @@ let helpers = require(__dirname + '/../helpers/helpers.js'),
     Mastodon = require( 'mastodon' ),
     mastodonClient = null;
 
-if ( process.env.BOT_1_TWITTER_CONSUMER_KEY & process.env.BOT_1_TWITTER_CONSUMER_SECRET & process.env.BOT_1_TWITTER_ACCESS_TOKEN & process.env.BOT_1_TWITTER_ACCESS_TOKEN_SECRET ){
+if ( process.env.BOT_1_TWITTER_CONSUMER_KEY && process.env.BOT_1_TWITTER_CONSUMER_SECRET && process.env.BOT_1_TWITTER_ACCESS_TOKEN && process.env.BOT_1_TWITTER_ACCESS_TOKEN_SECRET ){
   twitterClient = new Twit( {
     consumer_key: process.env.BOT_1_TWITTER_CONSUMER_KEY,
     consumer_secret: process.env.BOT_1_TWITTER_CONSUMER_SECRET,
@@ -27,7 +27,7 @@ if ( process.env.BOT_1_MASTODON_ACCESS_TOKEN && process.env.BOT_1_MASTODON_API )
   } );
 }
 
-if ( process.env.BOT_1_TUMBLR_CONSUMER_KEY & process.env.BOT_1_TUMBLR_CONSUMER_SECRET & process.env.BOT_1_TUMBLR_CONSUMER_TOKEN & process.env.BOT_1_TUMBLR_CONSUMER_TOKEN_SECRET ){
+if ( process.env.BOT_1_TUMBLR_CONSUMER_KEY && process.env.BOT_1_TUMBLR_CONSUMER_SECRET && process.env.BOT_1_TUMBLR_CONSUMER_TOKEN && process.env.BOT_1_TUMBLR_CONSUMER_TOKEN_SECRET ){
   tumblrClient = tumblr.createClient({
     consumer_key: process.env.BOT_1_TUMBLR_CONSUMER_KEY,
     consumer_secret: process.env.BOT_1_TUMBLR_CONSUMER_SECRET,
@@ -57,12 +57,12 @@ module.exports = {
       }
 
       if ( tumblrClient ){
-        tumblr.createPhotoPost(process.env.TUMBLR_BLOG_NAME, {
+        tumblrClient.createPhotoPost( process.env.BOT_1_TUMBLR_BLOG_NAME, {
           caption: statusText,
           data64: image.data
         }, function( err, data ){
           console.log( 'tumblrd', data );
-          // console.log( 'tumblrd', `https://${ process.env.TUMBLR_BLOG_NAME }.tumblr.com/post/${ data.id_string }` )
+          console.log( 'tumblrd', `https://${ process.env.BOT_1_TUMBLR_BLOG_NAME }.tumblr.com/post/${ data.id_string }` )
         });  
       }
     } );
