@@ -33,7 +33,7 @@ module.exports = {
 
     twitter.postImage( T, status_text, image.data );
 
-    // mastodon.postImage( M, status_text, image.path );      
+    mastodon.postImage( M, status_text, image.path );      
     } );    
   }
 };

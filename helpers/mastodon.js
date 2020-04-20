@@ -65,54 +65,51 @@ module.exports = {
   },
   postImage: function( M, text, imgData, cb ) {
     function postImageFn( filePath ){
-      
+      M.post( 'media', {
+        file: fs.createReadStream( filePath )
+      }, function ( err, data, response ) {
+        if ( err ){
+          console.log( 'ERROR:\n', err );
+          if ( cb ){
+            cb( err );
+          }
+        }
+        else{
+          // console.log( data );
+          console.log( 'tooting the image...' );
+          M.post( 'statuses', {
+            status: text,
+            // media_ids: new Array( data.media_id_string )
+            media_ids: new Array( data.id )
+          },
+          function( err, data, response ) {
+            if ( err ){
+              console.log( 'ERROR:\n', err );
+              if ( cb ){
+                cb( err );
+              }
+            }
+            else{
+              console.log( 'tooted' );
+              if ( cb ){
+                cb( null, data );
+              }
+            }
+          } );
+        }
+      } );      
     }
 
+    /* Support both image file path and image data */
     if ( fs.existsSync( imgData ) ) {
       postImageFn( imgData );
     } else {
-      
+      const imgFilePath = `${__dirname}/../.data/temp-${ Date.now() }-${ helpers.getRandomInt( 1, Number.MAX_SAFE_INTEGER ) }.png`;
+      fs.writeFile( imgFilePath, imgData, 'base64', function(err) {
+        if ( !err ){
+          postImageFn( imgFilePath );
+        }
+      } );       
     }
-    
-    
-    const imgFilePath = `${__dirname}/../.data/temp-${ Date.now() }-${ helpers.getRandomInt( 1, Number.MAX_SAFE_INTEGER ) }.png`;
-
-    fs.writeFile( imgFilePath, imgData, 'base64', function(err) {
-      if ( !err ){
-        M.post( 'media', {
-          file: fs.createReadStream( imgFilePath )
-        }, function ( err, data, response ) {
-          if ( err ){
-            console.log( 'ERROR:\n', err );
-            if ( cb ){
-              cb( err );
-            }
-          }
-          else{
-            // console.log( data );
-            console.log( 'tooting the image...' );
-            M.post( 'statuses', {
-              status: text,
-              // media_ids: new Array( data.media_id_string )
-              media_ids: new Array( data.id )
-            },
-            function( err, data, response ) {
-              if ( err ){
-                console.log( 'ERROR:\n', err );
-                if ( cb ){
-                  cb( err );
-                }
-              }
-              else{
-                console.log( 'tooted' );
-                if ( cb ){
-                  cb( null, data );
-                }
-              }
-            } );
-          }
-        } );
-      }
-    } );  
   }  
 }
