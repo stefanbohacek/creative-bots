@@ -12,15 +12,30 @@ module.exports = {
     
     return tumblrClient;
   },
+  createTextPost: function( tumblrClient, tumblrName, text, imgData, cb ) {
+    if ( tumblrClient ){
+      tumblrClient.createPhotoPost( tumblrName, {
+        caption: text,
+        data64: imgData
+      }, function( err, data ){
+        console.log( 'tumblrd', `https://${ tumblrName }.tumblr.com/post/${ data.id_string }` )
+        if ( cb ){
+          cb( err, data );
+        }
+      });
+    }
+  },
   postImage: function( tumblrClient, tumblrName, text, imgData, cb ) {
-    tumblrClient.createPhotoPost( tumblrName, {
-      caption: text,
-      data64: imgData
-    }, function( err, data ){
-      console.log( 'tumblrd', `https://${ tumblrName }.tumblr.com/post/${ data.id_string }` )
-      if ( cb ){
-        cb( err, data );
-      }
-    });  
+    if ( tumblrClient ){
+      tumblrClient.createPhotoPost( tumblrName, {
+        caption: text,
+        data64: imgData
+      }, function( err, data ){
+        console.log( 'tumblrd', `https://${ tumblrName }.tumblr.com/post/${ data.id_string }` )
+        if ( cb ){
+          cb( err, data );
+        }
+      });
+    }
   }
 };

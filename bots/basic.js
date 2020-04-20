@@ -1,7 +1,4 @@
 const helpers = require(__dirname + '/../helpers/helpers.js'),
-      generators = {
-        rain: require(__dirname + '/../generators/rain.js')
-      },    
       twitter = require(__dirname + '/../helpers/twitter.js'),    
       mastodon = require(__dirname + '/../helpers/mastodon.js'), 
       tumblr = require(__dirname + '/../helpers/tumblr.js');
@@ -33,8 +30,8 @@ module.exports = {
       'Hi there!'
     ] );
 
-    twitter.postImage( twitterClient, text );
-    mastodon.postImage( mastodonClient, text );
+    twitter.tweet( twitterClient, text );
+    mastodon.toot( mastodonClient, text );
     
   }
 };
