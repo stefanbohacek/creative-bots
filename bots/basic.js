@@ -31,7 +31,7 @@ module.exports = function(){
           'Hi there!'
         ] );
 
-  twitter.tweet( text );
+  twitter.tweet( twitterClient, text );
   mastodon.toot( mastodonClient, text );
   tumblr.post( tumblrClient, title, text );
 };
