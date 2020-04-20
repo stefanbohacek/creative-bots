@@ -14,6 +14,9 @@ let bot1 = require( __dirname + '/bots/basic.js' ),
 
 app.use( express.static( 'public' ) );
 
+/* Route used to read a generated GIF. */
+app.use("/images", express.static(__dirname + "/.data/"));
+
 let listener = app.listen( process.env.PORT, function(){
   console.log( `your bot is running on port ${ listener.address().port }` );
 

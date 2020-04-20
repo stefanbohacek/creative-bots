@@ -78,8 +78,8 @@ module.exports = {
     return url.substring( url.lastIndexOf( '/' ) + 1 );
   },
   loadImage: function( url, cb ) {
-    console.log( 'loading remote image...' );
-    request( {url: url, encoding: null}, function ( err, res, body ) {
+    console.log( 'loading remote image...', url );
+    request( { url: url, encoding: null }, function ( err, res, body ) {
         if ( !err && res.statusCode == 200 ) {
           let b64content = 'data:' + res.headers['content-type'] + ';base64,';
           console.log( 'image loaded...' );

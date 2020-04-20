@@ -5,8 +5,6 @@
 const fs = require( 'fs' ),
       Canvas = require( 'canvas' ),
       GIFEncoder = require( 'gifencoder' ),
-      img_path_png = './.data/temp.png',
-      img_path_gif = './.data/temp.gif',
       helpers = require( __dirname + '/../helpers/helpers.js' );
 
 module.exports = function( options, cb ){
@@ -16,7 +14,14 @@ module.exports = function( options, cb ){
   let height = options.height || 500;
 
   let encoder = new GIFEncoder( width, height );
+  
+  const randomFileName = `${ Date.now()}-${helpers.getRandomRange( 0, 1000 ) }`;
 
+  const img_path_png = `./.data/${ randomFileName }.png`,
+        img_path_gif = `./.data/${ randomFileName }.gif`;
+  
+  console.log( 'img_path_gif', img_path_gif );
+  
   encoder.createReadStream().pipe( fs.createWriteStream( img_path_gif ) );
 
   encoder.start();
