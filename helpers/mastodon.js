@@ -2,17 +2,12 @@ const fs = require( 'fs' ),
       helpers = require(__dirname + '/../helpers/helpers.js'),
       Mastodon = require( 'mastodon' );
 
-
-
 module.exports = {
   client: function( keys ){
     let mastodonClient = {};
     
-    if ( process.env.BOT_1_MASTODON_ACCESS_TOKEN && process.env.BOT_1_MASTODON_API ){
-      mastodonClient = new Mastodon( {
-       'access_token': keys.,
-       'api_url': keys.
-      } );
+    if ( keys && keys.access_token && keys.api_url ){
+      mastodonClient = new Mastodon( keys );
     }
     
     return mastodonClient;

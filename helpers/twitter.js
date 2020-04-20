@@ -5,13 +5,8 @@ module.exports = {
   client: function( keys ){
     let twitterClient = {};
     
-    if ( keys.consumer_key && keys.consumer_secret && keys.access_token && keys.access_token_secret ){
-      twitterClient = new Twit( {
-        consumer_key: keys.consumer_key,
-        consumer_secret: keys.consumer_secret,
-        access_token: keys.access_token,
-        access_token_secret: keys.access_token_secret
-      } );  
+    if ( keys && keys.consumer_key && keys.consumer_secret && keys.access_token && keys.access_token_secret ){
+      twitterClient = new Twit( keys );  
     }
     
     return twitterClient;

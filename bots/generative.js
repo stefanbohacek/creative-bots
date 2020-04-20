@@ -4,10 +4,7 @@ const helpers = require(__dirname + '/../helpers/helpers.js'),
       },    
       twitter = require(__dirname + '/../helpers/twitter.js'),    
       mastodon = require(__dirname + '/../helpers/mastodon.js'), 
-      tumblr = require( 'tumblr.js' ),
-      tumblrClient = null,    
-      Mastodon = require( 'mastodon' ),
-      mastodonClient = null;
+      tumblr = require(__dirname + '/../helpers/tumblr.js');
 
 const twitterClient = twitter.client( {
   consumer_key: process.env.BOT_1_TWITTER_CONSUMER_KEY,
@@ -16,21 +13,17 @@ const twitterClient = twitter.client( {
   access_token_secret: process.env.BOT_1_TWITTER_ACCESS_TOKEN_SECRET
 } );
 
-// if ( process.env.BOT_1_MASTODON_ACCESS_TOKEN && process.env.BOT_1_MASTODON_API ){
-//   mastodonClient = new Mastodon( {
-//    'access_token': process.env.BOT_1_MASTODON_ACCESS_TOKEN,
-//    'api_url': process.env.BOT_1_MASTODON_API
-//   } );
-// }
+const mastodonClient = mastodon.client( {
+   access_token: process.env.BOT_1_MASTODON_ACCESS_TOKEN,
+   api_url: process.env.BOT_1_MASTODON_API
+} );
 
-// if ( process.env.BOT_1_TUMBLR_CONSUMER_KEY && process.env.BOT_1_TUMBLR_CONSUMER_SECRET && process.env.BOT_1_TUMBLR_CONSUMER_TOKEN && process.env.BOT_1_TUMBLR_CONSUMER_TOKEN_SECRET ){
-//   tumblrClient = tumblr.createClient({
-//     consumer_key: process.env.BOT_1_TUMBLR_CONSUMER_KEY,
-//     consumer_secret: process.env.BOT_1_TUMBLR_CONSUMER_SECRET,
-//     token: process.env.BOT_1_TUMBLR_CONSUMER_TOKEN,
-//     token_secret: process.env.BOT_1_TUMBLR_CONSUMER_TOKEN_SECRET
-//   });
-// }
+const tumblrClient = tumblr.client( {
+  consumer_key: process.env.BOT_1_TUMBLR_CONSUMER_KEY,
+  consumer_secret: process.env.BOT_1_TUMBLR_CONSUMER_SECRET,
+  token: process.env.BOT_1_TUMBLR_CONSUMER_TOKEN,
+  token_secret: process.env.BOT_1_TUMBLR_CONSUMER_TOKEN_SECRET
+} );
 
 module.exports = {
   run: function(){
@@ -44,23 +37,9 @@ module.exports = {
           };
 
     generators.rain( options, function( err, image ){
-      if ( twitterClient ){
-        twitter.postImage( twitter.client, statusText, image.data );
-      }
-
-      if ( mastodonClient ){
-        mastodon.postImage( mastodonClient, statusText, image.path );      
-      }
-
-      if ( tumblrClient ){
-        tumblrClient.createPhotoPost( process.env.BOT_1_TUMBLR_BLOG_NAME, {
-          caption: statusText,
-          data64: image.data
-        }, function( err, data ){
-          console.log( 'tumblrd', data );
-          console.log( 'tumblrd', `https://${ process.env.BOT_1_TUMBLR_BLOG_NAME }.tumblr.com/post/${ data.id_string }` )
-        });  
-      }
+      twitter.postImage( twitter.client, statusText, image.data );
+      mastodon.postImage( mastodonClient, statusText, image.path );      
+      tumblr.postImage( tumblrClient, process.env.BOT_1_TUMBLR_BLOG_NAME, statusText, image.data );        
     } );
   }
 };
