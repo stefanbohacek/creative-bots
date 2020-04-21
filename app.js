@@ -43,7 +43,6 @@ app.use( grant );
 
 app.use( '/images', express.static( __dirname + '/.data/' ) );
 
-
 app.get( '/', function( req, res ) {
   if ( req.session && req.session.grant ) {
     if ( req.session.grant.response ){
@@ -51,7 +50,6 @@ app.get( '/', function( req, res ) {
     }
   }
   res.sendFile( __dirname + '/views/index.html' );
-
 } );
 
 app.get( '/connect-tumblr', function( req, res ) {
