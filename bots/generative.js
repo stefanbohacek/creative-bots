@@ -3,7 +3,7 @@ const helpers = require(__dirname + '/../helpers/helpers.js'),
         rain: require(__dirname + '/../generators/rain.js')
       },    
       TwitterClient = require(__dirname + '/../helpers/twitter.js'),    
-      mastodon = require(__dirname + '/../helpers/mastodon.js'), 
+      mastodonClient = require(__dirname + '/../helpers/mastodon.js'), 
       tumblr = require(__dirname + '/../helpers/tumblr.js');
 
 const twitter = new TwitterClient( {
@@ -13,7 +13,7 @@ const twitter = new TwitterClient( {
   access_token_secret: process.env.BOT_1_TWITTER_ACCESS_TOKEN_SECRET
 } );
 
-const mastodonClient = mastodon.client( {
+const mastodon = new mastodonClient( {
    access_token: process.env.BOT_1_MASTODON_ACCESS_TOKEN,
    api_url: process.env.BOT_1_MASTODON_API
 } );
@@ -38,7 +38,7 @@ module.exports = function(){
 
   generators.rain( options, function( err, image ){
     twitter.postImage( statusText, image.data );
-    mastodon.postImage( mastodonClient, statusText, image.path );      
+    mastodon.postImage( statusText, image.path );      
     tumblr.postImage( tumblrClient, statusText, image.data );        
   } );
 };

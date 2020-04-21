@@ -1,6 +1,6 @@
 const helpers = require(__dirname + '/../helpers/helpers.js'),
       TwitterClient = require(__dirname + '/../helpers/twitter.js'),    
-      mastodon = require(__dirname + '/../helpers/mastodon.js'), 
+      mastodonClient = require(__dirname + '/../helpers/mastodon.js'), 
       tumblr = require(__dirname + '/../helpers/tumblr.js');
 
 const twitter = new TwitterClient( {
@@ -10,7 +10,7 @@ const twitter = new TwitterClient( {
   access_token_secret: process.env.BOT_1_TWITTER_ACCESS_TOKEN_SECRET
 } );
 
-const mastodonClient = mastodon.client( {
+const mastodon = new mastodonClient( {
    access_token: process.env.BOT_1_MASTODON_ACCESS_TOKEN,
    api_url: process.env.BOT_1_MASTODON_API
 } );
@@ -41,7 +41,7 @@ module.exports = function(){
           ] );
 
           twitter.postImage( text, imgData );
-          mastodon.postImage( mastodonClient, text, imgData );
+          mastodon.postImage( text, imgData );
           tumblr.postImage( tumblrClient, text, imgData );
         }
       } );
