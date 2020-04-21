@@ -2,11 +2,11 @@ const helpers = require(__dirname + '/../helpers/helpers.js'),
       generators = {
         rain: require(__dirname + '/../generators/rain.js')
       },    
-      twitter = require(__dirname + '/../helpers/twitter.js'),    
+      TwitterClient = require(__dirname + '/../helpers/twitter.js'),    
       mastodon = require(__dirname + '/../helpers/mastodon.js'), 
       tumblr = require(__dirname + '/../helpers/tumblr.js');
 
-const twitterClient = twitter.client( {
+const twitter = new TwitterClient( {
   consumer_key: process.env.BOT_1_TWITTER_CONSUMER_KEY,
   consumer_secret: process.env.BOT_1_TWITTER_CONSUMER_SECRET,
   access_token: process.env.BOT_1_TWITTER_ACCESS_TOKEN,
@@ -37,7 +37,7 @@ module.exports = function(){
         };
 
   generators.rain( options, function( err, image ){
-    twitter.postImage( twitter.client, statusText, image.data );
+    twitter.postImage( statusText, image.data );
     mastodon.postImage( mastodonClient, statusText, image.path );      
     tumblr.postImage( tumblrClient, statusText, image.data );        
   } );

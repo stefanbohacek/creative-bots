@@ -1,38 +1,37 @@
 const helpers = require(__dirname + '/../helpers/helpers.js'),
       Twit = require( 'twit' );
 
+class TwitterClient {
+  constructor( keys ) {
+    let twitterClientInstance = {};
 
-
-
-module.exports = {
-  client: function( keys ){
-    let twitterClient = {};
-    
     if ( keys && keys.consumer_key && keys.consumer_secret && keys.access_token && keys.access_token_secret ){
-      twitterClient = new Twit( keys );  
+      twitterClientInstance = new Twit( keys );  
+    } else {
+      console.log( 'missing Twitter API keys' );
     }
     
-    return twitterClient;
-  },
-  tweet: function( twitterClient, text, cb ){
-    if ( twitterClient ){
+    this.client = twitterClientInstance;
+  }
+  tweet( text, cb ) {
       console.log( 'tweeting...' );
-      twitterClient.post( 'statuses/update', { status: text }, function( err, data, response ) {
-        if ( data && data.id_str && data.user && data.user.screen_name ){
-          console.log( 'tweeted', `https://twitter.com/${ data.user.screen_name }/status/${ data.id_str }` );
-        }
-        if ( err ){
-          console.log( 'Twitter API error', err );
-        }
-        if ( cb ){
-          cb( err, data );
-        }
-      } );        
-    }
-  },
-  postImage: function( twitterClient, text, image_base64, cb ) {
-    if ( twitterClient ){
-      twitterClient.post( 'media/upload', { media_data: image_base64 }, function ( err, data, response ) {
+      if ( this.client ){
+        this.client.post( 'statuses/update', { status: text }, function( err, data, response ) {
+          if ( data && data.id_str && data.user && data.user.screen_name ){
+            console.log( 'tweeted', `https://twitter.com/${ data.user.screen_name }/status/${ data.id_str }` );
+          }
+          if ( err ){
+            console.log( 'Twitter API error', err );
+          }
+          if ( cb ){
+            cb( err, data );
+          }
+        } );
+      }
+  }
+  postImage( text, image_base64, cb ){
+    if ( this.client ){
+      this.client.post( 'media/upload', { media_data: image_base64 }, function ( err, data, response ) {
         if ( err ){
           console.log( 'error:\n', err );
           if ( cb ){
@@ -41,7 +40,7 @@ module.exports = {
         }
         else{
           console.log( 'tweeting the image...' );
-          twitterClient.post( 'statuses/update', {
+          this.client.post( 'statuses/update', {
             status: text,
             media_ids: new Array( data.media_id_string )
           },
@@ -57,13 +56,13 @@ module.exports = {
             }
           } );
         }
-      } );      
+      } ); 
     }
-  },  
-  updateProfileImage: function( twitterClient, image_base64, cb ) {
-    if ( twitterClient ){
+  }
+  updateProfileImage( image_base64, cb ){
+    if ( this.client ){
       console.log( 'updating profile image...' );
-      twitterClient.post( 'account/update_profile_image', {
+      this.client.post( 'account/update_profile_image', {
         image: image_base64
       }, function( err, data, response ) {
         if ( err ){
@@ -72,13 +71,13 @@ module.exports = {
         if ( cb ){
           cb( err, data );
         }
-      } );      
+      } );
     }
-  },
-  deleteLastTweet: function( twitterClient, cb ){
-    if ( twitterClient ){
-      console.log( 'deleting last tweetwitterClient...' );
-      twitterClient.get( 'statuses/user_timeline', function( err, data, response ) {
+  }
+  deleteLastTweet( cb ){
+    if ( this.client ){
+      console.log( 'deleting last tweethis.client...' );
+      this.client.get( 'statuses/user_timeline', function( err, data, response ) {
         if ( err ){
           if ( cb ){
             cb( err, data );
@@ -87,7 +86,7 @@ module.exports = {
         }
         if ( data && data.length > 0 ){
           let last_tweet_id = data[0].id_str;
-          twitterClient.post( `statuses/destroy/${last_tweet_id}`, { id: last_tweet_id }, function( err, data, response ) {
+          this.client.post( `statuses/destroy/${last_tweet_id}`, { id: last_tweet_id }, function( err, data, response ) {
             if ( cb ){
               cb( err, data );
             }
@@ -97,7 +96,9 @@ module.exports = {
             cb( err, data );
           }
         }
-      } );      
-    }
-  }  
-};
+      } );  
+    }      
+  }
+}
+
+module.exports = TwitterClient;

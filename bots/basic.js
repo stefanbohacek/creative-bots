@@ -1,9 +1,9 @@
 const helpers = require(__dirname + '/../helpers/helpers.js'),
-      twitter = require(__dirname + '/../helpers/twitter.js'),    
+      TwitterClient = require(__dirname + '/../helpers/twitter.js'),    
       mastodon = require(__dirname + '/../helpers/mastodon.js'), 
       tumblr = require(__dirname + '/../helpers/tumblr.js');
 
-const twitterClient = twitter.client( {
+const twitter = new TwitterClient( {
   consumer_key: process.env.BOT_1_TWITTER_CONSUMER_KEY,
   consumer_secret: process.env.BOT_1_TWITTER_CONSUMER_SECRET,
   access_token: process.env.BOT_1_TWITTER_ACCESS_TOKEN,
@@ -31,7 +31,7 @@ module.exports = function(){
           'Hi there!'
         ] );
 
-  twitter.tweet( twitterClient, text );
+  twitter.tweet( text );
   mastodon.toot( mastodonClient, text );
   tumblr.post( tumblrClient, title, text );
 };
