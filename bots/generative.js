@@ -1,6 +1,18 @@
 const helpers = require(__dirname + '/../helpers/helpers.js'),
       generators = {
-        rain: require(__dirname + '/../generators/rain.js')
+        rain: require(__dirname + '/../generators/rain.js'),
+        // circle_packing: require(__dirname + '/../generators/circle-packing.js'),
+        // cubic_disarray: require(__dirname + '/../generators/cubic-disarray.js'),
+        // glitch: require(__dirname + '/../generators/glitch.js'),
+        // joy_division: require(__dirname + '/../generators/joy-division.js'),
+        // overlay: require(__dirname + '/../generators/overlay.js'),
+        // gradient: require(__dirname + '/../generators/gradient.js'),
+        // // pixel_sorter: require(__dirname + '/../generators/pixel-sorter.js'),
+        // // gif: require(__dirname + '/../generators/gif.js') ,
+        // gradient: require(__dirname + '/../generators/gradient.js'),
+        // tiled_lines: require(__dirname + '/../generators/tiled-lines.js'),
+        // triangular_mesh: require(__dirname + '/../generators/triangular-mesh.js'),
+        // un_deux_trois: require(__dirname + '/../generators/un-deux-trois.js')
       },    
       TwitterClient = require(__dirname + '/../helpers/twitter.js'),    
       mastodonClient = require(__dirname + '/../helpers/mastodon.js'), 

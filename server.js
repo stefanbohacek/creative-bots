@@ -21,9 +21,7 @@ let listener = app.listen( process.env.PORT, function(){
     You can also use common cron schedules defined inside helpers/cron-schedules.js.
   */
 
-  ( new CronJob( cronSchedules.EVERY_THIRTY_SECONDS, function() {
-    bot2();
-  } ) ).start();
-  
-  
+  // ( new CronJob( cronSchedules.EVERY_THIRTY_SECONDS, function() {
+  //   bot1();
+  // } ) ).start();
 } );

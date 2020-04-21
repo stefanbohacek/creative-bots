@@ -1,7 +1,7 @@
 const fs = require( 'fs' ),
       Canvas = require( 'canvas' ),
       img_path_png = './.data/temp.png',
-      helpers = require( __dirname + '/../helpers.js' );
+      helpers = require( __dirname + '/../helpers/helpers.js' );
 
 module.exports = function( options, cb ) {
   /* 
