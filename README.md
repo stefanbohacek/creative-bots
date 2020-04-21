@@ -1,7 +1,5 @@
 # Creative bots
 
-[WORK IN PROGRESS]
-
 ![Tweetin'](https://cdn.gomix.com/4032b241-bff8-473e-aa6b-eb0c92a4bd06%2Ftweeting.gif)
 
 This is a template for making creative online bots with [Glitch](https://glitch.com/). It requires a [paid Glitch account](https://glitch.com/pricing). 
