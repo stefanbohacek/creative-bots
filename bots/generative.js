@@ -4,7 +4,7 @@ const helpers = require(__dirname + '/../helpers/helpers.js'),
       },    
       TwitterClient = require(__dirname + '/../helpers/twitter.js'),    
       mastodonClient = require(__dirname + '/../helpers/mastodon.js'), 
-      tumblr = require(__dirname + '/../helpers/tumblr.js');
+      tumblrClient = require(__dirname + '/../helpers/tumblr.js');
 
 const twitter = new TwitterClient( {
   consumer_key: process.env.BOT_1_TWITTER_CONSUMER_KEY,
@@ -18,7 +18,7 @@ const mastodon = new mastodonClient( {
    api_url: process.env.BOT_1_MASTODON_API
 } );
 
-const tumblrClient = tumblr.client( {
+const tumblr = new tumblrClient( {
   tumblr_name: process.env.BOT_1_TUMBLR_BLOG_NAME,  
   consumer_key: process.env.BOT_1_TUMBLR_CONSUMER_KEY,
   consumer_secret: process.env.BOT_1_TUMBLR_CONSUMER_SECRET,
@@ -39,6 +39,6 @@ module.exports = function(){
   generators.rain( options, function( err, image ){
     twitter.postImage( statusText, image.data );
     mastodon.postImage( statusText, image.path );      
-    tumblr.postImage( tumblrClient, statusText, image.data );        
+    tumblr.postImage( statusText, image.data );        
   } );
 };

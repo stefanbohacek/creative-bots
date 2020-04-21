@@ -18,7 +18,7 @@ class MastodonClient {
       console.log( 'tweeting...' );
       if ( this.client ){
         console.log( 'tooting...' );
-        this.client.post( 'statuses', { status: status }, function( err, data, response ) {
+        this.client.post( 'statuses', { status: text }, function( err, data, response ) {
           if ( err ){
             console.log( 'mastodon.toot error:', err );
           } else {

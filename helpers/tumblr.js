@@ -1,44 +1,47 @@
 const fs = require( 'fs' ),
       helpers = require(__dirname + '/../helpers/helpers.js'),
       tumblr = require( 'tumblr.js' );
-      
-module.exports = {
-  client: function( keys ){
-    let tumblrClient = {};
-    
+
+class TumblrClient {
+  constructor( keys ) {
+    let tumblrClientInstance = {};
+
     if ( keys && keys.consumer_key && keys.consumer_secret && keys.token && keys.token_secret ){
-      tumblrClient = tumblr.createClient( keys );
-      tumblrClient.tumblr_name = keys.tumblr_name;
+      tumblrClientInstance = tumblr.createClient( keys );
+      tumblrClientInstance.tumblr_name = keys.tumblr_name;
+    } else {
+      console.log( 'missing Tumblr API keys and/or blog name' );
     }
-    
-    return tumblrClient;
-  },
-  post: function( tumblrClient, title, body, cb ) {
-    if ( tumblrClient ){
+    this.client = tumblrClientInstance;
+  }
+  post( title, body, cb ) {
+    if ( this.client ){
       console.log( 'tumblring...' );
-      tumblrClient.createTextPost( tumblrClient.tumblr_name, {
+      this.client.createTextPost( this.tumblr_name, {
         title: title,
         body: body
       }, function( err, data ){
-        console.log( 'tumblrd', `https://${ tumblrClient.tumblr_name }.tumblr.com/post/${ data.id_string }` )
+        console.log( 'tumblrd', `https://${ this.tumblr_name }.tumblr.com/post/${ data.id_string }` )
         if ( cb ){
           cb( err, data );
         }
-      });
+      });  
     }
-  },
-  postImage: function( tumblrClient, text, imgData, cb ) {
-    if ( tumblrClient ){
+  }
+  postImage( text, imageBase64, cb ){
+    if ( this.client ){
       console.log( 'tumblring...' );
-      tumblrClient.createPhotoPost( tumblrClient.tumblr_name, {
+      this.client.createPhotoPost( this.tumblr_name, {
         caption: text,
-        data64: imgData
+        data64: imageBase64
       }, function( err, data ){
-        console.log( 'tumblrd', `https://${ tumblrClient.tumblr_name }.tumblr.com/post/${ data.id_string }` )
+        console.log( 'tumblrd', `https://${ this.tumblr_name }.tumblr.com/post/${ data.id_string }` )
         if ( cb ){
           cb( err, data );
         }
       });
     }
   }
-};
+}
+
+module.exports = TumblrClient;
