@@ -112,5 +112,12 @@ module.exports = {
     request.head( uri, function( err, res, body ){
       request( uri ).pipe( fs.createWriteStream( filename ) ).on( 'close', cb );
     } );
+  },
+  removeFile: function( filePath ){
+    setTimeout( function(){
+      if ( fs.existsSync( filePath ) ){
+        fs.unlinkSync( filePath );
+      }
+    }, 30000 );
   }
 };

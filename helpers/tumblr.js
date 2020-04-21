@@ -16,12 +16,14 @@ class TumblrClient {
   }
   post( title, body, cb ) {
     if ( this.client ){
+      let client = this.client;
+      
       console.log( 'tumblring...' );
-      this.client.createTextPost( this.tumblr_name, {
+      this.client.createTextPost( this.client.tumblr_name, {
         title: title,
         body: body
       }, function( err, data ){
-        console.log( 'tumblrd', `https://${ this.tumblr_name }.tumblr.com/post/${ data.id_string }` )
+        console.log( 'tumblrd', `https://${ client.tumblr_name }.tumblr.com/post/${ data.id_string }` )
         if ( cb ){
           cb( err, data );
         }
@@ -30,12 +32,14 @@ class TumblrClient {
   }
   postImage( text, imageBase64, cb ){
     if ( this.client ){
+      let client = this.client;
+      
       console.log( 'tumblring...' );
-      this.client.createPhotoPost( this.tumblr_name, {
+      this.client.createPhotoPost( this.client.tumblr_name, {
         caption: text,
         data64: imageBase64
       }, function( err, data ){
-        console.log( 'tumblrd', `https://${ this.tumblr_name }.tumblr.com/post/${ data.id_string }` )
+        console.log( 'tumblrd', `https://${ client.tumblr_name }.tumblr.com/post/${ data.id_string }` )
         if ( cb ){
           cb( err, data );
         }

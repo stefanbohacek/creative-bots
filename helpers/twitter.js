@@ -31,6 +31,8 @@ class TwitterClient {
   }
   postImage( text, image_base64, cb ){
     if ( this.client ){
+      let client = this.client;
+      
       this.client.post( 'media/upload', { media_data: image_base64 }, function ( err, data, response ) {
         if ( err ){
           console.log( 'error:\n', err );
@@ -40,7 +42,7 @@ class TwitterClient {
         }
         else{
           console.log( 'tweeting the image...' );
-          this.client.post( 'statuses/update', {
+          client.post( 'statuses/update', {
             status: text,
             media_ids: new Array( data.media_id_string )
           },

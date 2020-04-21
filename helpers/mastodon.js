@@ -73,8 +73,10 @@ class MastodonClient {
   }
   postImage( text, image_base64, cb ){
     if ( this.client ){
-      function postImageFn( filePath ){
-        this.client.post( 'media', {
+      let client = this.client;
+      
+      function postImageFn( client, filePath ){
+        client.post( 'media', {
           file: fs.createReadStream( filePath )
         }, function ( err, data, response ) {
           if ( err ){
@@ -85,7 +87,7 @@ class MastodonClient {
           }
           else{
             console.log( 'tooting the image...' );
-            this.client.post( 'statuses', {
+            client.post( 'statuses', {
               status: text,
               // media_ids: new Array( data.media_id_string )
               media_ids: new Array( data.id )
@@ -97,8 +99,8 @@ class MastodonClient {
                 console.log( 'tooted', data.url );
               }
 
-              fs.unlink( filePath );
-
+              helpers.removeFile( filePath );
+              
               if ( cb ){
                 cb( err, data );
               }
@@ -110,12 +112,12 @@ class MastodonClient {
 
       /* Support both image file path and image data */
       if ( fs.existsSync( image_base64 ) ) {
-        postImageFn( image_base64 );
+        postImageFn( client, image_base64 );
       } else {
         const imgFilePath = `${__dirname}/../.data/temp-${ Date.now() }-${ helpers.getRandomInt( 1, Number.MAX_SAFE_INTEGER ) }.png`;
         fs.writeFile( imgFilePath, image_base64, 'base64', function(err) {
           if ( !err ){
-            postImageFn( imgFilePath );
+            postImageFn( client, imgFilePath );
           }
         } );
       }  

@@ -22,7 +22,7 @@ let listener = app.listen( process.env.PORT, function(){
   */
 
   ( new CronJob( cronSchedules.EVERY_THIRTY_SECONDS, function() {
-    bot1();
+    bot2();
   } ) ).start();
   
   
