@@ -1,5 +1,6 @@
 const helpers = require(__dirname + '/../helpers/helpers.js'),
       generators = {
+        pixelate: require(__dirname + '/../generators/pixelate.js'),        
         rain: require(__dirname + '/../generators/rain.js'),
         // circle_packing: require(__dirname + '/../generators/circle-packing.js'),
         // cubic_disarray: require(__dirname + '/../generators/cubic-disarray.js'),
