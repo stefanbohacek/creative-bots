@@ -1,5 +1,5 @@
 const helpers = require(__dirname + '/../helpers/helpers.js'),
-      socrata = require(__dirname + '/../helpers/socrata.js'),
+      windyAPI = require(__dirname + '/../helpers/windy.js'),
       TwitterClient = require(__dirname + '/../helpers/twitter.js'),    
       mastodonClient = require(__dirname + '/../helpers/mastodon.js'), 
       tumblrClient = require(__dirname + '/../helpers/tumblr.js');
@@ -25,27 +25,27 @@ const twitter = new TwitterClient( {
 // } );
 
 module.exports = function(){
-  socrata.getRandomDataSet( {
-    domain: 'data.cityofnewyork.us',
-    offset: 0,
-    limit: 10000,
-    // dataTypes: ['tabular', 'geo']
-    dataTypes: ['geo'],
-    onlyPreview: true
-  }, function( err, dataset ){
-      console.log( {
-        'resource name': dataset.resource.name,
-        'resource description': dataset.resource.description,
-        // 'dataset.resource.id': dataset.resource.id,
-        // 'dataset.resource.lens_view_type': dataset.resource.lens_view_type,
-        'preview_image_url': dataset.preview_image_url,
-        'link': dataset.link,
-        // 'dataset': dataset
-      } );
+  
+  const location = {
+    /*
+      Latitude and longitude of your city. 
+      You can use https://www.latlong.net/convert-address-to-lat-long.html to get this information for your city.
+    */
+    lat: 40.712776,
+    long: -74.005974,
+    radius: 15 /* search for webcams in a 15 mile radius from the specified location */
+  };
 
-      const text = `${ dataset.resource.name } ${ dataset.link } #nyc #opendata` ;
+  windyAPI.getWebcamPicture( location, function( err, data ){
 
-      helpers.loadImage( dataset.preview_image_url, function( err, imgData ){
+    if ( data && data.title && data.location){
+      const webcamTitle = data.title;
+      const windyWebcamUrl = `https://www.windy.com/-Webcams/United-States/Minnesota/Delhi/New-York/webcams/${data.id}`;
+      const googleMapsUrl = `https://www.google.com/maps/search/${data.location.latitude},${data.location.longitude}`;
+
+      let text = `${webcamTitle}\n${windyWebcamUrl}\n${googleMapsUrl}`;
+
+      helpers.loadImage( data.image.current.preview, function( err, imgData ){
         if ( err ){
           console.log( err );     
         }
@@ -54,7 +54,7 @@ module.exports = function(){
           // mastodon.postImage( text, imgData );
           // tumblr.postImage( text, imgData );
         }
-      } );        
+      } ); 
+    }
   } );  
-  
 };

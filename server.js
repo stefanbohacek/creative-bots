@@ -10,7 +10,9 @@ const path = require( 'path' ),
 
 let bot1 = require( __dirname + '/bots/basic.js' ),
     bot2 = require( __dirname + '/bots/random-image.js' ),
-    bot3 = require( __dirname + '/bots/generative.js' );
+    bot3 = require( __dirname + '/bots/generative.js' ),
+    bot4 = require( __dirname + '/bots/api-windy.js' ),
+    bot5 = require( __dirname + '/bots/api-socrata.js' );
 
 let listener = app.listen( process.env.PORT, function(){
   console.log( `your bot is running on port ${ listener.address().port }` );
@@ -21,7 +23,7 @@ let listener = app.listen( process.env.PORT, function(){
     You can also use common cron schedules defined inside helpers/cron-schedules.js.
   */
 
-  // ( new CronJob( cronSchedules.EVERY_THIRTY_SECONDS, function() {
-  //   bot1();
-  // } ) ).start();
+  ( new CronJob( cronSchedules.EVERY_THIRTY_SECONDS, function() {
+    bot4();
+  } ) ).start();
 } );
