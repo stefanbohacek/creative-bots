@@ -25,7 +25,6 @@ const twitter = new TwitterClient( {
 // } );
 
 module.exports = function(){
-  
   const location = {
     /*
       Latitude and longitude of your city. 
@@ -35,10 +34,12 @@ module.exports = function(){
     long: -74.005974,
     radius: 15 /* search for webcams in a 15 mile radius from the specified location */
   };
-
+  console.log( location );
+  
   windyAPI.getWebcamPicture( location, function( err, data ){
 
     if ( data && data.title && data.location){
+      console.log( data )
       const webcamTitle = data.title;
       const windyWebcamUrl = `https://www.windy.com/-Webcams/United-States/Minnesota/Delhi/New-York/webcams/${data.id}`;
       const googleMapsUrl = `https://www.google.com/maps/search/${data.location.latitude},${data.location.longitude}`;
