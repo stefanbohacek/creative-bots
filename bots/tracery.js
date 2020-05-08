@@ -1,8 +1,13 @@
+/* Based on https://glitch.com/edit/#!/tracery-twitter-bot */
+
 const helpers = require(__dirname + '/../helpers/helpers.js'),
-      socrata = require(__dirname + '/../helpers/socrata.js'),
+      tracery = require('tracery-grammar'),
+      rawGrammar = require(__dirname + '/../tracery-grammar/directions.json'),    
+      processedGrammar = tracery.createGrammar( rawGrammar ),
       TwitterClient = require(__dirname + '/../helpers/twitter.js'),    
       mastodonClient = require(__dirname + '/../helpers/mastodon.js'), 
       tumblrClient = require(__dirname + '/../helpers/tumblr.js');
+
 
 const twitter = new TwitterClient( {
   consumer_key: process.env.BOT_1_TWITTER_CONSUMER_KEY,
@@ -25,26 +30,10 @@ const tumblr = new tumblrClient( {
 } );
 
 module.exports = function(){
-  socrata.getRandomDataSet( {
-    domain: 'data.cityofnewyork.us',
-    offset: 0,
-    limit: 10000,
-    // dataTypes: ['tabular', 'geo']
-    dataTypes: ['geo'],
-    onlyPreview: true
-  }, function( err, dataset ){
-      const text = `${ dataset.resource.name } ${ dataset.link } #nyc #opendata` ;
+  const title = 'New post',
+        text = processedGrammar.flatten( '#origin#' );
 
-      helpers.loadImage( dataset.preview_image_url, function( err, imgData ){
-        if ( err ){
-          console.log( err );     
-        }
-        else{
-          twitter.postImage( text, imgData );
-          mastodon.postImage( text, imgData );
-          tumblr.postImage( text, imgData );
-        }
-      } );        
-  } );  
-  
+  twitter.tweet( text );
+  mastodon.toot( text );
+  tumblr.post( title, text );
 };

@@ -23,7 +23,8 @@
     "express-session": "^1.17.1",
     "memorystore": "^1.6.2",
     "tumblr.js": "^2.0.0",
-    "grant-express": "^4.7.0"
+    "grant-express": "^4.7.0",
+    "tracery-grammar": "^2.7.4"
   },
   "engines": {
     "node": "12.x"
