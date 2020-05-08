@@ -85,6 +85,16 @@ module.exports = function(){
       /* Set up the chart.js options, see chartjs.org for documentation. */
 
       const chartJsOptions = {
+          plugins: {
+            beforeDraw: function ( chart, easing ) {
+              var ctx = chart.chart.ctx;
+              ctx.save();
+              ctx.fillStyle = '#ffffff';
+              ctx.fillRect( 0, 0, chart.width, chart.height );
+              ctx.restore(  );
+            }
+          },
+        
           type: 'bar',
           data: {
               labels: data.map( function( item ){
@@ -147,18 +157,7 @@ module.exports = function(){
             twitter.postImage( text, imgData );
             mastodon.postImage( text, imgData );
             tumblr.postImage( text, imgData );
-            
-            return chartNode.getImageStream( 'image/png' );
-        } )
-        .then( streamResult => {
-            // streamResult.stream
-            // streamResult.length
-
-            // return chartNode.writeImageToFile( 'image/png', './chart.png' );
-        } )
-        .then( () => {
-            // ./chart.png
-        } );    
+        } );   
     }
   } );
 };
