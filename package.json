@@ -29,7 +29,7 @@
     "chartjs-node": "^1.7.1"
   },
   "engines": {
-    "node": "12.x"
+    "node": "13.x"
   },
   "repository": {
     "url": ""
