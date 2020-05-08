@@ -132,18 +132,33 @@ module.exports = function(){
             return chartNode.getImageBuffer( 'image/png' );
         } )
         .then( buffer => {
-          const text = helpers.randomFromArray( [
-            'The last 100 bills in the US government, analyzed!',
-            'Looking at the last 100 bills in the US government.',
-            'The last 100 bills in one chart!',
-            'Analyzing the last 100 bills in the US government.',
-            'Breaking down the last 100 bills in the US government.'
-          ] );
+            Array.isArray( buffer )
 
-          twitter.postImage( text, buffer );
-          mastodon.postImage( text, buffer );
-          tumblr.postImage( text, buffer );
-      } );
+            const text = helpers.randomFromArray( [
+              'The last 100 bills in the US government, analyzed!',
+              'Looking at the last 100 bills in the US government.',
+              'The last 100 bills in one chart!',
+              'Analyzing the last 100 bills in the US government.',
+              'Breaking down the last 100 bills in the US government.'
+            ] );
+
+            const imgData = `data:image/png;base64,${ buffer.toString( 'base64' ) }`;
+
+            twitter.postImage( text, imgData );
+            mastodon.postImage( text, imgData );
+            tumblr.postImage( text, imgData );
+            
+            return chartNode.getImageStream( 'image/png' );
+        } )
+        .then( streamResult => {
+            // streamResult.stream
+            // streamResult.length
+
+            // return chartNode.writeImageToFile( 'image/png', './chart.png' );
+        } )
+        .then( () => {
+            // ./chart.png
+        } );    
     }
   } );
 };
