@@ -24,7 +24,9 @@
     "memorystore": "^1.6.2",
     "tumblr.js": "^2.0.0",
     "grant-express": "^4.7.0",
-    "tracery-grammar": "^2.7.4"
+    "tracery-grammar": "^2.7.4",
+    "chart.js": "^2.9.3",
+    "chartjs-node": "^1.7.1"
   },
   "engines": {
     "node": "12.x"
