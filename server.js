@@ -29,7 +29,7 @@ let listener = app.listen( process.env.PORT, function(){
   //   bot1();
   // } ) ).start();
 
-  ( new CronJob( cronSchedules.EVERY_THIRTY_SECONDS, function() {
-    bot7();
-  } ) ).start();
+  // ( new CronJob( cronSchedules.EVERY_THIRTY_SECONDS, function() {
+  //   bot7();
+  // } ) ).start();
 } );
