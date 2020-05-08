@@ -142,8 +142,8 @@ module.exports = function(){
               'Breaking down the last 100 bills in the US government.'
             ] );
 
-            const imgData = `data:image/png;base64,${ buffer.toString( 'base64' ) }`;
-
+            const imgData = buffer.toString( 'base64' );
+        
             twitter.postImage( text, imgData );
             mastodon.postImage( text, imgData );
             tumblr.postImage( text, imgData );
