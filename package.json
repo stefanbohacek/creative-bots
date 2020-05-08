@@ -26,7 +26,8 @@
     "grant-express": "^4.7.0",
     "tracery-grammar": "^2.7.4",
     "chart.js": "^2.9.3",
-    "chartjs-node": "^1.7.1"
+    "chartjs-node": "^1.7.1",
+    "jsdom": "^16.2.2"
   },
   "engines": {
     "node": "13.x"
