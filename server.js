@@ -13,7 +13,8 @@ let bot1 = require( __dirname + '/bots/basic.js' ),
     bot3 = require( __dirname + '/bots/generative.js' ),
     bot4 = require( __dirname + '/bots/api-windy.js' ),
     bot5 = require( __dirname + '/bots/api-socrata.js' ),
-    bot6 = require( __dirname + '/bots/tracery.js' );
+    bot6 = require( __dirname + '/bots/tracery.js' ),
+    bot7 = require( __dirname + '/bots/charts.js' );
 
 let listener = app.listen( process.env.PORT, function(){
   console.log( `your bot is running on port ${ listener.address().port }` );
@@ -28,7 +29,7 @@ let listener = app.listen( process.env.PORT, function(){
   //   bot1();
   // } ) ).start();
 
-  // ( new CronJob( cronSchedules.EVERY_FIVE_SECONDS, function() {
-  //   bot6();
-  // } ) ).start();
+  ( new CronJob( cronSchedules.EVERY_THIRTY_SECONDS, function() {
+    bot7();
+  } ) ).start();
 } );
