@@ -2,7 +2,7 @@
 
 \*\*\****work in progress -- join [botmakers.org](https://botmakers.org/) to help\*\*\****
 
-![Tweetin'](https://cdn.gomix.com/4032b241-bff8-473e-aa6b-eb0c92a4bd06%2Ftweeting.gif)
+![Tweetin'](http://botwiki.org/wp-content/uploads/2020/05/tweet.gif)
 
 This is a template for making creative online bots with [Glitch](https://glitch.com/). It requires a [paid Glitch account](https://glitch.com/pricing). 
 
