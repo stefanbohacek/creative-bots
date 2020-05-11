@@ -29,12 +29,21 @@ module.exports = function(){
       console.log( err );     
     }
     else{
-      helpers.loadImage( helpers.randomFromArray( assetUrls ), function( err, imgData ){
+      /*
+        Glitch doesn't support folders inside the assets folder, so to get around that, if you want to have multiple random image bots, or to keep images in your assets folder that you don't want the bot to post, you can add a prefix to each image and then filter the images using this prefix. 
+      */
+
+      const imgPrefix = 'bot1img-';
+
+      const imgUrl = helpers.randomFromArray( assetUrls.filter( function( asset){
+        return asset.indexOf( imgPrefix ) !== -1;
+      } ) );      
+      
+      helpers.loadImage( imgUrl, function( err, imgData ){
         if ( err ){
           console.log( err );     
         }
         else{
-          console.log( assetUrls );
           
           const text = helpers.randomFromArray( [
             'Hello!',
