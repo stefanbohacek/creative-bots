@@ -2,7 +2,7 @@
 
 \*\*\****work in progress -- join [botmakers.org](https://botmakers.org/) to help\*\*\****
 
-![Tweetin'](http://botwiki.org/wp-content/uploads/2020/05/tweet.gif)
+![Tweetin'](https://botwiki.org/wp-content/uploads/2020/05/tweet.gif)
 
 This is a template for making creative online bots with [Glitch](https://glitch.com/). It requires a [paid Glitch account](https://glitch.com/pricing). 
 
@@ -11,8 +11,8 @@ This is a template for making creative online bots with [Glitch](https://glitch.
 1. Create accounts for all of your bots. Currently supported networks:
 
 - [Twitter](https://botwiki.org/tutorials/how-to-create-a-twitter-app/)
-- [Mastodon]()
-- [Tumblr]()
+- [Mastodon](https://botwiki.org/resource/tutorial/how-to-make-a-mastodon-botsin-space-app-bot/)
+- [Tumblr](https://glitch.com/edit/#!/creative-bots?path=README-TUMBLR.md)
 2. Update the `.env` file with your Twitter API keys/secrets.
 3. Check out the `bots` folder for example bot code. (Make sure your bot follows [Twitter's rules](https://support.twitter.com/articles/18311-the-twitter-rules) and is overall [not a jerk](https://botwiki.org/articles/essays/).)
 4. Schedule your bot inside `server.js`.

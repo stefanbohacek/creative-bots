@@ -34,6 +34,8 @@ module.exports = function(){
           console.log( err );     
         }
         else{
+          console.log( assetUrls );
+          
           const text = helpers.randomFromArray( [
             'Hello!',
             'Hi!',
