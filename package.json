@@ -43,5 +43,6 @@
     "twitter",
     "twitterbot",
     "bot"
-  ]
+  ],
+  "license": "MIT"
 }
