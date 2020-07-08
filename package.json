@@ -27,7 +27,10 @@
     "tracery-grammar": "^2.7.4",
     "chart.js": "^2.9.3",
     "chartjs-node": "^1.7.1",
-    "jsdom": "^16.2.2"
+    "jsdom": "^16.2.2",
+    "dotenv": "^8.2.0",
+    "base64-stream": "^1.0.0",
+    "concat-stream": "^2.0.0"
   },
   "engines": {
     "node": "13.x"
