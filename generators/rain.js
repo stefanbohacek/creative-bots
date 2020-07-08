@@ -5,6 +5,8 @@
 const fs = require( 'fs' ),
       Canvas = require( 'canvas' ),
       GIFEncoder = require( 'gifencoder' ),
+      concat = require( 'concat-stream' ),
+      { Base64Encode } = require('base64-stream'),
       helpers = require( __dirname + '/../helpers/helpers.js' );
 
 module.exports = function( options, cb ){
@@ -13,14 +15,16 @@ module.exports = function( options, cb ){
   let width = options.width || 800;
   let height = options.height || 500;
 
-  let encoder = new GIFEncoder( width, height );
-  
-  const randomFileName = `${ Date.now()}-${helpers.getRandomRange( 0, 1000 ) }`;
+  const data = [];   
+  const encoder = new GIFEncoder( width, height );
+  const stream = encoder.createReadStream();
 
-  const imgPathPNG = `./.data/${ randomFileName }.png`,
-        imgPathGIF = `./.data/${ randomFileName }.gif`;
-  
-  encoder.createReadStream().pipe( fs.createWriteStream( imgPathGIF ) );
+
+  encoder.createReadStream().pipe( concat( ( data ) => {
+    if ( cb ){
+      cb( null, data.toString( 'base64' ) );
+    }
+  } ) );
 
   encoder.start();
   encoder.setRepeat( 0 );   // 0 for repeat, -1 for no-repeat
@@ -103,17 +107,4 @@ module.exports = function( options, cb ){
 
   encoder.finish();
   console.log( 'gif finished...' );
-
-  /* TODO: For some reason this doesn't work and we need to download the image again...  */
-  // let b64content = fs.readFileSync( __dirname + '/temp.gif', { encoding: 'base64' } );
-  // cb( null, b64content );
-
-  helpers.loadImage( `https://${process.env.PROJECT_DOMAIN}.glitch.me/images/${ randomFileName }.gif`, function( err, imgDataGIF ){
-    if ( cb ){
-      cb( null, {
-        path: imgPathGIF,
-        data: imgDataGIF
-      } );          
-    }
-  } );
 }

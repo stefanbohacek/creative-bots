@@ -1,35 +1,64 @@
 /* Setting things up. */
 
+if ( !process.env.PROJECT_NAME || !process.env.PROJECT_ID ){
+  require( 'dotenv' ).config();
+}
+
 const path = require( 'path' ),
       express = require( 'express' ),
       app = require(__dirname + '/app.js'),
       CronJob = require( 'cron' ).CronJob,
       cronSchedules = require( __dirname + '/helpers/cron-schedules.js' );
 
-/* Load your bots from the "bots" folder. */
+/*
+  Load your bots. Check out the cron package documentation for more details https://www.npmjs.com/package/cron#available-cron-patterns.
 
-let bot1 = require( __dirname + '/bots/basic.js' ),
-    bot2 = require( __dirname + '/bots/random-image.js' ),
-    bot3 = require( __dirname + '/bots/generative.js' ),
-    bot4 = require( __dirname + '/bots/api-windy.js' ),
-    bot5 = require( __dirname + '/bots/api-socrata.js' ),
-    bot6 = require( __dirname + '/bots/tracery.js' ),
-    bot7 = require( __dirname + '/bots/charts.js' );
+  You can also use common cron schedules defined inside helpers/cron-schedules.js.
+*/
+
+const bots = [
+  {
+    script: '/bots/basic.js',
+    interval: cronSchedules.EVERY_SIX_HOURS
+  },
+  {
+    script: '/bots/random-image.js',
+    interval: cronSchedules.EVERY_DAY_MORNING
+  },
+  {
+    script: '/bots/generative.js',
+    interval: cronSchedules.EVERY_DAY_AFTERNOON
+  },
+  {
+    script: '/bots/charts.js',
+    interval: cronSchedules.EVERY_TWELVE_HOURS
+  }
+];
+
+/** Your bots will be automatically scheduled. **/
 
 let listener = app.listen( process.env.PORT, function(){
-  console.log( `your bot is running on port ${ listener.address().port }` );
+  if ( bots && bots.length > 0 ){
+    console.log( `🤖 your bot${ bots.length === 1 ? ' is' : 's are' } running on port ${ listener.address().port }` );
 
-  /*
-    Schedule your bots. Check out the cron package documentation for more details https://www.npmjs.com/package/cron#available-cron-patterns.
+    bots.forEach( function( bot ){
+      let botInterval;
 
-    You can also use common cron schedules defined inside helpers/cron-schedules.js.
-  */
+      for (const schedule in cronSchedules) {
+        if ( cronSchedules[schedule] === bot.interval ){
+          botInterval = schedule;
+        }
+      }
 
-  // ( new CronJob( cronSchedules.EVERY_HOUR, function() {
-  //   bot1();
-  // } ) ).start();
+      console.log( `🕒 scheduling ${ bot.script }: ${ botInterval }` );
+      const script = require( __dirname + bot.script );
 
-  // ( new CronJob( cronSchedules.EVERY_THIRTY_SECONDS, function() {
-  //   bot2();
-  // } ) ).start();
+      ( new CronJob( bot.interval, function() {
+        script();
+      } ) ).start();
+    } );
+
+  } else {
+    console.log( '🚫 no bots to schedule' );
+  }
 } );
