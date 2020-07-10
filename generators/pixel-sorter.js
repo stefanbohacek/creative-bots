@@ -5,8 +5,7 @@
 const fs = require( 'fs' ),
       png = require( 'pngjs' ).PNG,
       path = require( 'path' ),
-      img_path_png = './.data/temp.png',
-      img_path_gif = './.data/temp.gif',    
+      imgPathPNG = './.data/temp.png',
       pixel_sorter = {
         invert: require( __dirname + '/../.pixel-sorting/lib/invert.js' ),
         blackAndWhite: require( __dirname + '/../.pixel-sorting/lib/black-and-white.js' ),
@@ -33,8 +32,8 @@ const fs = require( 'fs' ),
 module.exports = function( img_data, cb ){
   console.log( 'sorting pixels...' );
 
-  fs.writeFile( img_path_png, img_data, 'base64', function( err ) {
-    fs.createReadStream( img_path_png )
+  fs.writeFile( imgPathPNG, img_data, 'base64', function( err ) {
+    fs.createReadStream( imgPathPNG )
       .pipe( new png( {
           checkCRC: false
       } ) )
@@ -60,12 +59,9 @@ module.exports = function( img_data, cb ){
         // pixel_sorter.pixelSortGrayout.draw( image );
         pixel_sorter.pixelSortBlackHi.draw( image );
 
-        this.pack().pipe( fs.createWriteStream( img_path_png ).on( 'finish', function(){
-          var img_data = fs.readFileSync( img_path_png, { encoding: 'base64' } );
-          cb( null, {
-            path: img_path_png,
-            data: img_data
-          } );
+        this.pack().pipe( fs.createWriteStream( imgPathPNG ).on( 'finish', function(){
+          var imgData = fs.readFileSync( imgPathPNG, { encoding: 'base64' } );
+          cb( null, imgData );
         } ) );
       } );
   } );

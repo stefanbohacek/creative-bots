@@ -1,7 +1,5 @@
 # Creative bots
 
-\*\*\****work in progress -- join [botmakers.org](https://botmakers.org/) to help\*\*\****
-
 ![Tweetin'](https://botwiki.org/wp-content/uploads/2020/05/tweet.gif)
 
 This is a template for making creative online bots with [Glitch](https://glitch.com/). It requires a [paid Glitch account](https://glitch.com/pricing). 
@@ -19,8 +17,6 @@ This is a template for making creative online bots with [Glitch](https://glitch.
 2. Update the `.env` file with your Twitter API keys/secrets.
 3. Check out the `bots` folder for example bot code. (Make sure your bot follows [Twitter's rules](https://support.twitter.com/articles/18311-the-twitter-rules) and is overall [not a jerk](https://botwiki.org/articles/essays/).)
 4. Schedule your bot inside `server.js`.
-
-
 
 There are more tutorials and open source Twitter bots on [Botwiki](https://botwiki.org).
 

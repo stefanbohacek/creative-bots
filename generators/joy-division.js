@@ -92,12 +92,9 @@ module.exports = function( options, cb ) {
     const stream = canvas.createPNGStream( );
     stream.pipe( out );
 
-    out.on( 'finish', function( ){
+    out.on( 'finish', function(){
       if ( cb ){
-        cb( null, {
-          path: img_path_png,
-          data: canvas.toBuffer( ).toString( 'base64' )
-        } );
+        cb( null, canvas.toBuffer().toString( 'base64' ) );
       }
     } );
   }

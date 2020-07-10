@@ -7,6 +7,14 @@ module.exports = {
   randomFromArray: function( arr ) {
     return arr[Math.floor( Math.random() * arr.length )]; 
   },
+  randomFromArrayUnique: function(arr, count) {
+    var new_arr = [];
+    for (var i = 0; i < count; i++){
+      arr.sort(function(){return Math.round(Math.random());});
+      new_arr.push(arr.pop());
+    }
+    return new_arr;
+  },  
   getRandomInt: function( min, max ) {
     return Math.floor( Math.random() * ( max - min + 1 ) ) + min;
   },
@@ -57,7 +65,7 @@ module.exports = {
                 image_url = img_data.url;
   
             if ( image_url && deleted_images.indexOf( img_data.uuid ) === -1 && helpers.extensionCheck( image_url ) ){
-              let file_name = helpers.getFilenameFromUrl( image_url ).split( '%2F' )[1];
+              let file_name = helpers.getFilenameFromURL( image_url ).split( '%2F' )[1];
               console.log( `- ${file_name}` );
               img_urls.push( image_url );
             }
@@ -74,7 +82,7 @@ module.exports = {
         extensions = ['.png', '.jpg', '.jpeg', '.gif'];
     return extensions.indexOf( file_extension ) !== -1;
   },
-  getFilenameFromUrl: function( url ) {
+  getFilenameFromURL: function( url ) {
     return url.substring( url.lastIndexOf( '/' ) + 1 );
   },
   loadImage: function( url, cb ) {
