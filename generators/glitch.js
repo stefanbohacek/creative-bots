@@ -160,10 +160,7 @@ function glitch_image_animated( options, cb ){
 
             out.on( 'finish', function(  ){
               if ( cb ){
-                cb( null, {
-                  path: imgPath,
-                  data: imgData
-                } );
+                cb( null, imgData );
               }
             } );
           } );

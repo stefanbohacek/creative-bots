@@ -12,6 +12,8 @@
     "cron": "^1.8.2",
     "mastodon": "^1.2.2",
     "canvas": "^2.6.1",
+    "html-entities": "^1.2.1",
+    "he": "^1.2.0",
     "gifencoder": "^2.0.1",
     "glitch-canvas": "^1.1.7",
     "pngjs": "^4.0.0",
@@ -30,7 +32,10 @@
     "jsdom": "^16.2.2",
     "dotenv": "^8.2.0",
     "base64-stream": "^1.0.0",
-    "concat-stream": "^2.0.0"
+    "concat-stream": "^2.0.0",
+    "node-fetch": "^2.6.0",
+    "q": "1.0.1",
+    "pluralize": "^8.0.0"
   },
   "engines": {
     "node": "13.x"

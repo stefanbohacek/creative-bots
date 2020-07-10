@@ -2,8 +2,8 @@ const fs = require( 'fs' ),
       path = require( 'path' ),
       Canvas = require( 'canvas' ),
       GIFEncoder = require( 'gifencoder' ),
-      img_path_png = './.data/temp.png',
-      img_path_gif = './.data/temp.gif',
+      img_path_png = '.data/temp.png',
+      img_path_gif = '.data/temp.gif',
       helpers = require( __dirname + '/../helpers/helpers.js' );
 
 module.exports = function( overlays, options, cb ){
@@ -16,20 +16,17 @@ module.exports = function( overlays, options, cb ){
     console.log( `preparing ( ${index} )...\n`, overlay );
     return new Promise( function( resolve ){
       if ( overlay.url ){
-        let img_path = `./.data/${helpers.get_filename_from_url( overlay.url )}`;
+        const overlayUrlClean = overlay.url.split('?')[0];
+        const imgPath = path.join(__dirname, '../../.data/', helpers.getFilenameFromURL(overlayUrlClean));
 
-        helpers.download_file( overlay.url, img_path , function(  ){
-          console.log( `downloading to ${img_path}...` );
-
-          fs.readFile( img_path, function (  err, buffer  ) {
-            if ( err ) {
-              console.log( {err} );
-              return false;
-            }
-            console.log( 'image downloaded...' );
-            overlay.buffer = buffer;
-            return resolve( overlay, index );
-          } );
+        helpers.downloadFile( overlay.url, function( err, buffer ){
+          if ( err ) {
+            console.log( {err} );
+            return false;
+          }
+          console.log( 'image downloaded...' );
+          overlay.buffer = buffer;
+          return resolve( overlay, index );
         } );
       }
       else if( overlay.text ){
@@ -38,7 +35,7 @@ module.exports = function( overlays, options, cb ){
     } );
   }
 
-  function make_overlay_image( data ){
+  function makeOverlayImage( data ){
     console.log( {data} );
     let canvas = Canvas.createCanvas( width, height ),
       ctx = canvas.getContext( '2d' ),
@@ -105,27 +102,10 @@ module.exports = function( overlays, options, cb ){
         ctx.globalCompositeOperation = img.globalCompositeOperation;                  
         // ctx.drawImage( overlay, img.x, img.y, img.width, img.height, 0, 0, canvas.width, canvas.height );
         ctx.drawImage( overlay, img.x, img.y, img.width, img.height );
-        fs.unlink( helpers.get_filename_from_url( img.url ), function( err ){ 
-          if ( !err ){
-            console.log( 'local image deleted...' );
-          }
-        } );          
       }
     } );
     
-    
-    const out = fs.createWriteStream( img_path_png );
-    const stream = canvas.createPNGStream(  );
-    stream.pipe( out );
-
-    out.on( 'finish', function(  ){
-      if ( cb ){
-        cb( null, {
-          path: img_path_png,
-          data: canvas.toBuffer(  ).toString( 'base64' )
-        } );
-      }
-    } );
+    cb( null, canvas.toBuffer().toString( 'base64' ) );
   }
 
   let actions = overlays.map( prepareImgFn );
@@ -133,7 +113,7 @@ module.exports = function( overlays, options, cb ){
 
   results.then( function ( img_data_arr, index ) {
     return ( 
-      make_overlay_image( img_data_arr )
+      makeOverlayImage( img_data_arr )
      );
   } );
 }

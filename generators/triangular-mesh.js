@@ -104,10 +104,7 @@ module.exports = function( options, cb ) {
 
     out.on( 'finish', function(){
       if ( cb ){
-        cb( null, {
-          path: imgPathPng,
-          data: canvas.toBuffer().toString( 'base64' )
-        } );
+        cb( null, canvas.toBuffer().toString( 'base64' ) );
       }
     } );
   }
