@@ -18,7 +18,7 @@ const path = require( 'path' ),
 
 const bots = [
   {
-    script: '/bots/basic.js',
+    script: 'bots/basic.js',
     interval: cronSchedules.EVERY_SIX_HOURS,
     /* Optionally you can also fill out these: */
     // name: 'Name your bot',
@@ -27,15 +27,15 @@ const bots = [
     // about_url: 'https://botwiki.org/bot/hello-world/'
   },
   {
-    script: '/bots/random-image.js',
+    script: 'bots/random-image.js',
     interval: cronSchedules.EVERY_DAY_MORNING
   },
   {
-    script: '/bots/generative.js',
+    script: 'bots/generative.js',
     interval: cronSchedules.EVERY_DAY_AFTERNOON
   },
   {
-    script: '/bots/charts.js',
+    script: 'bots/charts.js',
     interval: cronSchedules.EVERY_TWELVE_HOURS
   }
 ];
@@ -46,7 +46,7 @@ console.log( '🕒 server time: ', ( new Date() ).toTimeString() );
 
 bots.forEach( function( bot ){
   if ( !bot.name ){
-    bot.name = bot.script.replace( '/bots/', '' ).replace( '.js', '' );
+    bot.name = bot.script.replace( 'bots/', '' ).replace( '.js', '' );
   }
 } );
 
@@ -69,7 +69,7 @@ let listener = app.listen( process.env.PORT, function(){
         }
         
         console.log( `⌛ scheduling ${ bot.script }: ${ botInterval }` );
-        const script = require( __dirname + bot.script );
+        const script = require( __dirname + '/' + bot.script );
 
         ( new CronJob( bot.interval, function() {
           script();
