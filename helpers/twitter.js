@@ -3,7 +3,7 @@ const helpers = require(__dirname + '/../helpers/helpers.js'),
       Q = require( 'q' );
 
 class TwitterClient {
-  constructor( keys ) {
+  constructor( keys, useAltClient ) {
     let twitterClientInstance = {};
 
     if ( keys && keys.consumer_key && keys.consumer_secret && keys.access_token && keys.access_token_secret ){
@@ -11,114 +11,117 @@ class TwitterClient {
     } else {
       console.log( 'missing Twitter API keys' );
     }
-
-    twitterClientInstance._buildReqOpts = function (method, path, params, isStreaming, callback) {
-      var helpers = require('twit/lib/helpers');
-      var endpoints = require('twit/lib/endpoints');
-      var FORMDATA_PATHS = [];
-      var self = this
-      if (!params) {
-          params = {}
-      }
-      // clone `params` object so we can modify it without modifying the user's reference
-      var paramsClone = JSON.parse(JSON.stringify(params))
-      // convert any arrays in `paramsClone` to comma-seperated strings
-      var finalParams = this.normalizeParams(paramsClone)
-      delete finalParams.twit_options
-
-      // the options object passed to `request` used to perform the HTTP request
-      var reqOpts = {
-        headers: {
-          'Accept': '*/*',
-          'User-Agent': 'Twitter-iPhone/6.45 iOS/9.0.2 (Apple;iPhone8,2;;;;;1)',
-          'X-Twitter-Client': 'Twitter-iPhone',
-          'X-Twitter-API-Version': '5',
-          'X-Twitter-Client-Language': 'en',
-          'X-Twitter-Client-Version': '6.45'
-        },
-        gzip: true,
-        encoding: null,
-      }
-
-      if (typeof self.config.timeout_ms !== 'undefined') {
-          reqOpts.timeout = self.config.timeout_ms;
-      }
-
-      try {
-          // finalize the `path` value by building it using user-supplied params
-          path = helpers.moveParamsIntoPath(finalParams, path)
-      } catch (e) {
-          callback(e, null, null)
-        return
-      }
-
-      if (isStreaming) {
-          // This is a Streaming API request.
-        var stream_endpoint_map = {
-          user: endpoints.USER_STREAM,
-          site: endpoints.SITE_STREAM
+    
+    if ( useAltClient ){
+      twitterClientInstance._buildReqOpts = function (method, path, params, isStreaming, callback) {
+        var helpers = require('twit/lib/helpers');
+        var endpoints = require('twit/lib/endpoints');
+        var FORMDATA_PATHS = [];
+        var self = this
+        if (!params) {
+            params = {}
         }
-        var endpoint = stream_endpoint_map[path] || endpoints.PUB_STREAM
-        reqOpts.url = endpoint + path + '.json'
-      } else {
-          // This is a REST API request.
-        if (path === 'media/upload') {
-          // For media/upload, use a different entpoint and formencode.
-          reqOpts.url = endpoints.MEDIA_UPLOAD + 'media/upload.json';
-        } else if(path.indexOf('cards/') === 0) {
-          reqOpts.url = 'https://caps.twitter.com/v2/' + path + '.json';
+        // clone `params` object so we can modify it without modifying the user's reference
+        var paramsClone = JSON.parse(JSON.stringify(params))
+        // convert any arrays in `paramsClone` to comma-seperated strings
+        var finalParams = this.normalizeParams(paramsClone)
+        delete finalParams.twit_options
+
+        // the options object passed to `request` used to perform the HTTP request
+        var reqOpts = {
+          headers: {
+            'Accept': '*/*',
+            'User-Agent': 'Twitter-iPhone/6.45 iOS/9.0.2 (Apple;iPhone8,2;;;;;1)',
+            'X-Twitter-Client': 'Twitter-iPhone',
+            'X-Twitter-API-Version': '5',
+            'X-Twitter-Client-Language': 'en',
+            'X-Twitter-Client-Version': '6.45'
+          },
+          gzip: true,
+          encoding: null,
+        }
+
+        if (typeof self.config.timeout_ms !== 'undefined') {
+            reqOpts.timeout = self.config.timeout_ms;
+        }
+
+        try {
+            // finalize the `path` value by building it using user-supplied params
+            path = helpers.moveParamsIntoPath(finalParams, path)
+        } catch (e) {
+            callback(e, null, null)
+          return
+        }
+
+        if (isStreaming) {
+            // This is a Streaming API request.
+          var stream_endpoint_map = {
+            user: endpoints.USER_STREAM,
+            site: endpoints.SITE_STREAM
+          }
+          var endpoint = stream_endpoint_map[path] || endpoints.PUB_STREAM
+          reqOpts.url = endpoint + path + '.json'
         } else {
-          reqOpts.url = endpoints.REST_ROOT + path + '.json';
-        }
-
-        if (FORMDATA_PATHS.indexOf(path) !== -1) {
-          reqOpts.headers['Content-type'] = 'multipart/form-data';
-          reqOpts.form = finalParams;
-          // set finalParams to empty object so we don't append a query string
-          // of the params
-          finalParams = {};
-        } else {
-          reqOpts.headers['Content-type'] = 'application/json';
-        }
-      }
-
-      if (Object.keys(finalParams).length) {
-        // not all of the user's parameters were used to build the request path
-        // add them as a query string
-        var qs = helpers.makeQueryString(finalParams)
-        reqOpts.url += '?' + qs
-      }
-
-      if (!self.config.app_only_auth) {
-        // with user auth, we can just pass an oauth object to requests
-        // to have the request signed
-        var oauth_ts = Date.now() + self._twitter_time_minus_local_time_ms;
-
-        reqOpts.oauth = {
-          consumer_key: self.config.consumer_key,
-          consumer_secret: self.config.consumer_secret,
-          token: self.config.access_token,
-          token_secret: self.config.access_token_secret,
-          timestamp: Math.floor(oauth_ts/1000).toString(),
-        }
-
-        callback(null, reqOpts);
-        return;
-      } else {
-          // we're using app-only auth, so we need to ensure we have a bearer token
-          // Once we have a bearer token, add the Authorization header and return the fully qualified `reqOpts`.
-          self._getBearerToken(function (err, bearerToken) {
-          if (err) {
-            callback(err, null);
-            return;
+            // This is a REST API request.
+          if (path === 'media/upload') {
+            // For media/upload, use a different entpoint and formencode.
+            reqOpts.url = endpoints.MEDIA_UPLOAD + 'media/upload.json';
+          } else if(path.indexOf('cards/') === 0) {
+            reqOpts.url = 'https://caps.twitter.com/v2/' + path + '.json';
+          } else {
+            reqOpts.url = endpoints.REST_ROOT + path + '.json';
           }
 
-          reqOpts.headers['Authorization'] = 'Bearer ' + bearerToken;
+          if (FORMDATA_PATHS.indexOf(path) !== -1) {
+            reqOpts.headers['Content-type'] = 'multipart/form-data';
+            reqOpts.form = finalParams;
+            // set finalParams to empty object so we don't append a query string
+            // of the params
+            finalParams = {};
+          } else {
+            reqOpts.headers['Content-type'] = 'application/json';
+          }
+        }
+
+        if (Object.keys(finalParams).length) {
+          // not all of the user's parameters were used to build the request path
+          // add them as a query string
+          var qs = helpers.makeQueryString(finalParams)
+          reqOpts.url += '?' + qs
+        }
+
+        if (!self.config.app_only_auth) {
+          // with user auth, we can just pass an oauth object to requests
+          // to have the request signed
+          var oauth_ts = Date.now() + self._twitter_time_minus_local_time_ms;
+
+          reqOpts.oauth = {
+            consumer_key: self.config.consumer_key,
+            consumer_secret: self.config.consumer_secret,
+            token: self.config.access_token,
+            token_secret: self.config.access_token_secret,
+            timestamp: Math.floor(oauth_ts/1000).toString(),
+          }
+
           callback(null, reqOpts);
           return;
-        })
-      }
-    }    
+        } else {
+            // we're using app-only auth, so we need to ensure we have a bearer token
+            // Once we have a bearer token, add the Authorization header and return the fully qualified `reqOpts`.
+            self._getBearerToken(function (err, bearerToken) {
+            if (err) {
+              callback(err, null);
+              return;
+            }
+
+            reqOpts.headers['Authorization'] = 'Bearer ' + bearerToken;
+            callback(null, reqOpts);
+            return;
+          })
+        }
+      }        
+    }
+  
     
     this.client = twitterClientInstance;
   }
@@ -140,7 +143,7 @@ class TwitterClient {
       }
   }
 
-  postImage( text, imageBase64, cb, inReplyToID ){
+  postImage( status, imageBase64, cb, inReplyToID ){
     if ( this.client ){
       let client = this.client;
       
@@ -152,12 +155,22 @@ class TwitterClient {
           }
         }
         else{
+          console.log( 'uploaded image', err );
+          console.log( { data } );
+
+          for ( const property in data ){
+            console.log( `${property}: ${data[property]}` );
+          }
+
           console.log( 'tweeting the image...' );
 
           let tweetObj = {
-            status: text,
             media_ids: new Array( data.media_id_string )
           };
+
+          if ( status ){
+            tweetObj.status = status;
+          }
 
           if ( inReplyToID ){
             tweetObj.in_reply_to_status_id = inReplyToID;
