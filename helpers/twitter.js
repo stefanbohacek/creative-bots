@@ -149,20 +149,13 @@ class TwitterClient {
       
       this.client.post( 'media/upload', { media_data: imageBase64 }, function ( err, data, response ) {
         if ( err ){
-          console.log( 'error:\n', err );
+          console.log( 'error:', err );
           if ( cb ){
             cb( err );
           }
         }
         else{
-          console.log( 'uploaded image', err );
-          console.log( { data } );
-
-          for ( const property in data ){
-            console.log( `${property}: ${data[property]}` );
-          }
-
-          console.log( 'tweeting the image...' );
+          console.log( 'uploaded image, now tweeting it...' );
 
           let tweetObj = {
             media_ids: new Array( data.media_id_string )
@@ -199,7 +192,7 @@ class TwitterClient {
         image: imageBase64
       }, function( err, data, response ) {
         if ( err ){
-          console.log( 'Twitter API error', err );
+          console.log( 'error', err );
         }
         if ( cb ){
           cb( err, data );
@@ -210,7 +203,7 @@ class TwitterClient {
 
   deleteLastTweet( cb ){
     if ( this.client ){
-      console.log( 'deleting last tweethis.client...' );
+      console.log( 'deleting last tweet...' );
       this.client.get( 'statuses/user_timeline', function( err, data, response ) {
         if ( err ){
           if ( cb ){
