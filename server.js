@@ -37,6 +37,8 @@ const bots = [
 
 /** Your bots will be automatically scheduled. **/
 
+console.log( '🕒 server time: ', ( new Date() ).toTimeString() );
+
 let listener = app.listen( process.env.PORT, function(){
   if ( bots && bots.length > 0 ){
     bots.forEach( function( bot ){
@@ -53,7 +55,7 @@ let listener = app.listen( process.env.PORT, function(){
           botInterval = bot.interval;
         }
         
-        console.log( `🕒 scheduling ${ bot.script }: ${ botInterval }` );
+        console.log( `⌛ scheduling ${ bot.script }: ${ botInterval }` );
         const script = require( __dirname + bot.script );
 
         ( new CronJob( bot.interval, function() {
