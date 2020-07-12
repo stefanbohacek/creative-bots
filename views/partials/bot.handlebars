@@ -1,0 +1,25 @@
+  <div class="row mt-3 mb-3 bot-showcase">
+    <div class="col-sm-12 col-md-4">
+      {{#if about_url}}
+          <a href="{{about_url}}">
+        {{else}}
+          <a href="https://glitch.com/edit/#!/{{@root.project_name}}?path={{script}}">
+        {{/if}}      
+      {{#if thumbnail}}
+          <img class="img-thumbnail mb-2" src="{{thumbnail}}" class="mr-3" alt="...">
+      {{else}}
+        <img class="img-thumbnail mb-2" src="https://generative-placeholders.glitch.me/image?width=360&height=200&style=cellular-automata&cells=10&colors={{@root.generative_placeholders_color}}&{{@key}}" class="mr-3" alt="...">
+      {{/if}}      
+      </a>
+    </div>
+    <div class="col-sm-12 col-md-8">
+      <h2 class="mt-0">{{name}}</h2>
+      <p>{{description}}</p>
+      <p>
+        {{#if about_url}}
+          <a href="{{about_url}}" class="btn btn-dark">Learn more</a>
+        {{/if}}      
+        <a href="https://glitch.com/edit/#!/{{@root.project_name}}?path={{script}}" class="btn btn-light">View source</a>
+      </p>
+    </div>
+  </div>

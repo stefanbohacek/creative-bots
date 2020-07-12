@@ -11,15 +11,20 @@ const path = require( 'path' ),
       cronSchedules = require( __dirname + '/helpers/cron-schedules.js' );
 
 /*
-  Load your bots. Check out the cron package documentation for more details https://www.npmjs.com/package/cron#available-cron-patterns.
-
-  You can also use common cron schedules defined inside helpers/cron-schedules.js.
+  To load your bots, update the "bots" array below. Each bot needs "script" (path to the bot's source code), and "interval", which can either be one of the values inside helpers/cron-schedules.js.
+  
+  You can also use custom cron schedules, see https://www.npmjs.com/package/cron#available-cron-patterns for more details.
 */
 
 const bots = [
   {
     script: '/bots/basic.js',
-    interval: cronSchedules.EVERY_SIX_HOURS
+    interval: cronSchedules.EVERY_SIX_HOURS,
+    /* Optionally you can also fill out these: */
+    // name: 'Name your bot',
+    // description: 'What does your bot do?',
+    // thumbnail: 'https://botwiki.org/wp-content/uploads/2019/02/hello--world-.png',
+    // about_url: 'https://botwiki.org/bot/hello-world/'
   },
   {
     script: '/bots/random-image.js',
@@ -38,6 +43,14 @@ const bots = [
 /** Your bots will be automatically scheduled. **/
 
 console.log( '🕒 server time: ', ( new Date() ).toTimeString() );
+
+bots.forEach( function( bot ){
+  if ( !bot.name ){
+    bot.name = bot.script.replace( '/bots/', '' ).replace( '.js', '' );
+  }
+} );
+
+app.set( 'bots', bots );
 
 let listener = app.listen( process.env.PORT, function(){
   if ( bots && bots.length > 0 ){

@@ -35,7 +35,8 @@
     "concat-stream": "^2.0.0",
     "node-fetch": "^2.6.0",
     "q": "1.0.1",
-    "pluralize": "^8.0.0"
+    "pluralize": "^8.0.0",
+    "express-handlebars": "^5.0.0"
   },
   "engines": {
     "node": "13.x"
