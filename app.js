@@ -1,11 +1,17 @@
 const express = require( 'express' ),
+      exphbs  = require('express-handlebars'),
       session = require( 'express-session' ),
       bodyParser = require( 'body-parser' ),
       MemoryStore = require( 'memorystore' )( session ),
       Grant = require( 'grant-express' ),
-      tumblr = require( 'tumblr.js' );
+      tumblr = require( 'tumblr.js' ),
+      helpers = require(__dirname + '/helpers/helpers.js');
 
 const app = express();
+
+app.engine( 'handlebars', exphbs({defaultLayout: 'main'} ) );
+app.set( 'views', __dirname + '/views' );
+app.set( 'view engine', 'handlebars' );
 
 app.use( bodyParser.json() );
 
@@ -49,7 +55,16 @@ app.get( '/', function( req, res ) {
       console.log( 'grant', req.session.grant.response );
     }
   }
-  res.sendFile( __dirname + '/views/index.html' );
+  
+  if ( !process.env.PROJECT_NAME || !process.env.PROJECT_ID ){
+    res.sendFile( __dirname + '/views/index.html' );
+  } else {
+    res.render( 'home', {
+      project_name: process.env.PROJECT_NAME,
+      bots: req.app.get( 'bots' ),
+      generative_placeholders_color: helpers.getRandomRange(0, 99)      
+    } );
+  }
 } );
 
 app.get( '/connect-tumblr', function( req, res ) {
