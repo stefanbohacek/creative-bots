@@ -1,4 +1,5 @@
 const fs = require( 'fs' ),
+      request = require('request'),
       helpers = require(__dirname + '/../helpers/helpers.js'),
       Mastodon = require( 'mastodon' );
 
@@ -15,21 +16,20 @@ class MastodonClient {
     this.client = mastodonClientInstance;
   }
   toot( text, cb ) {
-      console.log( 'tweeting...' );
-      if ( this.client ){
-        console.log( 'tooting...' );
-        this.client.post( 'statuses', { status: text }, function( err, data, response ) {
-          if ( err ){
-            console.log( 'mastodon.toot error:', err );
-          } else {
-            console.log( 'tooted', data.url );
-          }
+    if ( this.client ){
+      console.log( 'tooting...' );
+      this.client.post( 'statuses', { status: text }, function( err, data, response ) {
+        if ( err ){
+          console.log( 'mastodon.toot error:', err );
+        } else {
+          console.log( 'tooted', data.url );
+        }
 
-          if ( cb ){
-            cb( err, data );
-          }
-        } );
-      }
+        if ( cb ){
+          cb( err, data );
+        }
+      } );
+    }
   }
   reply( status, response, cb ) {
     if ( this.client ){
@@ -46,6 +46,54 @@ class MastodonClient {
       } );
     }
   }
+  poll( text, options, cb ) {
+    if ( this.client ){
+      console.log( 'posting a poll...' );
+
+      let optionsObj;
+
+      if ( typeof text === 'string' ){
+        optionsObj = {
+          status: text,
+          poll: {
+            options: options,
+            expires_in: 86400
+          }, 
+        };
+      } else {
+        optionsObj = text;
+        cb = options;
+      }
+      
+      const req = {
+        uri: `${ this.client.config.api_url }/statuses`,
+        method: 'POST',
+        headers: {
+            Authorization: 'Bearer ' + this.client.config.access_token,
+        },
+        json: optionsObj
+      };
+
+      request( req, function callback( error, response, body ) {
+        if ( error ){
+          console.log( error )
+        } else {
+          // try{
+          //   const resp = JSON.parse( body );
+          //   if ( resp.error ){
+          //     console.log( 'error', resp.error );
+          //   }
+          // } catch( err ){ console.log( body, err ) }
+          if ( body && body.url ){
+            console.log( 'poll posted', body.url );
+          }
+        }
+        if ( cb ){
+          cb( error, response, body );
+        }
+      } );
+    }    
+  }  
   getNotifications( cb ) {
     if ( this.client ){
       console.log( 'retrieving notifications...' );
