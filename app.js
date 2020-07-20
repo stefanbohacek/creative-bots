@@ -59,9 +59,18 @@ app.get( '/', function( req, res ) {
   if ( !process.env.PROJECT_NAME || !process.env.PROJECT_ID ){
     res.sendFile( __dirname + '/views/index.html' );
   } else {
+    const bots = req.app.get( 'bots' );
+    
+    if ( bots && bots.length > 0 ){
+      bots.forEach( function( bot ){
+        let nextRun = bot.cronjob.nextDates().fromNow();
+        bot.next_run = helpers.capitalizeFirstLetter( nextRun );
+      } )
+    }
+    
     res.render( 'home', {
       project_name: process.env.PROJECT_NAME,
-      bots: req.app.get( 'bots' ),
+      bots: bots,
       generative_placeholders_color: helpers.getRandomRange(0, 99)      
     } );
   }
