@@ -7,6 +7,7 @@ if ( !process.env.PROJECT_NAME || !process.env.PROJECT_ID ){
 const path = require( 'path' ),
       express = require( 'express' ),
       app = require(__dirname + '/app.js'),
+      helpers = require(__dirname + '/helpers/helpers.js'),
       CronJob = require( 'cron' ).CronJob,
       cronSchedules = require( __dirname + '/helpers/cron-schedules.js' );
 
@@ -44,41 +45,51 @@ const bots = [
 
 console.log( '🕒 server time: ', ( new Date() ).toTimeString() );
 
-bots.forEach( function( bot ){
-  if ( !bot.name ){
-    bot.name = bot.script.replace( 'bots/', '' ).replace( '.js', '' );
-  }
-} );
+/** For testing. **/
+// const bot = require( __dirname + '/bots/emoji__polls.js' );
+// bot();
+
+if ( bots && bots.length > 0 ){
+  bots.forEach( function( bot ){
+    if ( !bot.name ){
+      bot.name = bot.script.replace( 'bots/', '' ).replace( '.js', '' );
+    }
+    
+    if ( bot.interval ){
+      let botInterval;
+
+      for (const schedule in cronSchedules) {
+        if ( cronSchedules[schedule] === bot.interval ){
+          botInterval = schedule;
+        }
+      }
+      
+      if ( botInterval.length === 0 ){
+        botInterval = bot.interval;
+      } else {
+        botInterval = helpers.capitalizeFirstLetter( botInterval.replace( /_/g, ' ' ) );
+      }
+      
+      bot.interval_human = botInterval;
+
+      console.log( `⌛ scheduling ${ bot.script }: ${ botInterval }` );
+      const script = require( __dirname + '/' + bot.script );
+
+      const job = new CronJob( bot.interval, function() { script() } );
+      bot.cronjob = job;
+
+      job.start();
+      console.log( '📅 next run:', job.nextDates().fromNow() );
+    }
+  } );
+
+  console.log( `🤖 your bot${ bots.length === 1 ? ' has' : 's have' } been scheduled` );
+} else {
+  console.log( '🚫 no bots to schedule' );
+}
 
 app.set( 'bots', bots );
 
 let listener = app.listen( process.env.PORT, function(){
-  if ( bots && bots.length > 0 ){
-    bots.forEach( function( bot ){
-      if ( bot.interval ){
-        let botInterval;
-
-        for (const schedule in cronSchedules) {
-          if ( cronSchedules[schedule] === bot.interval ){
-            botInterval = schedule;
-          }
-        }
-        
-        if ( botInterval.length === 0 ){
-          botInterval = bot.interval;
-        }
-
-        console.log( `⌛ scheduling ${ bot.script }: ${ botInterval }` );
-        const script = require( __dirname + '/' + bot.script );
-
-        const job = new CronJob( bot.interval, function() { script() } );
-        job.start();
-        console.log( '📅 next run:', job.nextDates().fromNow() );
-      }
-    } );
-
-    console.log( `🤖 your bot${ bots.length === 1 ? ' has' : 's have' } been scheduled` );
-  } else {
-    console.log( '🚫 no bots to schedule' );
-  }
+// ready!
 } );

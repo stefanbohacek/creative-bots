@@ -5,6 +5,9 @@ const fs = require( 'fs' ),
       exec  = require( 'child_process' );
 
 module.exports = {
+  capitalizeFirstLetter: function( str ){
+    return str.charAt(0).toUpperCase() + str.slice(1).toLowerCase();    
+  },
   randomFromArray: function( arr ) {
     return arr[Math.floor( Math.random() * arr.length )]; 
   },

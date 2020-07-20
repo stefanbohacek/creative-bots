@@ -15,6 +15,10 @@
     <div class="col-sm-12 col-md-8">
       <h2 class="mt-0">{{name}}</h2>
       <p>{{description}}</p>
+      <p>⌛ {{interval_human}}</p>
+      {{#if next_run}}
+        <p>📅 {{next_run}}</p>
+      {{/if}}      
       <p>
         {{#if about_url}}
           <a href="{{about_url}}" class="btn btn-dark">Learn more</a>
