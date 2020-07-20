@@ -55,7 +55,7 @@ app.set( 'bots', bots );
 let listener = app.listen( process.env.PORT, function(){
   if ( bots && bots.length > 0 ){
     bots.forEach( function( bot ){
-      if ( bot.script && bot.interval ){
+      if ( bot.interval ){
         let botInterval;
 
         for (const schedule in cronSchedules) {
@@ -63,17 +63,17 @@ let listener = app.listen( process.env.PORT, function(){
             botInterval = schedule;
           }
         }
-
+        
         if ( botInterval.length === 0 ){
           botInterval = bot.interval;
         }
-        
+
         console.log( `⌛ scheduling ${ bot.script }: ${ botInterval }` );
         const script = require( __dirname + '/' + bot.script );
 
-        ( new CronJob( bot.interval, function() {
-          script();
-        } ) ).start();        
+        const job = new CronJob( bot.interval, function() { script() } );
+        job.start();
+        console.log( '📅 next run:', job.nextDates().fromNow() );
       }
     } );
 
