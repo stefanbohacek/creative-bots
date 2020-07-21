@@ -3,5 +3,13 @@
   "description": "Make creative online bots with node.js.",
   "repository": "https://github.com/fourtonfish/creative-bots",
   "logo": "http://botwiki.org/wp-content/uploads/2020/07/creative-bots.png",
-  "keywords": ["bots", "twitterbots", "twitter api", "fediverse", "mastodon", "tumblr", "generative art", "botmakers", "botwiki"]
+  "keywords": ["bots", "twitterbots", "twitter api", "fediverse", "mastodon", "tumblr", "generative art", "botmakers", "botwiki"],
+  "buildpacks": [
+    {
+      "url": "https://github.com/mojodna/heroku-buildpack-cairo.git"
+    },
+    {
+      "url": "https://github.com/heroku/heroku-buildpack-nodejs.git"
+    }
+  ]  
 }
