@@ -39,7 +39,7 @@
     "express-handlebars": "^5.0.0"
   },
   "engines": {
-    "node": "13.12.0"
+    "node": "13.3.0"
   },
   "repository": {
     "url": "https://github.com/fourtonfish/creative-bots"
