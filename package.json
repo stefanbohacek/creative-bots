@@ -37,7 +37,8 @@
     "node-fetch": "^2.6.0",
     "q": "1.0.1",
     "pluralize": "^8.0.0",
-    "express-handlebars": "^5.0.0"
+    "express-handlebars": "^5.0.0",
+    "request": "^2.88.2"
   },
   "engines": {
     "node": "13.3.0"
