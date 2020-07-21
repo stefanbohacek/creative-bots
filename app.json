@@ -1,0 +1,7 @@
+{
+  "name": "Creative Bots",
+  "description": "Make creative online bots with node.js.",
+  "repository": "https://github.com/fourtonfish/creative-bots",
+  "logo": "http://botwiki.org/wp-content/uploads/2020/07/creative-bots.png",
+  "keywords": ["bots", "twitterbots", "twitter api", "fediverse", "mastodon", "tumblr", "generative art", "botmakers", "botwiki"]
+}
