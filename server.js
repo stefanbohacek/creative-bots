@@ -90,6 +90,6 @@ if ( bots && bots.length > 0 ){
 
 app.set( 'bots', bots );
 
-let listener = app.listen( process.env.PORT, function(){
-// ready!
+let listener = app.listen( process.env.PORT || 3000, function(){
+  console.log( 'server is running' );
 } );
