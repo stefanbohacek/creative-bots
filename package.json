@@ -1,7 +1,7 @@
 {
-  "name": "glitch-twitterbot",
-  "version": "0.0.1",
-  "description": "Beep beep tweet!",
+  "name": "creative-bots",
+  "version": "1.0.0",
+  "description": "Make creative online bots!",
   "main": "server.js",
   "scripts": {
     "start": "node server.js"
@@ -39,10 +39,10 @@
     "express-handlebars": "^5.0.0"
   },
   "engines": {
-    "node": "13.x"
+    "node": "13.12.0"
   },
   "repository": {
-    "url": ""
+    "url": "https://github.com/fourtonfish/creative-bots"
   },
   "keywords": [
     "node",
@@ -51,7 +51,16 @@
     "hyperdev",
     "twitter",
     "twitterbot",
-    "bot"
+    "bot",
+    "bots",
+    "twitterbots",
+    "twitter api",
+    "fediverse",
+    "mastodon",
+    "tumblr",
+    "generative art",
+    "botmakers",
+    "botwiki"
   ],
   "license": "MIT"
 }
