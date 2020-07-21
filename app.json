@@ -6,7 +6,7 @@
   "keywords": ["bots", "twitterbots", "twitter api", "fediverse", "mastodon", "tumblr", "generative art", "botmakers", "botwiki"],
   "buildpacks": [
     {
-      "url": "https://github.com/mojodna/heroku-buildpack-cairo.git"
+      "url": "https://github.com/sky-uk/heroku-buildpack-cairo"
     }
   ]  
 }
