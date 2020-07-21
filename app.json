@@ -6,7 +6,7 @@
   "keywords": ["bots", "twitterbots", "twitter api", "fediverse", "mastodon", "tumblr", "generative art", "botmakers", "botwiki"],
   "buildpacks": [
     {
-      "url": "heroku/heroku-buildpack-apt"
+      "url": "heroku-community/apt"
     },
     {
       "url": "heroku/nodejs"
