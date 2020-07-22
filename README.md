@@ -16,7 +16,6 @@ This is a template for making creative online bots with [Glitch](https://glitch.
 
 2. Update the `.env` file with your Twitter API keys/secrets.
 3. Check out the `bots` folder for example bot code. (Make sure your bot follows [Twitter's rules](https://support.twitter.com/articles/18311-the-twitter-rules) and is overall [not a jerk](https://botwiki.org/articles/essays/).)
-4. Schedule your bot inside `server.js`.
 
 There are more tutorials and open source Twitter bots on [Botwiki](https://botwiki.org).
 
