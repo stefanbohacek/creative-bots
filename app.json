@@ -9,7 +9,7 @@
       "url": "heroku-community/apt"
     },
     {
-      "url": "https://github.com/jrogozen/heroku-buildpack-cairo.git"
+      "url": "https://github.com/rumblelabs/heroku-buildpack-cairo.git"
     },
     {
       "url": "heroku/nodejs"
