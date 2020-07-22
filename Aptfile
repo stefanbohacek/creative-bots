@@ -1,3 +1,9 @@
+build-essential
+libcairo2-dev
+libpango1.0-dev
+libjpeg-dev
+libgif-dev
+librsvg2-dev
 libc6
 libcairo2
 python-cairo
