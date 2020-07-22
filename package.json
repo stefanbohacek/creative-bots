@@ -42,7 +42,7 @@
     "node-gyp": "^7.0.0"
   },
   "engines": {
-    "node": "14.6.0"
+    "node": "13.x"
   },
   "repository": {
     "url": "https://github.com/fourtonfish/creative-bots"
