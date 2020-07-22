@@ -25,7 +25,7 @@ const tumblr = new tumblrClient( {
 } );
 
 module.exports = {
-  active: true,
+  active: false,
   name: 'Random image bot',
   description: 'A bot that posts random images.',
   interval: cronSchedules.EVERY_SIX_HOURS,

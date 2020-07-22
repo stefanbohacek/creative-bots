@@ -31,7 +31,7 @@ const tumblr = new tumblrClient( {
 } );
 
 module.exports = {
-  active: true,
+  active: false,
   name: 'Tracery bot',
   description: 'A bot that uses Kate Compton\'s Tracery.',
   interval: cronSchedules.EVERY_FOUR_HOURS,

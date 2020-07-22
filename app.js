@@ -33,15 +33,17 @@ const grant = new Grant( {
   }
 } );
 
-app.use( session( {
-  store: new MemoryStore( {
-    checkPeriod: 86400000
-  } ),
-  secure: true,
-  resave: false,
-  saveUninitialized: false,
-  secret: process.env.SESSION_SECRET,
-} ) );
+if ( process.env.SESSION_SECRET ){
+  app.use( session( {
+    store: new MemoryStore( {
+      checkPeriod: 86400000
+    } ),
+    secure: true,
+    resave: false,
+    saveUninitialized: false,
+    secret: process.env.SESSION_SECRET,
+  } ) );
+}
 
 app.use( grant );
 

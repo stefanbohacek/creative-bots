@@ -15,8 +15,7 @@ This is a template for making creative online bots with [Glitch](https://glitch.
 </ul>
 
 2. Update the `.env` file with your Twitter API keys/secrets.
-3. All bots are automatically loaded from the `bots` folder. Use an existing bot, or add your own.
-
+3. All bots are automatically loaded from the `bots` folder. Update an existing bot, or add your own.
 
 Each bot file needs to export an object with the following information:
 
@@ -32,9 +31,12 @@ Each bot file needs to export an object with the following information:
 }
 ```
 
-You can change `active` to `false` to prevent a bot from being scheduled. For `interval` you can either use one of the values inside `helpers/cron-schedules.js`, or you can use a custom cron schedule -- see https://www.npmjs.com/package/cron#available-cron-patterns for more details.
+You can change `active` to `false` to prevent a bot from being scheduled. For `interval` you can either use one of the values inside `helpers/cron-schedules.js`, or you can use a custom cron schedule -- see [the cron package documentation](https://www.npmjs.com/package/cron#available-cron-patterns) for more details.
 
-Make sure your bot follows rules of the networks it's posting on and is overall [not a jerk](https://botwiki.org/articles/essays/). You can find tutorials and open source bots on [Botwiki](https://botwiki.org), and remember to [join Botmakers](https://botmakers.org/) and [submit your bot to Botwiki](https://botwiki.org/submit-your-bot) :-)
+Check out [stefans-creative-bots](https://stefans-creative-bots.glitch.me) project for an example remix of this project.
+
+
+Make sure your bot follows rules of the networks it's posting on and is overall [not a jerk](https://botwiki.org/articles/essays/). Visit [Botwiki](https://botwiki.org) for tutorials and open source bots and remember to [join Botmakers](https://botmakers.org/) and [submit your bot to Botwiki](https://botwiki.org/submit-your-bot) :-)
 
 ## Support Botwiki/Botmakers
 

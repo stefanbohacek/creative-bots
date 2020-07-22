@@ -43,7 +43,7 @@ const tumblr = new tumblrClient( {
 } );
 
 module.exports = {
-  active: true,
+  active: false,
   name: 'Generative art bot',
   description: 'A bot that makes generative art.',
   interval: cronSchedules.EVERY_DAY_AFTERNOON,
