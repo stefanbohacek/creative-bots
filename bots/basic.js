@@ -1,4 +1,5 @@
 const helpers = require(__dirname + '/../helpers/helpers.js'),
+      cronSchedules = require( __dirname + '/../helpers/cron-schedules.js' ),
       TwitterClient = require(__dirname + '/../helpers/twitter.js'),    
       mastodonClient = require(__dirname + '/../helpers/mastodon.js'), 
       tumblrClient = require(__dirname + '/../helpers/tumblr.js');
@@ -23,15 +24,31 @@ const tumblr = new tumblrClient( {
   token_secret: process.env.BOT_1_TUMBLR_CONSUMER_TOKEN_SECRET
 } );
 
-module.exports = function(){
-  const title = 'New post',
-        text = helpers.randomFromArray( [
-          'Hello!',
-          'Hi!',
-          'Hi there!'
-        ] );
+module.exports = {
+  /*
+    Basic information about your bot.
+  */
+  active: true,
+  name: 'A basic bot',
+  description: 'Just a very basic bot!',
+  /*
+    The `interval` can be either one of the values inside helpers/cron-schedules.js, or you can also use custom cron schedules.
+    See https://www.npmjs.com/package/cron#available-cron-patterns for more details.
+  */
+  interval: cronSchedules.EVERY_THREE_HOURS,
+  script: function(){
+    /*
+      This is your bot's main code. Check out botwiki.org/resources for tutorials and botwiki.org/bots for some inspiration.
+    */
+    const title = 'New post',
+          text = helpers.randomFromArray( [
+            'Hello!',
+            'Hi!',
+            'Hi there!'
+          ] );
 
-  twitter.tweet( text );
-  mastodon.toot( text );
-  tumblr.post( title, text );
+    twitter.tweet( text );
+    mastodon.toot( text );
+    tumblr.post( title, text );
+  }
 };

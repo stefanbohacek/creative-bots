@@ -63,8 +63,9 @@ app.get( '/', function( req, res ) {
     
     if ( bots && bots.length > 0 ){
       bots.forEach( function( bot ){
-        let nextRun = bot.cronjob.nextDates().fromNow();
-        bot.next_run = helpers.capitalizeFirstLetter( nextRun );
+        try{
+            bot.next_run = helpers.capitalizeFirstLetter( bot.cronjob.nextDates().fromNow() );    
+        } catch( err ){ console.log( err ) };
       } )
     }
     
@@ -91,5 +92,6 @@ app.get( '/disconnect', function( request, res ) {
 } );
 
 app.use( express.static( 'public' ) );
+app.use( express.static( 'views' ) );
 
 module.exports = app;
