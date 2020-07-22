@@ -38,7 +38,8 @@
     "q": "1.0.1",
     "pluralize": "^8.0.0",
     "express-handlebars": "^5.0.0",
-    "request": "^2.88.2"
+    "request": "^2.88.2",
+    "node-gyp": "^7.0.0"
   },
   "engines": {
     "node": "13.3.0"
