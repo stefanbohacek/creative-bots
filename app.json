@@ -9,6 +9,9 @@
       "url": "heroku-community/apt"
     },
     {
+      "url": "https://github.com/mojodna/heroku-buildpack-cairo.git"
+    },
+    {
       "url": "heroku/nodejs"
     }
   ]  
