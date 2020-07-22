@@ -27,7 +27,7 @@ const tumblr = new tumblrClient( {
 } );
 
 module.exports = {
-  active: true,
+  active: false,
   name: 'Chart bot',
   description: 'A bot that makes charts.',
   interval: cronSchedules.EVERY_DAY_MORNING,
