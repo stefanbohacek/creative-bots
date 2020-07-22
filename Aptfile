@@ -16,3 +16,4 @@ pango-devel
 pangomm
 pangomm-devel
 giflib-devel
+g++
