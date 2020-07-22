@@ -9,7 +9,7 @@
       "url": "heroku-community/apt"
     },
     {
-      "url": "https://github.com/automata/heroku-buildpack-cairo.git"
+      "url": "https://github.com/automata/heroku-buildpack-opencv.git"
     },
     {
       "url": "heroku/nodejs"
