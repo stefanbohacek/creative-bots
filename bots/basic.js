@@ -28,7 +28,7 @@ module.exports = {
   /*
     Basic information about your bot.
   */
-  active: true,
+  active: true, // All bots inside the "bots" folder are loaded automatically. Change "active" to false to prevent loading your bot.
   name: 'A basic bot',
   description: 'Just a very basic bot!',
   /*
@@ -37,9 +37,9 @@ module.exports = {
   */
   interval: cronSchedules.EVERY_THREE_HOURS,
   script: function(){
-    /*
-      This is your bot's main code. Check out botwiki.org/resources for tutorials and botwiki.org/bots for some inspiration.
-    */
+  /*
+    This is your bot's main code. Check out botwiki.org/resources for tutorials and botwiki.org/bots for some inspiration.
+  */
     const title = 'New post',
           text = helpers.randomFromArray( [
             'Hello!',
