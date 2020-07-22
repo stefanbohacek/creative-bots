@@ -9,21 +9,32 @@ This is a template for making creative online bots with [Glitch](https://glitch.
 1. Create accounts for all of your bots. Currently supported networks:
 
 <ul>
-<li><a href="https://botwiki.org/tutorials/how-to-create-a-twitter-app/" target="_blank">Twitter</a></li>
-<li><a href="https://botwiki.org/resource/tutorial/how-to-make-a-mastodon-botsin-space-app-bot/" target="_blank">Mastodon</a></li>
-<li><a href="https://glitch.com/edit/#!/creative-bots?path=docs%2Ftumblr.md%3A1%3A0" target="_blank">Tumblr</a></li>
+    <li><a href="https://botwiki.org/tutorials/how-to-create-a-twitter-app/" target="_blank">Twitter</a></li>
+    <li><a href="https://botwiki.org/resource/tutorial/how-to-make-a-mastodon-botsin-space-app-bot/" target="_blank">Mastodon</a></li>
+    <li><a href="https://glitch.com/edit/#!/creative-bots?path=docs%2Ftumblr.md%3A1%3A0" target="_blank">Tumblr</a></li>
 </ul>
 
 2. Update the `.env` file with your Twitter API keys/secrets.
-3. Check out the `bots` folder for example bot code. (Make sure your bot follows [Twitter's rules](https://support.twitter.com/articles/18311-the-twitter-rules) and is overall [not a jerk](https://botwiki.org/articles/essays/).)
+3. All bots are automatically loaded from the `bots` folder. Use an existing bot, or add your own.
 
-There are more tutorials and open source Twitter bots on [Botwiki](https://botwiki.org).
 
-And remember to [join Botmakers](https://botmakers.org/) and [submit your bot to Botwiki](https://botwiki.org/submit-your-bot) :-)
+Each bot file needs to export an object with the following information:
 
-## More starter projects
+```
+{
+  active: true,
+  name: 'A basic bot',
+  description: 'Just a very basic bot!',
+  interval: cronSchedules.EVERY_THREE_HOURS,
+  script: function(){
+    /* This is your bot's main code. */
+  }
+}
+```
 
-For more bot starter projects on Glitch, check out the official [Botwiki page on Glitch](https://glitch.com/botwiki).
+You can change `active` to `false` to prevent a bot from being scheduled. For `interval` you can either use one of the values inside `helpers/cron-schedules.js`, or you can use a custom cron schedule -- see https://www.npmjs.com/package/cron#available-cron-patterns for more details.
+
+Make sure your bot follows rules of the networks it's posting on and is overall [not a jerk](https://botwiki.org/articles/essays/). You can find tutorials and open source bots on [Botwiki](https://botwiki.org), and remember to [join Botmakers](https://botmakers.org/) and [submit your bot to Botwiki](https://botwiki.org/submit-your-bot) :-)
 
 ## Support Botwiki/Botmakers
 
