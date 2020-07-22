@@ -1,4 +1,5 @@
 const helpers = require(__dirname + '/../helpers/helpers.js'),
+      cronSchedules = require( __dirname + '/../helpers/cron-schedules.js' ),
       socrata = require(__dirname + '/../helpers/socrata.js'),
       TwitterClient = require(__dirname + '/../helpers/twitter.js'),    
       mastodonClient = require(__dirname + '/../helpers/mastodon.js'), 
@@ -24,27 +25,32 @@ const tumblr = new tumblrClient( {
   token_secret: process.env.BOT_1_TUMBLR_CONSUMER_TOKEN_SECRET
 } );
 
-module.exports = function(){
-  socrata.getRandomDataSet( {
-    domain: 'data.cityofnewyork.us',
-    offset: 0,
-    limit: 10000,
-    // dataTypes: ['tabular', 'geo']
-    dataTypes: ['geo'],
-    onlyPreview: true
-  }, function( err, dataset ){
-      const text = `${ dataset.resource.name } ${ dataset.link } #nyc #opendata` ;
+module.exports = {
+  active: false,
+  name: 'Socrata API Bot',
+  description: 'An example of using the Socrata API.',
+  interval: cronSchedules.EVERY_SIX_HOURS,
+  script: function(){
+    socrata.getRandomDataSet( {
+      domain: 'data.cityofnewyork.us',
+      offset: 0,
+      limit: 10000,
+      // dataTypes: ['tabular', 'geo']
+      dataTypes: ['geo'],
+      onlyPreview: true
+    }, function( err, dataset ){
+        const text = `${ dataset.resource.name } ${ dataset.link } #nyc #opendata` ;
 
-      helpers.loadImage( dataset.preview_image_url, function( err, imgData ){
-        if ( err ){
-          console.log( err );     
-        }
-        else{
-          twitter.postImage( text, imgData );
-          mastodon.postImage( text, imgData );
-          tumblr.postImage( text, imgData );
-        }
-      } );        
-  } );  
-  
+        helpers.loadImage( dataset.preview_image_url, function( err, imgData ){
+          if ( err ){
+            console.log( err );     
+          }
+          else{
+            twitter.postImage( text, imgData );
+            mastodon.postImage( text, imgData );
+            tumblr.postImage( text, imgData );
+          }
+        } );        
+    } );      
+  }
 };

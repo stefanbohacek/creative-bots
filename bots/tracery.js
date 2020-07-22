@@ -1,6 +1,7 @@
 /* Based on https://glitch.com/edit/#!/tracery-twitter-bot */
 
 const helpers = require(__dirname + '/../helpers/helpers.js'),
+      cronSchedules = require( __dirname + '/../helpers/cron-schedules.js' ),
       tracery = require('tracery-grammar'),
       rawGrammar = require(__dirname + '/../tracery-grammar/directions.json'),    
       processedGrammar = tracery.createGrammar( rawGrammar ),
@@ -29,11 +30,17 @@ const tumblr = new tumblrClient( {
   token_secret: process.env.BOT_1_TUMBLR_CONSUMER_TOKEN_SECRET
 } );
 
-module.exports = function(){
-  const title = 'New post',
-        text = processedGrammar.flatten( '#origin#' );
+module.exports = {
+  active: true,
+  name: 'Tracery bot',
+  description: 'A bot that uses Kate Compton\'s Tracery.',
+  interval: cronSchedules.EVERY_FOUR_HOURS,
+  script: function(){
+    const title = 'New post',
+          text = processedGrammar.flatten( '#origin#' );
 
-  twitter.tweet( text );
-  mastodon.toot( text );
-  tumblr.post( title, text );
+    twitter.tweet( text );
+    mastodon.toot( text );
+    tumblr.post( title, text );    
+  }
 };

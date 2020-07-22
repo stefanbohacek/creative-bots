@@ -1,6 +1,5 @@
-/* Based on glitch.com/edit/#!/generative-art-bot. */
-
 const helpers = require(__dirname + '/../helpers/helpers.js'),
+      cronSchedules = require( __dirname + '/../helpers/cron-schedules.js' ),
       generators = {
         pixelate: require(__dirname + '/../generators/pixelate.js'),        
         rain: require(__dirname + '/../generators/rain.js'),
@@ -43,19 +42,25 @@ const tumblr = new tumblrClient( {
   token_secret: process.env.BOT_1_TUMBLR_CONSUMER_TOKEN_SECRET
 } );
 
-module.exports = function(){
-  const statusText = helpers.randomFromArray([
-          'Check this out!',
-          'New picture!'
-        ]),
-        options = {
-          width: 640,
-          height: 480,
-        };
+module.exports = {
+  active: true,
+  name: 'Generative art bot',
+  description: 'A bot that makes generative art.',
+  interval: cronSchedules.EVERY_DAY_AFTERNOON,
+  script: function(){
+    const statusText = helpers.randomFromArray([
+            'Check this out!',
+            'New picture!'
+          ]),
+          options = {
+            width: 640,
+            height: 480,
+          };
 
-  generators.rain( options, function( err, image ){
-    twitter.postImage( statusText, image.data );
-    mastodon.postImage( statusText, image.path );      
-    tumblr.postImage( statusText, image.data );        
-  } );
+    generators.rain( options, function( err, image ){
+      twitter.postImage( statusText, image.data );
+      mastodon.postImage( statusText, image.path );      
+      tumblr.postImage( statusText, image.data );        
+    } );    
+  }
 };
