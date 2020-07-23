@@ -57,26 +57,21 @@ app.get( '/', function( req, res ) {
       console.log( 'grant', req.session.grant.response );
     }
   }
-  
-  if ( !process.env.PROJECT_NAME || !process.env.PROJECT_ID ){
-    res.sendFile( __dirname + '/views/index.html' );
-  } else {
-    const bots = req.app.get( 'bots' );
-    
-    if ( bots && bots.length > 0 ){
-      bots.forEach( function( bot ){
-        try{
-            bot.next_run = helpers.capitalizeFirstLetter( bot.cronjob.nextDates().fromNow() );    
-        } catch( err ){ console.log( err ) };
-      } )
-    }
-    
-    res.render( 'home', {
-      project_name: process.env.PROJECT_NAME,
-      bots: bots,
-      generative_placeholders_color: helpers.getRandomRange(0, 99)      
-    } );
+  const bots = req.app.get( 'bots' );
+
+  if ( bots && bots.length > 0 ){
+    bots.forEach( function( bot ){
+      try{
+          bot.next_run = helpers.capitalizeFirstLetter( bot.cronjob.nextDates().fromNow() );    
+      } catch( err ){ console.log( err ) };
+    } )
   }
+
+  res.render( 'home', {
+    project_name: process.env.PROJECT_NAME,
+    bots: bots,
+    generative_placeholders_color: helpers.getRandomRange(0, 99)      
+  } );
 } );
 
 app.get( '/connect-tumblr', function( req, res ) {
