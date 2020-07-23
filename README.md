@@ -2,7 +2,7 @@
 
 ![Tweetin'](https://botwiki.org/wp-content/uploads/2020/05/tweet.gif)
 
-This is a template for making creative online bots with [Glitch](https://glitch.com/). It requires a [paid Glitch account](https://glitch.com/pricing). 
+This is a template for making creative online bots with [Glitch](https://glitch.com/).
 
 ## A quick tutorial
 
