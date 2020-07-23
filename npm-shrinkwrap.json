@@ -1,0 +1,14 @@
+{
+  "dependencies": {
+    "chartjs-node": {
+      "version": "1.7.1",
+      "from": "chartjs-node@1.7.1",
+      "dependencies": {
+        "canvas": {
+          "version": "2.6.1",
+          "from": "canvas@~2.6.1"
+        }
+      }
+    }
+  }
+}
