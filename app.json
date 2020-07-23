@@ -6,9 +6,6 @@
   "keywords": ["bots", "twitterbots", "twitter api", "fediverse", "mastodon", "tumblr", "generative art", "botmakers", "botwiki"],
   "buildpacks": [
     {
-      "url": "heroku-community/apt"
-    },
-    {
       "url": "https://github.com/kaiten-hq/heroku-buildpack-cairo.git"
     },
     {
