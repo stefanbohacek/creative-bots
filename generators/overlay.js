@@ -55,6 +55,10 @@ module.exports = function( overlays, options, cb ){
 
         ctx.font = `${img.fontSize}px ${img.fontFamily}`;
         ctx.fillStyle = img.style;
+        ctx.shadowOffsetX = 3;
+        ctx.shadowOffsetY = 3;
+        ctx.shadowColor = 'rgba(0,0,0,0.3)';
+        ctx.shadowBlur = 4;
 
         if ( img.position ){
           console.log( `positioning text: ${img.position} ...` );
