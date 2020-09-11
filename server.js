@@ -15,6 +15,9 @@ const path = require( 'path' ),
 // const bot = require( __dirname + '/bots/basic.js' );
 // bot.script();
 
+const bot = require( __dirname + '/bots/generative.js' );
+bot.script();
+
 const files = fs.readdirSync( __dirname + '/bots' );
 let bots = [];
 

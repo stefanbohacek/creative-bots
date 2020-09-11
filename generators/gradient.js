@@ -1,6 +1,5 @@
 const fs = require( 'fs' ),
       Canvas = require( 'canvas' ),
-      img_path_png = './.data/temp.png',
       helpers = require( __dirname + '/../helpers/helpers.js' );
 
 module.exports = function( options, cb ) {
@@ -18,28 +17,19 @@ module.exports = function( options, cb ) {
 
   let colors = [];
   for ( let i = 0; i<3; i++ ){
-      if ( options.colors.length >= i+1 ){
-          colors.push( `#${options.colors[i]}` );
+      if ( options.colors && options.colors.length >= i+1 ){
+          colors.push( `${options.colors[i]}` );
       }
       else{
-          colors.push( helpers.get_random_hex(  ) );
+          colors.push( helpers.getRandomHex() );
       }
   }
-
+ 
   lingrad.addColorStop( 0, colors[0] );
   lingrad.addColorStop( 0.5, colors[1] );
   lingrad.addColorStop( 1, colors[2] );
   
   ctx.fillStyle = lingrad;
   ctx.fillRect( 0, 0, width, height );
-
-  const out = fs.createWriteStream( img_path_png );
-  const stream = canvas.createPNGStream(  );
-  stream.pipe( out );
-
-  out.on( 'finish', function(){
-    if ( cb ){
-      cb( null, canvas.toBuffer().toString( 'base64' ) );
-    }
-  } );    
+  cb( null, canvas.toBuffer().toString( 'base64' ) );
 }

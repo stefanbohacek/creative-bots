@@ -1,8 +1,7 @@
 const fs = require( 'fs' ),
       Canvas = require( 'canvas' ),
       GIFEncoder = require( 'gifencoder' ),
-      imgPathPng = './.data/temp.png',
-      imgPathGif = './.data/temp.gif',
+      concat = require( 'concat-stream' ),      
       helpers = require( __dirname + '/../helpers/helpers.js' );
 
 module.exports = function( options, cb ) {
@@ -21,7 +20,11 @@ module.exports = function( options, cb ) {
 
   if ( options.animate ){
     encoder = new GIFEncoder( width, height );
-    encoder.createReadStream().pipe( fs.createWriteStream( imgPathGif ) );
+    encoder.createReadStream().pipe( concat( ( data ) => {
+      if ( cb ){
+        cb( null, data.toString( 'base64' ) );
+      }
+    } ) );
 
     encoder.start();
     encoder.setRepeat( -1 );   // 0 for repeat, -1 for no-repeat
@@ -30,8 +33,8 @@ module.exports = function( options, cb ) {
   }
 
   ctx.lineWidth = helpers.getRandomInt( 1,4 );
-  ctx.fillStyle = `#${colors[0]}`;
-  ctx.strokeStyle = `#${colors[1]}`;
+  ctx.fillStyle = colors[0];
+  ctx.strokeStyle = colors[1];
   ctx.fillRect( 0, 0, canvas.width, canvas.height );
   ctx.lineCap = 'round';
 
@@ -76,26 +79,9 @@ module.exports = function( options, cb ) {
   if ( options.animate ){
     encoder.setDelay( 2000 );
     encoder.addFrame( ctx );
-    encoder.finish();
-    helpers.loadImage( `https://${process.env.PROJECT_DOMAIN}.glitch.me/gif`,
-    function( err, imgDataGif ){
-      if ( cb ){
-        cb( null, {
-          path: imgPathGif,
-          data: imgDataGif
-        } );          
-      }
-    } );     
+    encoder.finish();    
   }
   else{
-    const out = fs.createWriteStream( imgPathPng );
-    const stream = canvas.createPNGStream();
-    stream.pipe( out );
-
-    out.on( 'finish', function(){
-      if ( cb ){
-        cb( null, canvas.toBuffer().toString( 'base64' ) );
-      }
-    } );
+    cb( null, canvas.toBuffer().toString( 'base64' ) );
   }
 }

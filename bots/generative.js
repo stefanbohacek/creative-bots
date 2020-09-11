@@ -3,21 +3,21 @@ const helpers = require(__dirname + '/../helpers/helpers.js'),
       generators = {
         pixelate: require(__dirname + '/../generators/pixelate.js'),        
         rain: require(__dirname + '/../generators/rain.js'),
+        circlePacking: require(__dirname + '/../generators/circle-packing.js'),
+        cubicDisarray: require(__dirname + '/../generators/cubic-disarray.js'),
+        joyDivision: require(__dirname + '/../generators/joy-division.js'),
+        tiledLines: require(__dirname + '/../generators/tiled-lines.js'),
+        unDeuxTrois: require(__dirname + '/../generators/un-deux-trois.js'),
+        triangularMesh: require(__dirname + '/../generators/triangular-mesh.js'),
+        gradient: require(__dirname + '/../generators/gradient.js'),
         // TODO: Test the remaining generators.
         // ------------------------------------
-        // circlePacking: require(__dirname + '/../generators/circle-packing.js'),
-        // cubicDisarray: require(__dirname + '/../generators/cubic-disarray.js'),
-        // glitch: require(__dirname + '/../generators/glitch.js'),
-        // joyDivision: require(__dirname + '/../generators/joy-division.js'),
+        // pixelSorter: require(__dirname + '/../generators/pixel-sorter.js'),
         // overlay: require(__dirname + '/../generators/overlay.js'),
-        // gradient: require(__dirname + '/../generators/gradient.js'),
-        // // pixelSorter: require(__dirname + '/../generators/pixel-sorter.js'),
-        // // gif: require(__dirname + '/../generators/gif.js') ,
-        // gradient: require(__dirname + '/../generators/gradient.js'),
-        // tiledLines: require(__dirname + '/../generators/tiled-lines.js'),
-        // triangularMesh: require(__dirname + '/../generators/triangular-mesh.js'),
-        // unDeuxTrois: require(__dirname + '/../generators/un-deux-trois.js')
-      },    
+        // gif: require(__dirname + '/../generators/gif.js'),
+        // glitch: require(__dirname + '/../generators/glitch.js')
+      },
+      colorbrewerColors = require( __dirname + '/../data/colorbrewer.js' ),
       TwitterClient = require(__dirname + '/../helpers/twitter.js'),    
       mastodonClient = require(__dirname + '/../helpers/mastodon.js'), 
       tumblrClient = require(__dirname + '/../helpers/tumblr.js');
@@ -53,14 +53,18 @@ module.exports = {
             'New picture!'
           ]),
           options = {
-            width: 640,
-            height: 480,
+            // width: 640,
+            // height: 480,
+            colors: helpers.randomFromArray( colorbrewerColors ),
+            width: 400,
+            height: 400,
+            animate: true
           };
 
-    generators.rain( options, function( err, image ){
-      twitter.postImage( statusText, image.data );
-      mastodon.postImage( statusText, image.path );      
-      tumblr.postImage( statusText, image.data );        
+    generators.joyDivision( options, function( err, imageData ){
+      twitter.postImage( statusText, imageData );
+      mastodon.postImage( statusText, imageData );      
+      tumblr.postImage( statusText, imageData );        
     } );    
   }
 };
