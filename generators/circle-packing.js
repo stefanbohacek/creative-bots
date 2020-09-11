@@ -1,8 +1,7 @@
 const fs = require( 'fs' ),
       Canvas = require( 'canvas' ),
+      concat = require( 'concat-stream' ),
       GIFEncoder = require( 'gifencoder' ),
-      img_path_png = './.data/temp.png',
-      img_path_gif = './.data/temp.gif',
       helpers = require( __dirname + '/../helpers/helpers.js' );
 
 module.exports = function( options, cb ) {
@@ -17,11 +16,14 @@ module.exports = function( options, cb ) {
       colors = options.colors || ['000', 'fff'],
       canvas = Canvas.createCanvas( width, height ),
       ctx = canvas.getContext( '2d' ),
-      encoder;
+      encoder = new GIFEncoder( width, height );
   
   if ( options.animate ){
-    encoder = new GIFEncoder( width, height );
-    encoder.createReadStream().pipe( fs.createWriteStream( img_path_gif ) );
+    encoder.createReadStream().pipe( concat( ( data ) => {
+      if ( cb ){
+        cb( null, data.toString( 'base64' ) );
+      }
+    } ) );
 
     encoder.start();
     encoder.setRepeat( -1 );   // 0 for repeat, -1 for no-repeat
@@ -30,8 +32,8 @@ module.exports = function( options, cb ) {
   }
 
   ctx.lineWidth = helpers.getRandomInt( 1,4 );
-  ctx.fillStyle = `#${colors[0]}`;
-  ctx.strokeStyle = `#${colors[1]}`;
+  ctx.fillStyle = colors[0];
+  ctx.strokeStyle = colors[1];
   ctx.fillRect( 0, 0, canvas.width, canvas.height );
 
   if ( options.animate ){
@@ -111,8 +113,6 @@ module.exports = function( options, cb ) {
     ctx.stroke(); 
   }
 
-
-
   for ( let i = 0; i < totalCircles; i++ ) {  
     createAndDrawCircle();
     if ( options.animate ){
@@ -124,25 +124,8 @@ module.exports = function( options, cb ) {
     encoder.setDelay( 2000 );
     encoder.addFrame( ctx );
     encoder.finish();
-    helpers.loadImage( `https://${process.env.PROJECT_DOMAIN}.glitch.me/gif`,
-    function( err, img_data_gif ){
-      if ( cb ){
-        cb( null, {
-          path: img_path_gif,
-          data: img_data_gif
-        } );          
-      }
-    } );     
   }
   else{
-    const out = fs.createWriteStream( img_path_png );
-    const stream = canvas.createPNGStream();
-    stream.pipe( out );
-
-    out.on( 'finish', function(){
-      if ( cb ){
-        cb( null, canvas.toBuffer().toString( 'base64' ) );
-      }
-    } );
+    cb( null, canvas.toBuffer().toString( 'base64' ) );
   }
 }
