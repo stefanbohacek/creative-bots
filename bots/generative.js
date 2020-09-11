@@ -53,12 +53,10 @@ module.exports = {
             'New picture!'
           ]),
           options = {
-            // width: 640,
-            // height: 480,
+            width: 640,
+            height: 480,
             colors: helpers.randomFromArray( colorbrewerColors ),
-            width: 400,
-            height: 400,
-            animate: true
+            // animate: true
           };
 
     generators.joyDivision( options, function( err, imageData ){

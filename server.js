@@ -10,13 +10,10 @@ const path = require( 'path' ),
       CronJob = require( 'cron' ).CronJob,
       cronSchedules = require( __dirname + '/helpers/cron-schedules.js' );
 
-/* All bots will be automatically loaded from the "bots" folder. For testing a single bot: */
+/* All bots will be automatically loaded from the "bots" folder. For testing a single bot, load your bot and run the script function: */
 
-// const bot = require( __dirname + '/bots/basic.js' );
+// const bot = require( __dirname + '/bots/generative.js' );
 // bot.script();
-
-const bot = require( __dirname + '/bots/generative.js' );
-bot.script();
 
 const files = fs.readdirSync( __dirname + '/bots' );
 let bots = [];
