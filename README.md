@@ -2,11 +2,19 @@
 
 ![Tweetin'](https://botwiki.org/wp-content/uploads/2020/05/tweet.gif)
 
-This is a template for making creative online bots with [Glitch](https://glitch.com/). This project requires a [paid subscription](https://glitch.com/pricing).
+This is a template for making creative online bots.
 
 ## A quick tutorial
 
-1. Create accounts for all of your bots. Currently supported networks:
+Read [the full tutorial on my blog](https://fourtonfish.com/project/creative-bots/). In short:
+
+1. Choose wheree you want to host your bot. Note that these services require a paid subscription.
+- [remix this project on Glitch](https://glitch.com/edit/#!/remix/creative-bots) ([pricing](https://glitch.com/pricing))
+- [import to Heroku](https://heroku.com/deploy?template=https://github.com/fourtonfish/creative-bots/tree/master) ([pricing]())
+- [import to repl.it](https://repl.it/glitch/creative-bots) (always-on repls are coming soon and will require a [paid plan](https://repl.it/site/pricing))
+- [download the code from GitHub](https://github.com/fourtonfish/creative-bots/archive/master.zip) and host it on your own server
+
+2. Create accounts for all of your bots. Currently supported networks:
 
 <ul>
     <li><a href="https://botwiki.org/tutorials/how-to-create-a-twitter-app/" target="_blank">Twitter</a></li>
