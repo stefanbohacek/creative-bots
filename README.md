@@ -48,11 +48,8 @@ Make sure your bot follows rules of the networks it's posting on and is overall 
 
 ## Support Botwiki/Botmakers
 
-- [patreon.com/botwiki](https://patreon.com/botwiki)
-- [botwiki.org/about/support-us](https://botwiki.org/about/support-us)
+- [Become a patren](https://patreon.com/botwiki)
+- [Other ways to support us](https://botwiki.org/about/support-us)
+- [Our supporters](https://botwiki.org/about/supporters/)
 
 🙇
-
-**Powered by [Glitch](https://glitch.com)**
-
-\ ゜o゜)ノ
