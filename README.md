@@ -46,6 +46,17 @@ Check out [stefans-creative-bots](https://stefans-creative-bots.glitch.me) proje
 
 Make sure your bot follows rules of the networks it's posting on and is overall [not a jerk](https://botwiki.org/articles/essays/). Visit [Botwiki](https://botwiki.org) for tutorials and open source bots and remember to [join Botmakers](https://botmakers.org/) and [submit your bot to Botwiki](https://botwiki.org/submit-your-bot) :-)
 
+## Known issues
+
+**Chrome is not installed.**
+
+Use the terminal to reinstall puppeteer and use puppeteer's Chrome installation script.
+
+```
+npm install puppeteer
+node node_modules/puppeteer/install.js
+```
+
 ## Support Botwiki/Botmakers
 
 - [Become a patren](https://patreon.com/botwiki)

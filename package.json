@@ -38,10 +38,11 @@
     "pluralize": "^8.0.0",
     "express-handlebars": "^5.0.0",
     "request": "^2.88.2",
-    "node-gyp": "^7.0.0"
+    "node-gyp": "^7.0.0",
+    "body-parser": "^1.19.0"
   },
   "engines": {
-    "node": "13.x"
+    "node": "12.x"
   },
   "repository": {
     "url": "https://github.com/fourtonfish/creative-bots"
