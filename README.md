@@ -57,6 +57,15 @@ npm install puppeteer
 node node_modules/puppeteer/install.js
 ```
 
+On Glitch, project dependencies get reinstalled every 12 hours even on boosted apps, so you will need to update your `scripts` entry inside `package.json` to look like this:
+
+```
+  "scripts": {
+    "start": "node server.js",
+    "postinstall": "npm install puppeteer; node node_modules/puppeteer/install.js"
+  },
+```
+
 ## Support Botwiki/Botmakers
 
 - [Become a patren](https://patreon.com/botwiki)
