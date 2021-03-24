@@ -46,25 +46,12 @@ Check out [stefans-creative-bots](https://stefans-creative-bots.glitch.me) proje
 
 Make sure your bot follows rules of the networks it's posting on and is overall [not a jerk](https://botwiki.org/articles/essays/). Visit [Botwiki](https://botwiki.org) for tutorials and open source bots and remember to [join Botmakers](https://botmakers.org/) and [submit your bot to Botwiki](https://botwiki.org/submit-your-bot) :-)
 
-## Known issues
+## FAQ and known issues
 
-**Chrome is not installed.**
+**Bots that use puppeteer stopped working.**
 
-Use the terminal to reinstall puppeteer and use puppeteer's Chrome installation script.
+Be sure to update puppeteer to the [latest version](https://www.npmjs.com/package/puppeteer).
 
-```
-npm install puppeteer
-node node_modules/puppeteer/install.js
-```
-
-On Glitch, project dependencies get reinstalled every 12 hours even on boosted apps, so you will need to update your `scripts` entry inside `package.json` to look like this:
-
-```
-  "scripts": {
-    "start": "node server.js",
-    "postinstall": "npm install puppeteer; node node_modules/puppeteer/install.js"
-  },
-```
 
 ## Support Botwiki/Botmakers
 
