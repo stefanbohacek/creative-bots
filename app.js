@@ -57,7 +57,7 @@ app.get( '/', function( req, res ) {
       console.log( 'grant', req.session.grant.response );
     }
   }
-  const bots = req.app.get( 'bots' );
+  let bots = req.app.get( 'bots' );
 
   if ( bots && bots.length > 0 ){
     bots.forEach( function( bot ){
@@ -67,6 +67,10 @@ app.get( '/', function( req, res ) {
     } )
   }
 
+  try{
+    bots.sort( ( a, b ) => ( a.name.toLowerCase() > b.name.toLowerCase() ) ? 1 : -1);
+  } catch( err ){ console.log( err ) }
+  
   res.render( 'home', {
     project_name: process.env.PROJECT_NAME,
     bots: bots,
