@@ -185,6 +185,57 @@ class TwitterClient {
     }
   }
 
+  postImageWithAltText( options, cb ){
+    const { text, image, alt, replyToId } = options;
+    
+    if ( this.client ){
+      let client = this.client;
+      
+      this.client.post( 'media/upload', { media_data: image }, function ( err, data, response ) {
+        if ( err ){
+          console.log( 'error:', err );
+          if ( cb ){
+            cb( err );
+          }
+        }
+        else{
+          console.log( 'uploaded image, now tweeting it...' );
+
+          let tweetObj = {
+            media_ids: new Array( data.media_id_string )
+          };
+
+          if ( text ){
+            tweetObj.status = text;
+          }
+
+          if ( replyToId ){
+            tweetObj.in_reply_to_status_id = replyToId;
+          }
+
+          client.post( 'media/metadata/create', {
+            media_id: data.media_id_string,
+            'alt_text': {
+                'text': alt || text
+            }            
+          }, function( err, data, response ) {
+            client.post( 'statuses/update', tweetObj, function( err, data, response ) {
+              if ( data && data.id_str && data.user && data.user.screen_name ){
+                console.log( 'tweeted', `https://twitter.com/${ data.user.screen_name }/status/${ data.id_str }` );
+              }
+              if ( err ){
+                console.log( 'Twitter API error', err );
+              }
+              if ( cb ){
+                cb( err, data );
+              }
+            } );          
+          } );
+        }
+      } ); 
+    }
+  }
+
   updateProfileImage( imageBase64, cb ){
     if ( this.client ){
       console.log( 'updating profile image...' );
