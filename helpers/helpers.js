@@ -146,7 +146,7 @@ module.exports = {
       } );
 
       data += `{"uuid":"${img_data.uuid}","deleted":true}\n`;
-      fs.writeFile( __dirname + '/.glitch-assets', data );
+      fs.writeFile(  './.glitch-assets', data );
       exec.exec( 'refresh' );
     } );
   },
