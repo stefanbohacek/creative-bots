@@ -33,7 +33,7 @@
     "dotenv": "^8.2.0",
     "base64-stream": "^1.0.0",
     "concat-stream": "^2.0.0",
-    "node-fetch": "^2.6.0",
+    "node-fetch": "^3.1.1",
     "q": "1.0.1",
     "pluralize": "^8.0.0",
     "express-handlebars": "^5.0.0",
