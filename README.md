@@ -8,7 +8,7 @@ This is a template for making creative online bots.
 
 Read [the full tutorial on my blog](https://fourtonfish.com/project/creative-bots/). In short:
 
-1. Choose wheree you want to host your bot. Note that these services require a paid subscription.
+1. Choose where you want to host your bot. Note that these services require a paid subscription.
 - [remix this project on Glitch](https://glitch.com/edit/#!/remix/creative-bots) ([pricing](https://glitch.com/pricing))
 - [import to Heroku](https://heroku.com/deploy?template=https://github.com/fourtonfish/creative-bots/tree/master) ([pricing]())
 - [import to repl.it](https://repl.it/glitch/creative-bots) ([pricing](https://repl.it/site/pricing))
