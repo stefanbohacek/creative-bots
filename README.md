@@ -11,7 +11,7 @@ Read [the full tutorial on my blog](https://fourtonfish.com/project/creative-bot
 1. Choose where you want to host your bot. Note that these services require a paid subscription.
 - [remix this project on Glitch](https://glitch.com/edit/#!/remix/creative-bots) ([pricing](https://glitch.com/pricing))
 - [import to Heroku](https://heroku.com/deploy?template=https://github.com/fourtonfish/creative-bots/tree/master) ([pricing]())
-- [import to repl.it](https://repl.it/glitch/creative-bots) (always-on repls are coming soon and will require a [paid plan](https://repl.it/site/pricing))
+- [import to repl.it](https://repl.it/glitch/creative-bots) ([pricing](https://repl.it/site/pricing))
 - [download the code from GitHub](https://github.com/fourtonfish/creative-bots/archive/master.zip) and host it on your own server
 
 2. Create accounts for all of your bots. Currently supported networks:
