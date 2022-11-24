@@ -7,11 +7,11 @@ const request = require('request'),
       helpers = require(__dirname + '/helpers.js');
 
 module.exports = {
-  getWebcamPicture: function( location, cb ){
+  getWebcamPicture: (location, cb) => {
     
-    if ( !location || !location.lat || !location.long ){
-      if ( cb ){
-        cb( { error: 'no location provided' }, null );
+    if (!location || !location.lat || !location.long){
+      if (cb){
+        cb({ error: 'no location provided' }, null);
       }
       
       return false;
@@ -25,38 +25,38 @@ module.exports = {
 
     const apiUrl = `https://api.windy.com/api/webcams/v2/list/limit=${limit},${offset}/nearby=${location.lat},${location.long},${radius}?show=webcams:location,image&key=${process.env.WINDY_API_KEY}&limit=${limit},${offset}`
     
-    request( apiUrl, function (error, response, body) {
+    request(apiUrl, (error, response, body) => {
       try{
-        data = JSON.parse( body )
-      } catch( err ){
+        data = JSON.parse(body)
+      } catch(err){
         /* noop */
       }
       
-      if ( data && data.result && data.result.total ){
+      if (data && data.result && data.result.total){
         limit = data.result.limit;
-        offset = helpers.getRandomInt(0, data.result.total - limit );
+        offset = helpers.getRandomInt(0, data.result.total - limit);
       }
       
-      if ( error && cb ){
-        cb( error, data );
+      if (error && cb){
+        cb(error, data);
         return false;
       }
       
       const apiUrl = `https://api.windy.com/api/webcams/v2/list/limit=${limit},${offset}/nearby=${location.lat},${location.long},${radius}?show=webcams:location,image&key=${process.env.WINDY_API_KEY}&limit=${limit},${offset}`
 
-      request( apiUrl, function (error, response, body) {
+      request(apiUrl, (error, response, body) => {
         try{
-          data = JSON.parse( body )
-        } catch( err ){
+          data = JSON.parse(body)
+        } catch(err){
           /* noop */
         }
         
-        if ( data.result && data.result.webcams ){
-          data = helpers.randomFromArray( data.result.webcams );
+        if (data.result && data.result.webcams){
+          data = helpers.randomFromArray(data.result.webcams);
         }
 
-        if ( cb ){
-          cb( error, data );
+        if (cb){
+          cb(error, data);
         }
       });      
     });

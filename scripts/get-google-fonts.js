@@ -7,16 +7,16 @@
   6. See examples/overlay-google-font.js.
 */
 
-var express = require('express'),
-    GetGoogleFonts = require('get-google-fonts');
+const express = require('express'),
+      GetGoogleFonts = require('get-google-fonts');
 
-var ggf = new GetGoogleFonts({
+const ggf = new GetGoogleFonts({
 	userAgent: 'Wget/1.18'
 })
 
 ggf.download([
   {
-      'Monoton': [400, 700]
+    'Monoton': [400, 700]
   },
   ['cyrillic']
 ]).then(() => {
