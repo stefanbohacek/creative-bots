@@ -1,20 +1,20 @@
-const fs = require( 'fs' ),
-      path = require( 'path' ),
+const fs = require('fs'),
+      path = require('path'),
       fetch = require('node-fetch'),
-      request = require( 'request' ),
-      exec  = require( 'child_process' );
+      request = require('request'),
+      exec  = require('child_process');
 
 module.exports = {
-  capitalizeFirstLetter: function( str ){
+  capitalizeFirstLetter: (str) => {
     return str.charAt(0).toUpperCase() + str.slice(1).toLowerCase();    
   },
-  randomFromArray: function( arr ) {
-    return arr[Math.floor( Math.random() * arr.length )]; 
+  randomFromArray: (arr) => {
+    return arr[Math.floor(Math.random() * arr.length)]; 
   },
-  randomFromArrayUnique: function( arr, n ) {
+  randomFromArrayUnique: (arr, n) => {
     let len = arr.length;
 
-    if ( n > len ){
+    if (n > len){
       n = len;
     }
 
@@ -28,23 +28,23 @@ module.exports = {
     }
     return result;
   },  
-  getRandomInt: function( min, max ) {
-    return Math.floor( Math.random() * ( max - min + 1 ) ) + min;
+  getRandomInt: (min, max) => {
+    return Math.floor(Math.random() * (max - min + 1)) + min;
   },
-  getRandomRange: function( min, max, fixed ) {
-    return ( Math.random() * ( max - min ) + min ).toFixed( fixed ) * 1;
+  getRandomRange: (min, max, fixed) => {
+    return (Math.random() * (max - min) + min).toFixed(fixed) * 1;
   },
-  getRandomHex: function() {
-    return '#' + Math.random().toString( 16 ).slice( 2, 8 ).toUpperCase();
+  getRandomHex: () => {
+    return '#' + Math.random().toString(16).slice(2, 8).toUpperCase();
   },
-  shadeColor: function( color, percent ) {
+  shadeColor: (color, percent) => {
     // https://stackoverflow.com/questions/5560248/programmatically-lighten-or-darken-a-hex-color-or-rgb-and-blend-colors
-    let f = parseInt( color.slice( 1 ),16 ),t=percent<0?0:255,p=percent<0?percent*-1:percent,R=f>>16,G=f>>8&0x00FF,B=f&0x0000FF;
-    return `#${( 0x1000000+( Math.round( ( t-R )*p )+R )*0x10000+( Math.round( ( t-G )*p )+G )*0x100+( Math.round( ( t-B )*p )+B ) ).toString( 16 ).slice( 1 )}`;
+    let f = parseInt(color.slice(1),16),t=percent<0?0:255,p=percent<0?percent*-1:percent,R=f>>16,G=f>>8&0x00FF,B=f&0x0000FF;
+    return `#${(0x1000000+(Math.round((t-R)*p)+R)*0x10000+(Math.round((t-G)*p)+G)*0x100+(Math.round((t-B)*p)+B)).toString(16).slice(1)}`;
   },
-  invertColor: function(hex){
+  invertColor: (hex) => {
     /* https://stackoverflow.com/questions/35969656/how-can-i-generate-the-opposite-color-according-to-current-color */
-    function padZero(str, len) {
+    const padZero = (str, len) => {
       len = len || 2;
       var zeros = new Array(len).join('0');
       return (zeros + str).slice(-len);
@@ -63,117 +63,117 @@ module.exports = {
         b = (255 - parseInt(hex.slice(4, 6), 16)).toString(16);
     return '#' + padZero(r) + padZero(g) + padZero(b);
   },  
-  loadAssets: function( cb ){
-    console.log( 'reading assets folder...' )
+  loadAssets: (cb) => {
+    console.log('reading assets folder...')
     let that = this;
-    fs.readFile( './.glitch-assets', 'utf8', function ( err, data ) {
-      if ( err ) {
-        console.log( 'error:', err );
-        cb( err );
+    fs.readFile('./.glitch-assets', 'utf8',  (err, data)  => {
+      if (err) {
+        console.log('error:', err);
+        cb(err);
         return false;
       }
-      cb( null, data );
-    } );      
+      cb(null, data);
+    });      
   },
-  loadImageAssets: function( cb ){
+  loadImageAssets: (cb) => {
     let helpers = this;
 
-    helpers.loadAssets( function( err, data ){
+    helpers.loadAssets((err, data) => {
       /* Filter images in the assets folder */
-      data = data.split( '\n' );
+      data = data.split('\n');
 
-      let data_json = JSON.parse( '[' + data.join( ',' ).slice( 0, -1 ) + ']' );
+      let dataJson = JSON.parse('[' + data.join(',').slice(0, -1) + ']');
       
-      let deleted_images = data_json.reduce( function( filtered, data_img ) {
-            if ( data_img.deleted ) {
-               let someNewValue = { name: data_img.name, newProperty: 'Foo' }
-               filtered.push( data_img.uuid );
+      let deletedImages = dataJson.reduce((filtered, dataImg)  => {
+            if (dataImg.deleted) {
+               let someNewValue = { name: dataImg.name, newProperty: 'Foo' }
+               filtered.push(dataImg.uuid);
             }
             return filtered;
-          }, [] ),
-          img_urls = [];
+          }, []),
+          imgUrls = [];
     
-        for ( let i = 0, j = data.length; i < j; i++ ){
-          if ( data[i].length ){
-            let img_data = JSON.parse( data[i] ),
-                image_url = img_data.url;
+        for (let i = 0, j = data.length; i < j; i++){
+          if (data[i].length){
+            let imgData = JSON.parse(data[i]),
+                imgUrl = imgData.url;
   
-            if ( image_url && deleted_images.indexOf( img_data.uuid ) === -1 && helpers.extensionCheck( image_url ) ){
-              let file_name = helpers.getFilenameFromURL( image_url ).split( '%2F' )[1];
-              console.log( `- ${file_name}` );
-              img_urls.push( image_url );
+            if (imgUrl && deletedImages.indexOf(imgData.uuid) === -1 && helpers.extensionCheck(imgUrl)){
+              let fileName = helpers.getFilenameFromURL(imgUrl).split('%2F')[1];
+              console.log(`- ${fileName}`);
+              imgUrls.push(imgUrl);
             }
           }
         }
-        if ( img_urls && img_urls.length === 0 ){
-          console.log( 'no images found...' );
+        if (imgUrls && imgUrls.length === 0){
+          console.log('no images found...');
         }
-        cb( null, img_urls );
-    } );
+        cb(null, imgUrls);
+    });
   },
-  extensionCheck: function( url ) {
-    let file_extension = path.extname( url ).toLowerCase(),
+  extensionCheck: (url) => {
+    let fileExtension = path.extname(url).toLowerCase(),
         extensions = ['.png', '.jpg', '.jpeg', '.gif'];
-    return extensions.indexOf( file_extension ) !== -1;
+    return extensions.indexOf(fileExtension) !== -1;
   },
-  getFilenameFromURL: function( url ) {
-    return url.substring( url.lastIndexOf( '/' ) + 1 );
+  getFilenameFromURL: (url) => {
+    return url.substring(url.lastIndexOf('/') + 1);
   },
-  loadImage: function( url, cb ) {
-    console.log( 'loading remote image...', url );
-    request( { url: url, encoding: null }, function ( err, res, body ) {
-        if ( !err && res.statusCode == 200 ) {
+  loadImage: (url, cb) => {
+    console.log('loading remote image...', url);
+    request({ url: url, encoding: null },  (err, res, body)  => {
+        if (!err && res.statusCode == 200) {
           let b64content = 'data:' + res.headers['content-type'] + ';base64,';
-          console.log( 'image loaded...' );
-          cb( null, body.toString( 'base64' ) );
+          console.log('image loaded...');
+          cb(null, body.toString('base64'));
         } else {
-          console.log( 'ERROR:', err );
-          cb( err );
+          console.log('ERROR:', err);
+          cb(err);
         }
-    } );
+    });
   },
-  removeAsset: function( url, cb ){
+  removeAsset: (url, cb) => {
     let helpers = this;
-    console.log( 'removing asset...' );
-    helpers.loadAssets( function( err, data ){
-      let data_array = data.split( '\n' ),
-          img_data;
-      data_array.forEach( function( d ){
-        if ( d.indexOf( url ) > -1 ){
-            img_data = JSON.parse( d );
+    console.log('removing asset...');
+    helpers.loadAssets((err, data) => {
+      let dataArray = data.split('\n'),
+          imgData;
+      dataArray.forEach((d) => {
+        if (d.indexOf(url) > -1){
+            imgData = JSON.parse(d);
             return;
         }
-      } );
+      });
 
-      data += `{"uuid":"${img_data.uuid}","deleted":true}\n`;
-      fs.writeFile(  './.glitch-assets', data );
-      exec.exec( 'refresh' );
-    } );
+      data += `{"uuid":"${imgData.uuid}","deleted":true}\n`;
+      fs.writeFile( './.glitch-assets', data);
+      exec.exec('refresh');
+    });
   },
-  downloadFile: function( uri, cb ){
-    // request.head( uri, function( err, res, body ){
-    //   request( uri ).pipe( fs.createWriteStream( filename ) ).on( 'close', cb );
-    // } );
+  downloadFile: (uri, cb) => {
+    // request.head(uri, (err, res, body) => {
+    //   request(uri).pipe(fs.createWriteStream(filename)).on('close', cb);
+    // });
     
     try {
-        fetch( uri )
-            .then( res => res.buffer() )
-            .then( buffer => {
-              console.log( buffer )
-              if ( cb ){
-                cb( null, buffer );
+        fetch(uri)
+            .then(res => res.buffer())
+            .then(buffer => {
+              console.log(buffer)
+              if (cb){
+                cb(null, buffer);
               }
-        } );
-    } catch ( err ) {
-        console.log( err );
+        });
+    } catch (err) {
+        console.log(err);
     }
 
   },
-  removeFile: function( filePath ){
-    setTimeout( function(){
-      if ( fs.existsSync( filePath ) ){
-        fs.unlinkSync( filePath );
+  removeFile: (filePath) => {
+    setTimeout(() => {
+      if (fs.existsSync(filePath)){
+        fs.unlinkSync(filePath);
       }
-    }, 30000 );
+    }, 30000);
   }
 };
