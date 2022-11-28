@@ -158,7 +158,10 @@ module.exports = {
 
               const imgData = buffer.toString('base64');
           
-              twitter.postImage(text, imgData);
+              twitter.postImage({
+                status:text,
+                image: imgData
+              });
               mastodon.postImage(text, imgData);
               tumblr.postImage(text, imgData);
           });   

@@ -60,7 +60,10 @@ module.exports = {
           };
 
     generators.joyDivision(options, (err, imageData) => {
-      twitter.postImage(statusText, imageData);
+      twitter.postImage({
+        status: statusText,
+        image: imageData
+      });
       mastodon.postImage(statusText, imageData);      
       tumblr.postImage(statusText, imageData);        
     });    

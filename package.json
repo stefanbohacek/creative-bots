@@ -21,7 +21,7 @@
     "roughjs": "^4.1.4",
     "poisson-disc-sampler": "^1.1.0",
     "get-google-fonts": "^1.2.2",
-    "underscore": "^1.10.2",
+    "underscore": "^1.13.6",
     "express-session": "^1.17.1",
     "memorystore": "^1.6.2",
     "tumblr.js": "^2.0.0",

@@ -1,5 +1,9 @@
 /*
 
+Put all your images into the Assets folder. (See left sidebar.)
+Then update the data/images.js file with URLs of your images, description of each image for the alt text, and optionally a short text that will be posted with the image.
+
+
 You can use the Assets folder (https://help.glitch.com/kb/article/43-adding-assets/) to upload your images, and then use the helpers.loadImageAssets helper function (see example below) to load the image URLs.
 
 Note that Glitch doesn't support folders, so if you want to have multiple random image bots, or to keep images in your assets folder that you don't want the bot to post, you can add a prefix to each image and then filter the images using this prefix.
@@ -13,6 +17,7 @@ const imgUrl = helpers.randomFromArray(assetUrls.filter((asset) => {
 */
 
 const helpers = require(__dirname + '/../helpers/helpers.js'),
+      images = require(__dirname + '/../data/images.js'),
       cronSchedules = require(__dirname + '/../helpers/cron-schedules.js'),
       TwitterClient = require(__dirname + '/../helpers/twitter.js'),    
       mastodonClient = require(__dirname + '/../helpers/mastodon.js'), 
@@ -44,30 +49,21 @@ module.exports = {
   description: 'A bot that posts random images.',
   interval: cronSchedules.EVERY_SIX_HOURS,
   script: () => {
-    helpers.loadImageAssets((err, assetUrls) => {
+    const image = helpers.randomFromArray(images);
+    console.log(images, image);
+
+    helpers.loadImage(image.url, (err, imgData) => {
       if (err){
         console.log(err);     
       }
       else{
-        const imgUrl = helpers.randomFromArray(assetUrls);
-        
-        helpers.loadImage(imgUrl, (err, imgData) => {
-          if (err){
-            console.log(err);     
-          }
-          else{
-            
-            const text = helpers.randomFromArray([
-              'Hello!',
-              'Hi!',
-              'Hi there!'
-            ]);
-
-            twitter.postImage(text, imgData);
-            mastodon.postImage(text, imgData);
-            tumblr.postImage(text, imgData);
-          }
+        twitter.postImage({
+          status: `Source: ${image.text}`,
+          image: imgData,
+          alt_text: image.alt_text,
         });
+        mastodon.postImage(image.text, imgData);
+        tumblr.postImage(image.text, imgData);
       }
     });
   }
