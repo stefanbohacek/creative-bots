@@ -62,7 +62,13 @@ module.exports = {
           image: imgData,
           alt_text: image.alt_text,
         });
-        mastodon.postImage(image.text, imgData);
+        
+        mastodon.postImage({
+          status: `Source: ${image.text} #Tag #AnotherTag`,
+          image: imgData,
+          alt_text: image.alt_text,
+        });
+        
         tumblr.postImage(image.text, imgData);
       }
     });

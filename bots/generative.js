@@ -48,22 +48,34 @@ module.exports = {
   description: 'A bot that makes generative art.',
   interval: cronSchedules.EVERY_DAY_AFTERNOON,
   script: () => {
+    
     const statusText = helpers.randomFromArray([
             'Check this out!',
             'New picture!'
-          ]),
-          options = {
+          ]);
+    const color = helpers.randomFromArray(colorbrewerColors);
+    const options = {
             width: 640,
             height: 480,
-            colors: helpers.randomFromArray(colorbrewerColors),
+            colors: color,
             // animate: true
           };
+    
+    const altText = 'Joy Division cover album inspired generative art piece';
 
     generators.joyDivision(options, (err, imageData) => {
       twitter.postImage({
         status: statusText,
-        image: imageData
+        image: imageData,
+        alt_text: altText
       });
+      
+      mastodon.postImage({
+        status: statusText + ' #Tag #AnotherTag',
+        image: imageData,
+        alt_text: altText
+      });
+      
       mastodon.postImage(statusText, imageData);      
       tumblr.postImage(statusText, imageData);        
     });    

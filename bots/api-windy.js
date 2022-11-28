@@ -52,7 +52,8 @@ module.exports = {
         const windyWebcamUrl = `https://www.windy.com/-Webcams/United-States/Minnesota/Delhi/New-York/webcams/${data.id}`;
         const googleMapsUrl = `https://www.google.com/maps/search/${data.location.latitude},${data.location.longitude}`;
 
-        let text = `${webcamTitle}\n${windyWebcamUrl}\n${googleMapsUrl}`;
+        const text = `${webcamTitle}\n${windyWebcamUrl}\n${googleMapsUrl}`;
+        const altText = 'View from one of NYC\'s webcams.';
 
         helpers.loadImage(data.image.current.preview, (err, imgData) => {
           if (err){
@@ -60,10 +61,17 @@ module.exports = {
           }
           else{
             twitter.postImage({
-              status:text,
-              image: imgData
+              status: text,
+              image: imgData,
+              alt_text: altText
             });
-            mastodon.postImage(text, imgData);
+            
+            mastodon.postImage({
+              status: text,
+              image: imgData,
+              alt_text: altText
+            });
+
             tumblr.postImage(text, imgData);
           }
         }); 

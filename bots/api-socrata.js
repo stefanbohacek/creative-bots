@@ -40,6 +40,7 @@ module.exports = {
       onlyPreview: true
     }, (err, dataset ) => {
         const text = `${ dataset.resource.name } ${ dataset.link } #nyc #opendata` ;
+        const altText = `Chart visualizing the ${dataset.resource.name} dataset.`;
 
         helpers.loadImage(dataset.preview_image_url, (err, imgData ) => {
           if (err ){
@@ -48,9 +49,16 @@ module.exports = {
           else{
             twitter.postImage({
               status:text,
-              image: imgData
+              image: imgData,
+              alt_text: altText
             });
-            mastodon.postImage(text, imgData );
+            
+            mastodon.postImage({
+              status: text,
+              image: imgData,
+              alt_text: altText
+            });
+
             tumblr.postImage(text, imgData );
           }
         });
