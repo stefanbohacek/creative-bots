@@ -50,40 +50,40 @@ module.exports = {
 
         /* Set up your data.  */
 
-        let introduced_count = 0,
-            pass_over_house_count = 0,
-            passed_bill_count = 0,
-            passed_concurrentres_count = 0,
-            passed_simpleres_count = 0,
-            reported_count = 0,
-            enacted_signed_count = 0;
+        let introducedCount = 0,
+            passOverHouseCount = 0,
+            passedBillCount = 0,
+            passedConcurrentResCount = 0,
+            passedSimpleResCount = 0,
+            reportedCount = 0,
+            enactedSignedCount = 0;
 
         bodyParsed.objects.forEach((bill) => {
           if (bill.current_status === 'introduced'){
-            introduced_count ++;
+            introducedCount ++;
           } else if (bill.current_status === 'pass_over_house'){
-            pass_over_house_count ++; 
+            passOverHouseCount ++; 
           } else if (bill.current_status === 'passed_bill'){
-            passed_bill_count ++; 
+            passedBillCount ++; 
           } else if (bill.current_status === 'passed_concurrentres'){
-            passed_concurrentres_count ++; 
+            passedConcurrentResCount ++; 
           } else if (bill.current_status === 'passed_simpleres'){
-            passed_simpleres_count ++; 
+            passedSimpleResCount ++; 
           } else if (bill.current_status === 'reported'){
-            reported_count ++; 
+            reportedCount ++; 
           } else if (bill.current_status === 'enacted_signed'){
-            enacted_signed_count ++; 
+            enactedSignedCount ++; 
           }
         });  
 
        const data = [
-            ['Introduced', introduced_count],
-            ['Passed House', pass_over_house_count],
-            ['Passed House & Senate', passed_bill_count],
-            ['Concurrent Resolution', passed_concurrentres_count],
-            ['Simple Resolution', passed_simpleres_count],
-            ['Ordered Reported', reported_count],
-            ['Enacted', enacted_signed_count]
+            ['Introduced', introducedCount],
+            ['Passed House', passOverHouseCount],
+            ['Passed House & Senate', passedBillCount],
+            ['Concurrent Resolution', passedConcurrentResCount],
+            ['Simple Resolution', passedSimpleResCount],
+            ['Ordered Reported', reportedCount],
+            ['Enacted', enactedSignedCount]
         ];
 
         /* Set up the chart.js options, see chartjs.org for documentation. */
@@ -156,13 +156,22 @@ module.exports = {
                 'Breaking down the last 100 bills in the US government.'
               ]);
 
+              const altText = `${ introducedCount } bills have been introduced, ${ passOverHouseCount } bills passed the House,  ${ passedBillCount } bills passed the House & the Senate, ${ passedConcurrentResCount + passedSimpleResCount } bills have been agreed to, ${ reportedCount } bills are being considered, and ${ enactedSignedCount } bills have been  enacted.`;
+          
               const imgData = buffer.toString('base64');
           
               twitter.postImage({
                 status:text,
-                image: imgData
+                image: imgData,
+                alt_text: altText
               });
-              mastodon.postImage(text, imgData);
+          
+              mastodon.postImage({
+                status: text,
+                image: imgData,
+                alt_text: altText
+              });
+          
               tumblr.postImage(text, imgData);
           });   
       }

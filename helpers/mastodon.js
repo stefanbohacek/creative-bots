@@ -1,3 +1,4 @@
+
 const fs = require('fs'),
       request = require('request'),
       helpers = require(__dirname + '/../helpers/helpers.js'),
@@ -74,7 +75,7 @@ class MastodonClient {
         json: optionsObj
       };
 
-      request(req, callback = (error, response, body) => {
+      request(req, (error, response, body) => {
         if (error){
           console.log(error)
         } else {
@@ -119,13 +120,14 @@ class MastodonClient {
       });
     }
   }
-  postImage(text, image_base64, cb){
+  postImage(options, cb){
     if (this.client){
       let client = this.client;
       
       const postImageFn = (client, filePath) => {
         client.post('media', {
-          file: fs.createReadStream(filePath)
+          file: fs.createReadStream(filePath),
+          description: options.alt_text
         }, (err, data, response) => {
           if (err){
             console.log('mastodon.postImage error:', err);
@@ -136,7 +138,7 @@ class MastodonClient {
           else{
             console.log('tooting the image...');
             client.post('statuses', {
-              status: text,
+              status: options.status,
               // media_ids: new Array(data.media_id_string)
               media_ids: new Array(data.id)
             },
@@ -159,11 +161,11 @@ class MastodonClient {
       }
 
       /* Support both image file path and image data */
-      if (fs.existsSync(image_base64)){
-        postImageFn(client, image_base64);
+      if (fs.existsSync(options.image)){
+        postImageFn(client, options.image);
       } else {
         const imgFilePath = `${__dirname}/../.data/temp-${ Date.now() }-${ helpers.getRandomInt(1, Number.MAX_SAFE_INTEGER) }.png`;
-        fs.writeFile(imgFilePath, image_base64, 'base64', (err) => {
+        fs.writeFile(imgFilePath, options.image, 'base64', (err) => {
           if (!err){
             postImageFn(client, imgFilePath);
           }
