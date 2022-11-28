@@ -9,6 +9,7 @@ This is a template for making creative online bots.
 Read [the full tutorial on my blog](https://fourtonfish.com/project/creative-bots/). In short:
 
 1. Choose where you want to host your bot. Note that these services require a paid subscription.
+
 - [remix this project on Glitch](https://glitch.com/edit/#!/remix/creative-bots) ([pricing](https://glitch.com/pricing))
 - [import to Heroku](https://heroku.com/deploy?template=https://github.com/fourtonfish/creative-bots/tree/master) ([pricing]())
 - [import to repl.it](https://repl.it/glitch/creative-bots) ([pricing](https://repl.it/site/pricing))
@@ -27,7 +28,7 @@ Read [the full tutorial on my blog](https://fourtonfish.com/project/creative-bot
 
 Each bot file needs to export an object with the following information:
 
-```
+```json
 {
   active: true,
   name: 'A basic bot',
@@ -41,8 +42,16 @@ Each bot file needs to export an object with the following information:
 
 You can change `active` to `false` to prevent a bot from being scheduled. For `interval` you can either use one of the values inside `helpers/cron-schedules.js`, or you can use a custom cron schedule -- see [the cron package documentation](https://www.npmjs.com/package/cron#available-cron-patterns) for more details.
 
-Check out [stefans-creative-bots](https://stefans-creative-bots.glitch.me) project for an example remix of this project.
+And to test your bot, uncomment the code starting on line 15 inside `server.js`:
 
+```js
+const bot = require(__dirname + "/bots/random-image.js");
+bot.script();
+```
+
+(Be sure to comment it back out when you're done.)
+
+Check out [stefans-creative-bots](https://stefans-creative-bots.glitch.me) project for an example remix of this project.
 
 Make sure your bot follows rules of the networks it's posting on and is overall [not a jerk](https://botwiki.org/articles/essays/). Visit [Botwiki](https://botwiki.org) for tutorials and open source bots and remember to [join Botmakers](https://botmakers.org/) and [submit your bot to Botwiki](https://botwiki.org/submit-your-bot) :-)
 
@@ -51,7 +60,6 @@ Make sure your bot follows rules of the networks it's posting on and is overall 
 **Bots that use puppeteer stopped working.**
 
 Be sure to update puppeteer to the [latest version](https://www.npmjs.com/package/puppeteer).
-
 
 ## Support Botwiki/Botmakers
 

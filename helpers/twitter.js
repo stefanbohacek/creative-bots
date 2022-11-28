@@ -143,11 +143,11 @@ class TwitterClient {
       }
   }
 
-  postImage(status, imageBase64, cb, inReplyToID){
+  postImage(options, cb){
     if (this.client){
       let client = this.client;
       
-      this.client.post('media/upload', { media_data: imageBase64 },  (err, data, response) => {
+      this.client.post('media/upload', { media_data: options.image },  (err, data, response) => {
         if (err){
           console.log('error:', err);
           if (cb){
@@ -161,62 +161,18 @@ class TwitterClient {
             media_ids: new Array(data.media_id_string)
           };
 
-          if (status){
-            tweetObj.status = status;
+          if (options.status){
+            tweetObj.status = options.status;
           }
 
-          if (inReplyToID){
-            tweetObj.in_reply_to_status_id = inReplyToID;
-          }
-
-          client.post('statuses/update', tweetObj, (err, data, response) => {
-            if (data && data.id_str && data.user && data.user.screen_name){
-              console.log('tweeted', `https://twitter.com/${ data.user.screen_name }/status/${ data.id_str }`);
-            }
-            if (err){
-              console.log('Twitter API error', err);
-            }
-            if (cb){
-              cb(err, data);
-            }
-          });
-        }
-      }); 
-    }
-  }
-
-  postImageWithAltText(options, cb){
-    const { text, image, alt, replyToId } = options;
-    
-    if (this.client){
-      let client = this.client;
-      
-      this.client.post('media/upload', { media_data: image },  (err, data, response) => {
-        if (err){
-          console.log('error:', err);
-          if (cb){
-            cb(err);
-          }
-        }
-        else{
-          console.log('uploaded image, now tweeting it...');
-
-          let tweetObj = {
-            media_ids: new Array(data.media_id_string)
-          };
-
-          if (text){
-            tweetObj.status = text;
-          }
-
-          if (replyToId){
-            tweetObj.in_reply_to_status_id = replyToId;
+          if (options.in_reply_to_status_id){
+            tweetObj.in_reply_to_status_id = options.in_reply_to_status_id;
           }
 
           client.post('media/metadata/create', {
             media_id: data.media_id_string,
             'alt_text': {
-                'text': alt || text
+                'text': options.alt_text || options.status
             }            
           }, (err, data, response) => {
             client.post('statuses/update', tweetObj, (err, data, response) => {
