@@ -12,8 +12,8 @@ const path = require('path'),
 
 /* All bots will be automatically loaded from the "bots" folder. For testing a single bot, load your bot and run the script function: */
 
-const bot = require(__dirname + '/bots/random-image.js');
-bot.script();
+// const bot = require(__dirname + '/bots/random-image.js');
+// bot.script();
 
 const files = fs.readdirSync(__dirname + '/bots');
 let bots = [];
