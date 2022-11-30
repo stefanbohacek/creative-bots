@@ -49,21 +49,27 @@ const bot = require(__dirname + "/bots/random-image.js");
 bot.script();
 ```
 
-(Be sure to comment it back out when you're done.)
+(Remember to comment it back out when you're done.)
 
-Check out [stefans-creative-bots](https://stefans-creative-bots.glitch.me) project for an example remix of this project.
+A few more resources to get you started:
 
-Make sure your bot follows rules of the networks it's posting on and is overall [not a jerk](https://botwiki.org/articles/essays/). Visit [Botwiki](https://botwiki.org) for tutorials and open source bots and remember to [join Botmakers](https://botmakers.org/) and [submit your bot to Botwiki](https://botwiki.org/submit-your-bot) :-)
+- [stefans-creative-bots](https://stefans-creative-bots.glitch.me) my own remix of this project
+- [The Definitive Guide to Creative Botmaking](https://botwiki.org/resource/guide/the-definitive-guide-to-creative-botmaking/)
+
+- [Botwiki](https://botwiki.org) for tutorials and open source bots
+- the [Botmakers](https://botmakers.org/) Slack group
+
+And be sure to [submit your finished bot to Botwiki](https://botwiki.org/submit-your-bot) :-)
 
 ## FAQ and known issues
 
 **Bots that use puppeteer stopped working.**
 
-Be sure to update puppeteer to the [latest version](https://www.npmjs.com/package/puppeteer).
+Update puppeteer to the [latest version](https://www.npmjs.com/package/puppeteer).
 
 ## Support Botwiki/Botmakers
 
-- [Become a patren](https://patreon.com/botwiki)
+- [Become a patron](https://patreon.com/botwiki)
 - [Other ways to support us](https://botwiki.org/about/support-us)
 - [Our supporters](https://botwiki.org/about/supporters/)
 
