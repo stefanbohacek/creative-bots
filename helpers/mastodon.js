@@ -137,11 +137,18 @@ class MastodonClient {
           }
           else{
             console.log('tooting the image...');
-            client.post('statuses', {
+
+            const statusObj = {
               status: options.status,
               // media_ids: new Array(data.media_id_string)
               media_ids: new Array(data.id)
-            },
+            }
+
+            if (options.in_reply_to_id){
+              statusObj.in_reply_to_id = options.in_reply_to_id;
+            }            
+
+            client.post('statuses', statusObj,
             (err, data, response) => {
               if (err){
                 console.log('mastodon.postImage error:', err);
