@@ -14,21 +14,21 @@ class TwitterClient {
     
     if (useAltClient){
       twitterClientInstance._buildReqOpts =  (method, path, params, isStreaming, callback) => {
-        var helpers = require('twit/lib/helpers');
-        var endpoints = require('twit/lib/endpoints');
-        var FORMDATA_PATHS = [];
-        var self = this
+        let helpers = require('twit/lib/helpers');
+        let endpoints = require('twit/lib/endpoints');
+        let FORMDATA_PATHS = [];
+        let self = this
         if (!params) {
             params = {}
         }
         // clone `params` object so we can modify it without modifying the user's reference
-        var paramsClone = JSON.parse(JSON.stringify(params))
+        let paramsClone = JSON.parse(JSON.stringify(params))
         // convert any arrays in `paramsClone` to comma-seperated strings
-        var finalParams = this.normalizeParams(paramsClone)
+        let finalParams = this.normalizeParams(paramsClone)
         delete finalParams.twit_options
 
         // the options object passed to `request` used to perform the HTTP request
-        var reqOpts = {
+        let reqOpts = {
           headers: {
             'Accept': '*/*',
             'User-Agent': 'Twitter-iPhone/6.45 iOS/9.0.2 (Apple;iPhone8,2;;;;;1)',
@@ -55,11 +55,11 @@ class TwitterClient {
 
         if (isStreaming) {
             // This is a Streaming API request.
-          var stream_endpoint_map = {
+          let stream_endpoint_map = {
             user: endpoints.USER_STREAM,
             site: endpoints.SITE_STREAM
           }
-          var endpoint = stream_endpoint_map[path] || endpoints.PUB_STREAM
+          let endpoint = stream_endpoint_map[path] || endpoints.PUB_STREAM
           reqOpts.url = endpoint + path + '.json'
         } else {
             // This is a REST API request.
@@ -86,14 +86,14 @@ class TwitterClient {
         if (Object.keys(finalParams).length) {
           // not all of the user's parameters were used to build the request path
           // add them as a query string
-          var qs = helpers.makeQueryString(finalParams)
+          let qs = helpers.makeQueryString(finalParams)
           reqOpts.url += '?' + qs
         }
 
         if (!self.config.app_only_auth) {
           // with user auth, we can just pass an oauth object to requests
           // to have the request signed
-          var oauth_ts = Date.now() + self._twitter_time_minus_local_time_ms;
+          let oauth_ts = Date.now() + self._twitter_time_minus_local_time_ms;
 
           reqOpts.oauth = {
             consumer_key: self.config.consumer_key,
@@ -238,7 +238,7 @@ class TwitterClient {
     const client = this.client;
     
     console.log(client);
-    var params = {
+    let params = {
       'twitter:api:api:endpoint': '1',
       'twitter:card': 'poll' + entries.length + 'choice_text_only',
       'twitter:long:duration_minutes': duration || 1440, //default 1-day
@@ -264,7 +264,7 @@ class TwitterClient {
         'card_data' : JSON.stringify(params)
       }
     ).then((pack) => {
-      var data = pack[0];
+      let data = pack[0];
       if (data.status === 'FAILURE') {
         throw pack;
       } else {
@@ -301,7 +301,7 @@ class TwitterClient {
         include_cards: 1,
       }
    ).then((pack) => {
-      var data = pack[0];
+      let data = pack[0];
       return data.card;   
     }, (err) => {
         console.error('Error getting card data');
