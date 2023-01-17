@@ -74,7 +74,8 @@ app.get('/', (req, res) => {
   res.render('home', {
     project_name: process.env.PROJECT_NAME,
     bots: bots,
-    generative_placeholders_color: helpers.getRandomRange(0, 99)      
+    generative_placeholders_color: helpers.getRandomRange(0, 99),
+    footer_scripts: process.env.FOOTER_SCRIPTS    
   });
 });
 
