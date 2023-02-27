@@ -18,7 +18,9 @@
         <h2 class="mt-3">{{name}}</h2>
         <p>{{description}}</p>
         <ul class="list-unstyled">
-           <li>⌛ {{interval_human}}</li>
+           {{#if interval_human}}
+              <li>⌛ {{interval_human}}</li>
+           {{/if}}      
            {{#if next_run}}
               <li>📅 {{next_run}}</li>
            {{/if}}      

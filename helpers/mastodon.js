@@ -2,7 +2,7 @@
 const fs = require('fs'),
       request = require('request'),
       helpers = require(__dirname + '/../helpers/helpers.js'),
-      Mastodon = require('mastodon');
+      Mastodon = require('mastodon-api');
 
 class MastodonClient {
   constructor(keys){
@@ -32,14 +32,16 @@ class MastodonClient {
       });
     }
   }
-  reply(status, response, cb){
+  reply(message, response, cb){
+    console.log('replying...');
+    // console.dir(message, { depth: null });
+    
     if (this.client){
-      console.log('responding...');
       this.client.post('statuses', { 
-        in_reply_to_id: status.id,
-        spoiler_text: status.spoiler_text,
-        visibility: status.visibility,
-        status: response
+        in_reply_to_id: message.data.status.id,
+        spoiler_text: message.data.status.spoiler_text,
+        visibility: message.data.status.visibility,
+        status: `@${message.data.account.acct} ${response}`
       }, (err, data, response) => {
         if (cb){
           cb(err, data);
