@@ -61,9 +61,11 @@ app.get('/', (req, res) => {
 
   if (bots && bots.length > 0){
     bots.forEach((bot) => {
-      try{
-          bot.next_run = helpers.capitalizeFirstLetter(bot.cronjob.nextDates().fromNow());    
-      } catch(err){ console.log(err) };
+      if (bot.cronjob){
+        try{
+            bot.next_run = helpers.capitalizeFirstLetter(bot.cronjob.nextDates().fromNow());    
+        } catch(err){ console.log(err) };
+      }
     })
   }
 
