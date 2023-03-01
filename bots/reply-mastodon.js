@@ -15,6 +15,10 @@ module.exports = {
   reply: function(postID, from, messageText, fullMessage){
     
     const messageTextLowercase = messageText.toLowerCase();
+    const messageVisibility = fullMessage.data.status.visibility;
+    
+    // A message can be public, unlisted, private, or direct
+    
     const greetings = ['hello', 'hi', 'hey', 'howdy', 'nice to meet you'];
     const containsGreeting = new RegExp(greetings.join('|')).test(messageText.toLowerCase());
     
@@ -26,7 +30,8 @@ module.exports = {
       replyText = 'Yes?';
     }
 
-    console.log(`new message from ${from}: ${messageText}`, `reply: ${replyText}`);
+    console.log(`new ${messageVisibility} message from ${from}: ${messageText}`);
+    console.log(`replying with: ${replyText}`);
     
     mastodon.reply(fullMessage, replyText);
   }
