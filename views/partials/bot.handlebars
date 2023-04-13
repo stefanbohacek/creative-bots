@@ -3,15 +3,15 @@
     <div class="row mb-3 bot-showcase">
       <div class="col-sm-12">
         {{#if about_url}}
-            <a href="{{about_url}}">
+            <a rel="me" href="{{about_url}}">
           {{else}}
-            <a href="https://glitch.com/edit/#!/{{@root.project_name}}?path={{file}}">
+            <a rel="me" href="https://glitch.com/edit/#!/{{@root.project_name}}?path={{file}}">
           {{/if}}      
         {{#if thumbnail}}
-            <img class="img-thumbnail mb-2" src="{{thumbnail}}" class="mr-3" alt="...">
+            <img class="img-thumbnail mb-2 mr-3" src="{{thumbnail}}" alt="...">
         {{else}}
-          <img class="img-thumbnail mb-2" src="https://generative-placeholders.glitch.me/image?width=360&height=200&style=cellular-automata&cells=10&colors={{@root.generative_placeholders_color}}&{{@key}}" class="mr-3" alt="...">
-        {{/if}}      
+          <img class="img-thumbnail mb-2 mr-3" src="https://generative-placeholders.glitch.me/image?width=360&height=200&style=cellular-automata&cells=10&colors={{@root.generative_placeholders_color}}&{{@key}}"  alt="...">
+        {{/if}}
         </a>
       </div>
       <div class="col-sm-12">
@@ -29,14 +29,14 @@
       <div class="col-sm-12">
         <p>
           {{#if about_url}}
-            <a href="{{about_url}}" class="btn btn-dark mt-2">Learn more</a>
+            <a rel="me" href="{{about_url}}" class="btn btn-dark mt-2">Learn more</a>
           {{/if}}      
           {{#if links}}
             {{#each links}}
-              <a href="{{this.url}}" class="btn btn-light mt-2">{{this.title}}</a>
+              <a rel="me" href="{{this.url}}" class="btn btn-light mt-2">{{this.title}}</a>
             {{/each}}
           {{/if}}      
-          <a href="https://glitch.com/edit/#!/{{@root.project_name}}?path=bots/{{file}}" class="btn btn-light mt-2">View source</a>
+          <a rel="me" href="https://glitch.com/edit/#!/{{@root.project_name}}?path=bots/{{file}}" class="btn btn-light mt-2">View source</a>
         </p>
       </div>
     </div>
