@@ -28,7 +28,7 @@ Read [the full tutorial on my blog](https://fourtonfish.com/project/creative-bot
 
 Each bot file needs to export an object with the following information:
 
-```json
+```js
 {
   active: true,
   name: 'A basic bot',
