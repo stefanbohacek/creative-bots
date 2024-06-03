@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html itemscope itemtype="https://schema.org/WebPage" lang="en" class="no-js">
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+  <link rel="stylesheet" href="styles.css" type="text/css" />  
+  <link href="https://alternative-twitter-embeds.glitch.me/css/styles.css" rel="stylesheet" type="text/css">
+  <title>@last100bills</title>
+</head>
+<body>
+  <section class="container">
+    <div class="jumbotron">
+      <h1 class="display-4">@last100bills</h1>
+    </div>
+    <h2>What is this?</h2>
+    <p><a href="https://twitter.com/last100bills">@last100bills</a> is a Twitter bot that posts daily breakdowns of the 100 most recent bills introduced in the US government. It uses <a href="https://www.govtrack.us/">GovTrack.us</a> API to collect the data.</p>
+    <div class="center w-100 mt-5 mb-5">
+      <blockquote class="twitter-tweet" data-lang="en"><p lang="en" dir="ltr">The last 100 bills in one chart! <a href="https://t.co/HA8UcYBTme">pic.twitter.com/HA8UcYBTme</a></p>&mdash; Last 100 Bills (@last100bills) <a href="https://twitter.com/last100bills/status/964183243384872961?ref_src=twsrc%5Etfw">February 15, 2018</a></blockquote>
+    </div>
+    <table class="table table-hover">
+      <thead>
+        <tr>
+          <td>Label</td>
+          <td>Description</td>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Introduced</td>
+          <td>This bill is in the first stage of the legislative process. It will typically be considered by committee next before it is possibly sent on to the House or Senate as a whole.</td>
+        </tr>
+        <tr>
+          <td>Passed House (Senate next)</td>
+          <td>This bill passed in the House and goes to the Senate next for consideration.</td>
+        </tr>
+        <tr>
+          <td>Passed House &amp; Senate (President next)</td>
+          <td>This resolution was passed by Congress and goes to the President next.</td>
+        </tr>
+        <tr>
+          <td>Agreed To (Concurrent Resolution)</td>
+          <td>This concurrent resolution was agreed to by both chambers of Congress. That is the end of the legislative process for concurrent resolutions. They do not have the force of law.</td>
+        </tr>
+        <tr>
+          <td>Agreed To (Simple Resolution)</td>
+          <td>This simple resolution was agreed to on. That is the end of the legislative process for a simple resolution.</td>
+        </tr>
+        <tr>
+          <td>Ordered Reported</td>
+          <td>The committees assigned to this bill sent it to the House or Senate as a whole for consideration.</td>
+        </tr>
+        <tr>
+          <td>Enacted — Signed by the President</td>
+          <td>This bill was enacted after being signed by the President.</td>
+        </tr>
+      </tbody>
+    </table>
+    <h2>Make your own</h2>
+    <p>This bot is open-source and you can <a href="https://glitch.com/edit/#!/stefans-creative-bots?path=bots%2Flast100bills.js">remix it on Glitch</a>.</p>
+    <p>Want to learn more about (Twitter) bots? Check out <a href="https://botwiki.org/">Botwiki</a> and <a href="https://botmakers.org/">Botmakers</a>!</p>
+  </section>
+<!--   <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script> -->
+  <script src="https://alternative-twitter-embeds.glitch.me/js/tweets.js"></script>
+</body>
+</html>

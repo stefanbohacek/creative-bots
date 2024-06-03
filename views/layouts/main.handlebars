@@ -1,38 +1,71 @@
 <!DOCTYPE html>
-<html itemscope itemtype="//schema.org/WebPage">
-<head>
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-  <meta name="description" content="Making creative online bots." />
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Creative online bots 🤖🎨</title>
-  <meta property="og:title" content="Creative online bots 🤖🎨" />
-  <meta property="og:description" content="Making creative online bots." />
-  <meta property="og:type" content="website" />
-  <meta name="twitter:title" content="Creative online bots 🤖🎨">
-  <meta name="twitter:description" content="Making creative online bots.">
-  <!--[if lt IE 9]>
-  <script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>
-  <![endif]-->  
-  <link rel="stylesheet" href="styles.css">
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">  
-  <link rel="shortcut icon" href="https://cdn.glitch.com/478eeae7-13dc-463c-b280-ea7b06b63e2d%2Ffavicon.ico">
+<html itemscope itemtype="//schema.org/WebPage" lang="en" data-bs-theme="dark">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="description" content="Making creative online bots." />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Creative online bots 🤖🎨</title>
+    <meta property="og:title" content="Creative online bots 🤖🎨" />
+    <meta property="og:description" content="Making creative online bots." />
+    <meta property="og:type" content="website" />
+    <meta name="twitter:title" content="Creative online bots 🤖🎨" />
+    <meta name="twitter:description" content="Making creative online bots." />
+    <link rel="stylesheet" href="styles.css" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9"
+      crossorigin="anonymous"
+    />
+    <link
+      rel="shortcut icon"
+      href="https://cdn.glitch.com/478eeae7-13dc-463c-b280-ea7b06b63e2d%2Ffavicon.ico"
+    />
   </head>
-<body>
-  <!--[if lt IE 7]>
-    <p class="chromeframe">You are using an <strong>outdated</strong> browser. Please <a href="//browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
-  <![endif]-->
-  <section id="content">
-    <div id="content-inner">
-      {{{body}}}
-    </div>
-<!--
-    <footer class="shifted">
-      <p><a href="https://glitch.com/edit/#!/stefan">Make your own Glitch projects page.</a> Created by <a href="https://twitter.com/fourtonfish">@fourtonfish</a>.</p>
-    </footer>
--->
+  <body class="bg-light" id="top">
+    <section id="content" class="pt-5">
+      <div id="content-inner">{{{body}}}</div>
     </section>
-<!--   <script defer src="js/scripts.js"></script> -->
-  {{{footer_scripts}}}
+    {{{footer_scripts}}}
+    <script>
+      const toggleDarkMode = (enabled) => {
+        console.log("toggleDarkMode", enabled);
+        if (enabled) {
+          document.body.classList.remove("bg-light");
+          document.body.setAttribute("data-bs-theme", "dark");
+        } else {
+          document.body.classList.add("bg-light");
+          document.body.setAttribute("data-bs-theme", "light");
+        }
+      };
+
+      if (window.matchMedia) {
+        toggleDarkMode(
+          window.matchMedia("(prefers-color-scheme: dark)").matches
+        );
+      }
+
+      window
+        .matchMedia("(prefers-color-scheme: dark)")
+        .addEventListener("change", (event) => {
+          toggleDarkMode(
+            window.matchMedia("(prefers-color-scheme: dark)").matches
+          );
+        });
+    </script>
+    <a
+      id="back-to-top"
+      title="Go back all the way to the top of this page"
+      href="#top"
+      class="slide-up"
+    >
+      <img
+        alt="A chevron pointing up"
+        title="Scroll back to the top of the page"
+        width="26"
+        height="26"
+        src="https://cdn.glitch.global/8b6dd131-2bd5-48bc-9419-8ae59aba7f5d/arrow-up.svg"
+    /></a>
   </body>
 </html>
