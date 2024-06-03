@@ -17,3 +17,19 @@ section {
   display: flex;
   margin-bottom: 20px;
 }
+
+#back-to-top {
+  position: fixed;
+  bottom: 1rem;
+  right: 1rem;
+  padding: 1rem;
+  background-color: #272d33;
+}
+
+.fediverse-post {
+  max-width: 500px;
+}
+
+.fediverse-post .invisible {
+  display: none;
+}

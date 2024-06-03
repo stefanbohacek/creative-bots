@@ -1,0 +1,6 @@
+{
+  "active": true,
+  "name": "@example_bot",
+  "description": "This is my bot!",
+  "interval": "EVERY_HOUR"
+}

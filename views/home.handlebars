@@ -1,29 +1,86 @@
 <div class="container ml-auto mr-auto">
-  <h1 class="text-center mt-5 mb-5">Bot showcase 🤖🎨</h1>
-  {{#if bots}}
-    <div class="row list">
-    {{#each bots}}
-      <div class="col-sm-12 col-md-12 col-lg-6 list-item">
-      {{> bot
-        name=this.name
-        description=this.description
-        thumbnail=this.thumbnail
-        preview=this.preview
-        about_url=this.about_url
-        links=this.links
-        file=this.file
-        interval=this.interval
-        interval_human=this.interval_human
-        next_run=this.next_run
-      }}
-      </div>
-    {{/each}}
+  <div class="row">
+    <div class="col-sm-12">
+      <h1 class="text-center mt-5 mb-5">
+        My creative bot showcase <span class="text-nowrap">🤖🎨</span>
+      </h1>
     </div>
-  {{else}} 
-    <p>See this project's <a href="https://glitch.com/edit/#!/creative-bots?path=README.md">source code</a> for instructions.</p>
-  {{/if}} 
+  </div>
+</div>
+<div class="container-fluid ml-auto mr-auto mt-5 pt-5">
+  {{#if bots}}
+    {{#if active_bots}}
+
+    <div id="active-bots"
+      class="row list">
+      {{#each active_bots}}
+      <div class="col-sm-12 col-md-6 col-lg-4 col-xl-3 list-item">
+        {{> bot name=this.about.name description=this.about.description
+        thumbnail=this.about.thumbnail preview=this.about.preview
+        about_url=this.about.about_url source_url=this.about.source_url
+        links=this.about.links file=this.about.file interval=this.about.interval
+        interval_human=this.about.interval_human next_run=this.about.next_run
+        last_run=this.about.last_run }}
+      </div>
+      {{/each}}
+    </div>
+    {{/if}}
+    {{#if inactive_bots}}
+
+
+    <div class="row">
+      <div class="col-sm-12">
+        <div class="container ml-auto mr-auto">
+          <h2 id="inactive-bots"
+            class="text-center mt-5 mb-5">Inactive bots</h2>
+        </div>
+      </div>
+    </div>
+    <div class="row list">
+      {{#each inactive_bots}}
+      <div class="col-sm-12 col-md-6 col-lg-4 col-xl-3 list-item">
+        {{> bot name=this.about.name description=this.about.description
+        thumbnail=this.about.thumbnail preview=this.about.preview
+        about_url=this.about.about_url source_url=this.about.source_url
+        links=this.about.links file=this.about.file interval=this.about.interval
+        interval_human=this.about.interval_human next_run=this.about.next_run
+        last_run=this.about.last_run }}
+      </div>
+      {{/each}}
+    </div>
+    {{/if}}
+  {{else}}
   <p>
-    Visit <a href="https://botwiki.org/">Botwiki</a> and <a href="https://botmakers.org/">Botmakers</a> to learn more about creative bots.
-    <a href="https://glitch.com/edit/#!/creative-bots?path=README.md">Original project template</a> created by <a href="https://stefanbohacek.online/@stefan">Stefan Bohacek</a>.
-  </p>    
+    See this project's
+    <a href="https://glitch.com/edit/#!/creative-bots?path=README.md">source code</a>
+    for instructions.
+  </p>
+  {{/if}}
+  <div class="row">
+    <div class="col-sm-12">
+      <div class="container mb-5 pb-5">
+        <form class="fsb-prompt mx-auto my-5">
+          <label>Share this page from your fediverse server</label>
+          <div class="fsb-input-group mb-3">
+            <span class="fsb-input-group-text">https://</span>
+            <input required
+              type="text"
+              name="fediverse-domain"
+              placeholder="mastodon.social"
+              class="fsb-input fsb-domain"
+              aria-label="Server domain">
+            <button class="fsb-button"
+              type="submit"><img src="https://fediverse-share-button.stefanbohacek.dev/fediverse-share-button/icons/mastodon.svg"
+                class="fsb-icon"></span>Share</button>
+          </div>
+          <p class="fsb-support-note fsb-d-none">This server does not support sharing. Please visit <a
+              class="fsb-support-note-link"
+              target="_blank"
+              href=""></a>.</p>
+        </form>
+        <link rel="stylesheet" href="https://fediverse-share-button.stefanbohacek.dev/fediverse-share-button/styles.min.css">
+        <script src="https://fediverse-share-button.stefanbohacek.dev/fediverse-share-button/script.min.js" defer class="fsb-script"></script>
+      </div>
+    </div>
+  </div>
 </div>
