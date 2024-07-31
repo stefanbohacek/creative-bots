@@ -308,8 +308,8 @@ ifeq ($(strip $(foreach prefix,$(NO_LOAD),\
 endif
 
 quiet_cmd_regen_makefile = ACTION Regenerating $@
-cmd_regen_makefile = cd $(srcdir); /rbd/pnpm-volume/8b6dd131-2bd5-48bc-9419-8ae59aba7f5d/node_modules/node-gyp/gyp/gyp_main.py -fmake --ignore-environment "-Dlibrary=shared_library" "-Dvisibility=default" "-Dnode_root_dir=/app/.cache/node-gyp/16.14.2" "-Dnode_gyp_dir=/rbd/pnpm-volume/8b6dd131-2bd5-48bc-9419-8ae59aba7f5d/node_modules/node-gyp" "-Dnode_lib_file=/app/.cache/node-gyp/16.14.2/<(target_arch)/node.lib" "-Dmodule_root_dir=/app" "-Dnode_engine=v8" "--depth=." "-Goutput_dir=." "--generator-output=build" -I/app/build/config.gypi -I/rbd/pnpm-volume/8b6dd131-2bd5-48bc-9419-8ae59aba7f5d/node_modules/node-gyp/addon.gypi -I/app/.cache/node-gyp/16.14.2/include/node/common.gypi "--toplevel-dir=." binding.gyp
-Makefile: $(srcdir)/binding.gyp $(srcdir)/build/config.gypi $(srcdir)/../rbd/pnpm-volume/8b6dd131-2bd5-48bc-9419-8ae59aba7f5d/node_modules/node-gyp/addon.gypi $(srcdir)/.cache/node-gyp/16.14.2/include/node/common.gypi
+cmd_regen_makefile = cd $(srcdir); /opt/nvm/versions/node/v16.14.2/lib/node_modules/npm/node_modules/node-gyp/gyp/gyp_main.py -fmake --ignore-environment "-Dlibrary=shared_library" "-Dvisibility=default" "-Dnode_root_dir=/app/.cache/node-gyp/16.14.2" "-Dnode_gyp_dir=/opt/nvm/versions/node/v16.14.2/lib/node_modules/npm/node_modules/node-gyp" "-Dnode_lib_file=/app/.cache/node-gyp/16.14.2/<(target_arch)/node.lib" "-Dmodule_root_dir=/app" "-Dnode_engine=v8" "--depth=." "-Goutput_dir=." "--generator-output=build" -I/app/build/config.gypi -I/opt/nvm/versions/node/v16.14.2/lib/node_modules/npm/node_modules/node-gyp/addon.gypi -I/app/.cache/node-gyp/16.14.2/include/node/common.gypi "--toplevel-dir=." binding.gyp
+Makefile: $(srcdir)/../opt/nvm/versions/node/v16.14.2/lib/node_modules/npm/node_modules/node-gyp/addon.gypi $(srcdir)/build/config.gypi $(srcdir)/.cache/node-gyp/16.14.2/include/node/common.gypi $(srcdir)/binding.gyp
 	$(call do_cmd,regen_makefile)
 
 # "all" is a concatenation of the "all" targets from all the included

@@ -11,6 +11,8 @@ import { fileURLToPath } from 'url';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
+console.log(process.env);
+
 (async () => {
   const bots = await loadBots(app);
   app.set("bots", bots);
