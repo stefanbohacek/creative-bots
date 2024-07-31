@@ -2,12 +2,7 @@ import mastodonClient from "./../../modules/mastodon/index.js";
 import randomFromArray from "./../../modules/random-from-array.js";
 
 const botScript = async () => {
-
-  const status = randomFromArray([
-    "Hello!",
-    "Hi!",
-    "Hey there!"
-  ]);
+  const status = randomFromArray(["Hello!", "Hi!", "Hey there!"]);
 
   const mastodon = new mastodonClient({
     access_token: process.env.MASTODON_BOT_TOKEN,
@@ -15,7 +10,7 @@ const botScript = async () => {
   });
 
   mastodon.post({
-    status: status
+    status: status,
   });
 
   return true;
