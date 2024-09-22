@@ -19,3 +19,7 @@ A: Yes! Update the `test.js` file, and then use the [Glitch terminal](https://he
 **Q: How can I update the showcase page?**
 
 A: The showcase page uses [Handlebars](https://handlebarsjs.com/) templates. You can find all the template files inside the `views` folder. 
+
+**Q: Can I make bots that use Puppeteer?**
+
+A: [Not anymore](https://help.glitch.com/hc/en-us/articles/24390278437773-Why-can-t-I-get-Puppeteer-to-work-on-Glitch-anymore), sorry! 
